@@ -1,5 +1,3 @@
-# !!! This repo is obosolete use https://github.com/pixelant/pxa_newsletter_subscription instead !!!
-
 # Pixelant
 
 [![pxa_newsletter_subscription](https://img.shields.io/badge/pxa_newsletter_subscription-4.0.0-green.svg?style=flat-square)](https://bitbucket.org/pixelant/pxa_newsletter_subscription) [![TYPO3](https://img.shields.io/badge/TYPO3-7.6.0-orange.svg?style=flat-square)](https://typo3.org/)
