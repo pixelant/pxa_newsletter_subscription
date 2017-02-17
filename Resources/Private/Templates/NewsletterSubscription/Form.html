@@ -1,0 +1,152 @@
+<f:layout name="Default"/>
+
+<f:section name="main">
+
+	<f:comment>Don't change the id of the form, it is targeted from js, </f:comment>
+	<f:form actionUri="/" id="{formName}" class="{settings.form.class}">
+		<f:form.hidden name="ceuid" value="{ceuid}" />
+
+		<f:render section="inputFields" arguments="{_all}" />
+
+		<f:render section="inputButtons" arguments="{_all}" />
+				
+	</f:form>
+	<script type="text/javascript">
+		var jqXHR_error_message = '<f:translate key='jqhxr_error_message' />';
+		var ajaxLanguageId = {sysLanguageUid};
+	</script>
+
+</f:section>
+
+<f:section name="inputFields">
+	
+	<f:comment>Check if inputs should be wrapped with a div, start</f:comment>
+	<f:if condition="{settings.form.fields.outerWrap.enabled} == 1">
+		<div class="{settings.form.fields.outerWrap.class}">
+	</f:if>
+
+	<f:comment>Render sections with inputs </f:comment>
+	<f:render section="field.name" arguments="{_all}" />
+	<f:render section="field.email" arguments="{_all}" />
+
+	<f:comment>Check if inputs should be wrapped with a div, end</f:comment>
+	<f:if condition="{settings.form.fields.outerWrap.enabled} == 1">
+		</div>
+	</f:if>
+
+</f:section>
+
+<f:section name="inputButtons">
+	
+	<f:comment>Check if buttons should be wrapped with a div, start</f:comment>
+	<f:if condition="{settings.form.inputButtons.outerWrap.enabled} == 1">
+		<div class="{settings.form.inputButtons.outerWrap.class}">
+	</f:if>
+
+	<f:comment>Render sections with buttons</f:comment>
+	<f:render section="button.subscribe" arguments="{_all}" />
+	<f:render section="button.unsubscribe" arguments="{_all}" />
+
+	<f:comment>Check if buttons should be wrapped with a div, end</f:comment>
+	<f:if condition="{settings.form.inputButtons.outerWrap.enabled} == 1">
+		</div>
+	</f:if>
+
+</f:section>
+
+<f:section name="field.name">
+	
+	<f:comment>Should name field be visible in form</f:comment>
+	<f:if condition="{displayNameField}">
+	
+		<f:comment>Check if field should be wrapped with a div, start</f:comment>
+		<f:if condition="{settings.form.field.name.outerWrap.enabled} == 1">
+			<div class="{settings.form.field.name.outerWrap.class}">
+		</f:if>
+		
+		<f:comment>Check if field should be wrapped with a second div, start</f:comment>
+		<f:if condition="{settings.form.field.name.innerWrap.enabled} == 1">
+			<div class="{settings.form.field.name.innerWrap.class}">
+		</f:if>
+
+		<f:comment>Render input field</f:comment>
+		<f:form.textfield placeholder="<f:translate key='name' />" class="{settings.form.field.name.class}" name="name" id="name"></f:form.textfield>
+		
+		<f:comment>Check if field should be wrapped with a second div, end</f:comment>
+		<f:if condition="{settings.form.field.name.innerWrap.enabled} == 1">
+			</div>
+		</f:if>
+
+		<f:comment>Check if field should be wrapped with a div, end</f:comment>
+		<f:if condition="{settings.form.field.name.outerWrap.enabled} == 1">
+			</div>
+		</f:if>
+
+	</f:if>
+
+</f:section>
+
+<f:section name="field.email">
+	
+	<f:comment>Check if field should be wrapped with a div, start</f:comment>
+	<f:if condition="{settings.form.field.email.outerWrap.enabled} == 1">
+		<div class="{settings.form.field.email.outerWrap.class}">
+	</f:if>
+
+	<f:comment>Check if field should be wrapped with a second div, start</f:comment>
+	<f:if condition="{settings.form.field.email.innerWrap.enabled} == 1">
+		<div class="{settings.form.field.email.innerWrap.class}">
+	</f:if>
+
+	<f:comment>Render input field</f:comment>
+	<f:form.textfield placeholder="<f:translate key='email' />" class="{settings.form.field.email.class}" name="email" id="email"></f:form.textfield>
+	
+	<f:comment>Check if field should be wrapped with a second div, end</f:comment>
+	<f:if condition="{settings.form.field.email.innerWrap.enabled} == 1">
+		</div>
+	</f:if>
+
+	<f:comment>Check if field should be wrapped with a div, end</f:comment>
+	<f:if condition="{settings.form.field.email.outerWrap.enabled} == 1">
+		</div>
+	</f:if>
+
+</f:section>
+
+<f:section name="button.subscribe">
+
+	<f:comment>Check if button should be wrapped with a div, start</f:comment>
+	<f:if condition="{settings.form.button.subscribe.outerWrap.enabled} == 1">
+		<div class="{settings.form.button.subscribe.outerWrap.class}">
+	</f:if>
+
+	<f:comment>Render button</f:comment>
+	<f:form.submit name="submitType" value="<f:translate key='subscribe' />" class="{settings.form.button.subscribe.class}" />
+
+	<f:comment>Check if button should be wrapped with a div, start</f:comment>
+	<f:if condition="{settings.form.button.subscribe.outerWrap.enabled} == 1">
+		</div>
+	</f:if>
+
+</f:section>
+
+<f:section name="button.unsubscribe">
+	
+	<f:if condition="{settings.displayUnsubscribeButton}">
+	
+		<f:comment>Check if button should be wrapped with a div, start</f:comment>
+		<f:if condition="{settings.form.button.unsubscribe.outerWrap.enabled} == 1">
+			<div class="{settings.form.button.unsubscribe.outerWrap.class}">
+		</f:if>
+
+		<f:comment>Render button</f:comment>
+		<f:form.submit name="submitType" value="<f:translate key='unsubscribe' />" class="{settings.form.button.unsubscribe.class}" />
+
+		<f:comment>Check if button should be wrapped with a div, start</f:comment>
+		<f:if condition="{settings.form.button.unsubscribe.outerWrap.enabled} == 1">
+			</div>
+		</f:if>
+	
+	</f:if>
+
+</f:section>

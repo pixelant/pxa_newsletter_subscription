@@ -1,0 +1,182 @@
+plugin.tx_pxanewslettersubscription {
+	view {
+		templateRootPaths {
+			0 = {$plugin.tx_pxanewslettersubscription.view.templateRootPath}
+		}
+		partialRootPaths {
+			0 = {$plugin.tx_pxanewslettersubscription.view.partialRootPath}
+		}
+		layoutRootPaths {
+			0 = {$plugin.tx_pxanewslettersubscription.view.layoutRootPath}
+		}
+	}
+	persistence {
+		storagePid = {$plugin.tx_pxanewslettersubscription.persistence.storagePid}
+	}
+	settings {
+		# possible to define what javascript template that should be loaded, __FORMNAME__ is replaced with the "form.tagIdPrefix + content element uid" in js.
+		dynamicJsTemplateFile = EXT:pxa_newsletter_subscription/Resources/Public/Js/form_javascript_template.min.js
+
+		# form settings
+		# NOTE: The default template makes use of these settings. 
+		# 		If template has been modified / overridden, these settings might not work depending on the template.
+		form {
+			
+			# prefix for the id in the rendered form tag, will get content element uid appended to it to generate unique id for every subscription form.
+			tagIdPrefix = newsletter-subscription-
+			
+			# class property of form tag
+			class = form
+			
+			# input fields (name and email) can be "wrapped" with a div
+			fields {
+				outerWrap {
+					# if wrap should be created
+					enabled = 1
+					# class property of wrapping div
+					class = row control-group form-group
+				}
+			}
+
+			# submit buttons (subscribe and ubsubscribe) can be "wrapped" with a div
+			buttons {
+				outerWrap {
+					# if wrap should be created
+					enabled = 1
+					# class property of wrapping div
+					class = control-group form-group
+				}
+			}
+
+			# each button (subscribe and ubsubscribe) can have a class property and can be "wrapped" with a div
+			button {
+				subscribe {
+					outerWrap {
+						# if wrap should be created
+						enabled = 1
+						# class property of wrapping div
+						class = subscribe form-actions pull-right
+					}
+					# class property of input
+					class = btn btn-default
+				}
+				unsubscribe {
+					outerWrap {
+						# if wrap should be created
+						enabled = 1
+						# class property of wrapping div
+						class = unsubscribe form-actions pull-right
+					}
+					# class property of input
+					class = btn btn-default
+				}
+			}
+
+			# each inout field (name and email) can have a class property and can be "wrapped" with two div:S
+			field {
+				name {
+					outerWrap {
+						# if "outerWrap" (first) should be created
+						enabled = 1
+						# class property of wrapping div
+						class = col-sm-6
+					}
+					innerWrap {
+						# if "innerWrap" (second) should be created
+						enabled = 1
+						# class property of wrapping div
+						class = input-append input-group
+					}
+					# class property of input
+					class = form-control
+				}
+				email {
+					outerWrap {
+						# if "outerWrap" (first) should be created
+						enabled = 1
+						# class property of wrapping div
+						class = col-sm-6
+					}
+					innerWrap {
+						# if "innerWrap" (second) should be created
+						enabled = 1
+						# class property of wrapping div
+						class = input-append input-group
+					}
+					# class property of input
+					class = form-control
+				}
+			}
+		}
+		confirm {
+			outerWrap {
+				enabled = 1
+				class=alert
+				classSuccess = alert-success 
+				classFailure = alert-danger
+			}
+			class = 
+			classSuccess = 
+			classFailure = 
+		}
+		ajax {
+			# Standalone layout includes css for bootstrap (v2)
+			class = hero-unit
+			button.class = btn btn-primary btn-large
+		}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+}
+
+config.tx_extbase.persistence.classes {
+    Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser {
+        mapping {
+            tableName = fe_users
+        }
+    }
+    Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUserGroup {
+        mapping {
+            tableName = fe_groups
+        }
+    }
+}
+
+#
+# AJAX Page Prototype (cannot remove all headers and set type because of confirmation and unsubscribe links in mail displays html message)
+#
+lib.AJAXPrototype= PAGE
+lib.AJAXPrototype {
+	typeNum = 6171230
+	config {
+		#disableAllHeaderCode = 1
+		#xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+		no_cache = 1
+		#additionalHeaders = Content-type:application/json
+	}
+}
+
+#
+# Pagetype 
+#
+AJAX_CONFIRM < lib.AJAXPrototype
+AJAX_CONFIRM {
+	typeNum = 6171239
+  	10 < tt_content.list.20.pxanewslettersubscription_subscription
+}
+
+#
+# Used in ajax calls from form
+#
+AJAX_REGISTER < lib.AJAXPrototype
+AJAX_REGISTER {
+	typeNum = 6171240  	
+  	10 = RECORDS
+	10.tables = tt_content
+	10.source.data = GP:tx_pxanewslettersubscription_subscription|ceuid
+	10.source.intval = 1
+}

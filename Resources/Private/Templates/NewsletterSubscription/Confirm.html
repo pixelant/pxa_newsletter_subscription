@@ -1,0 +1,15 @@
+<f:layout name="Default"/>
+
+<f:section name="main">
+	
+	<f:if condition="{settings.confirm.outerWrap.enabled} == 1">
+		<div class="{settings.confirm.outerWrap.class} {f:if(condition: status, then: '{settings.confirm.outerWrap.classSuccess}', else: '{settings.confirm.outerWrap.classFailure}')}">
+	</f:if>
+
+	<p class="{settings.confirm.class} {f:if(condition: status, then: '{settings.confirm.classSuccess}', else: '{settings.confirm.classFailure}')}">{message}</p>
+	
+	<f:if condition="{settings.confirm.outerWrap.enabled} == 1">
+		</div>
+	</f:if>
+	
+</f:section>

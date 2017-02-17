@@ -1,0 +1,152 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01">
+		<header/>
+		<body>
+			<trans-unit id="name" xml:space="preserve" approved="yes">
+				<source>Name</source>
+				<target state="translated">Nom</target>
+			</trans-unit>
+
+			<trans-unit id="email" xml:space="preserve" approved="yes">
+				<source>E-mail</source>
+				<target state="translated">E-Mail</target>
+			</trans-unit>
+
+			<trans-unit id="error.invalid.email" xml:space="preserve" approved="yes">
+				<source>Invalid email-address.</source>
+				<target state="translated">L'adresse E-Mail n'est pas valable.</target>
+			</trans-unit>
+
+			<trans-unit id="error.invalid.name" xml:space="preserve" approved="yes">
+				<source>Invalid or missing name.</source>
+				<target state="translated">Nom erroné ou manquant.</target>
+			</trans-unit>
+
+			<trans-unit id="error.unsubscribe.not-subscribed" xml:space="preserve" approved="yes">
+				<source>No subscription exists for this email-address.</source>
+				<target state="translated">Il n'y a pas d'abonnement enregistré à cette adresse E-Mail.</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.already-subscribed" xml:space="preserve" approved="yes">
+				<source>A subscription with this email-address already exists.</source>
+				<target state="translated">Il existe déjà un abonnement à cette adresse E-Mail.</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.4101" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and subscribing again. (Code:4101)</source>
+				<target state="translated">Désolé, un problème est survenu. Téléchargez de nouveau la page s'il vous plaît et remplissez le bulletin d'abonnement. (Code : 4101)</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.4102" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and subscribing again. (Code:4102)</source>
+				<target state="translated">Désolé, un problème est survenu.  Téléchargez de nouveau la page s'il vous plaît et remplissez le bulletin d'abonnement. (Code : 4102)</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.4103" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4103)</source>
+				<target state="translated">Désolé, un problème est survenu. Téléchargez de nouveau la page s'il vous plaît et résiliez votre abonnement. (Code : 4103)</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.4104" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4104)</source>
+				<target state="translated">Désolé, un problème est survenu.  Téléchargez de nouveau la page s'il vous plaît et résiliez votre abonnement.  (Code : 4104)</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.4105" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4105)</source>
+				<target state="translated">Désolé, un problème est survenu. Téléchargez de nouveau la page s'il vous plaît et résiliez votre abonnement.  (Code : 4105)</target>
+			</trans-unit>
+
+			<trans-unit id="error.invalid.configuration" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again.</source>
+				<target state="translated">Désolé, un problème est survenu.  Téléchargez de nouveau la page s'il vous plaît et résiliez votre abonnement.</target>
+			</trans-unit>
+
+			<trans-unit id="error.subscribe.4106" xml:space="preserve" approved="yes">
+				<source>The confirm mail wasn't sent. (Code:4106)</source>
+				<target state="translated">LE-Mail confirmant l'abonnement n'a pas été envoyé. (Code : 4106)</target>
+			</trans-unit>
+
+			<trans-unit id="subscribe" xml:space="preserve" approved="yes">
+				<source>Subscribe</source>
+				<target state="translated">S'abonner</target>
+			</trans-unit>
+
+			<trans-unit id="unsubscribe" xml:space="preserve" approved="yes">
+				<source>Unsubscribe</source>
+				<target state="translated">Résilier l'abonnement</target>
+			</trans-unit>
+
+			<trans-unit id="success.subscribe.subscribed-noconfirm" xml:space="preserve" approved="yes">
+				<source>You have been successfully subscribed to newsletter.</source>
+				<target state="translated">Vous avez bien souscrit un abonnement à la lettre d'information.</target>
+			</trans-unit>
+
+			<trans-unit id="success.subscribe.subscribed-confirm" xml:space="preserve" approved="yes">
+				<source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
+				<target state="translated">Vous avez presque terminé. Vous allez recevoir un mail dans les minutes qui viennent avec un lien vous permettant de confirmer votre E-Mail.</target>
+			</trans-unit>
+
+			<trans-unit id="success.unsubscribe.unsubscribed-noconfirm" xml:space="preserve" approved="yes">
+				<source>You have been successfully unsubscribed from newsletter.</source>
+				<target state="translated">Vous avez résilié correctement votre abonnement à la lettre d'information.</target>
+			</trans-unit>
+
+			<trans-unit id="success.unsubscribe.unsubscribed-confirm" xml:space="preserve" approved="yes">
+				<source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
+				<target state="translated">Vous avez presque terminé. Vous allez recevoir un mail dans les minutes qui viennent avec un lien vous permettant de confirmer votre résiliation.</target>
+			</trans-unit>
+
+			<trans-unit id="confirm_mail_subject" xml:space="preserve" approved="yes">
+				<source>Newsletter confirmation</source>
+				<target state="translated">Confirmation de la lettre d'information.</target>
+			</trans-unit>
+
+			<trans-unit id="confirm_mail_greeting" xml:space="preserve" approved="yes">
+				<source>Hi %s,</source>
+				<target state="translated">Bonjour %s,</target>
+			</trans-unit>
+
+			<trans-unit id="confirm_mail_line1" xml:space="preserve" approved="yes">
+				<source>Please confirm your email address by clicking on the following link: %s</source>
+				<target state="translated">Veuillez confirmer votre adresse E-Mail en cliquant sur le lien suivant : %s</target>
+			</trans-unit>
+
+			<trans-unit id="confirm_mail_line2" xml:space="preserve" approved="yes">
+				<source>If you wish to unsubscribe in the future, follow this link: %s Thank you.</source>
+				<target state="translated">Si vous souhaitez vous désabonner, veuillez suivre ce lien : %s</target>
+			</trans-unit>
+
+			<trans-unit id="subscribe_ok" xml:space="preserve" approved="yes">
+				<source>You have been successfully subscribed to newsletter.</source>
+				<target state="translated">Vous avez bien souscrit  un abonnement à la newsletter.</target>
+			</trans-unit>
+
+			<trans-unit id="subscribe_error" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please try reloading the page and subscribing again.</source>
+				<target state="translated">Désolé, un problème est survenu.  Téléchargez de nouveau la page s'il vous plaît et remplissez le bulletin d'abonnement.</target>
+			</trans-unit>
+
+			<trans-unit id="unsubscribe_ok" xml:space="preserve" approved="yes">
+				<source>Your will no longer receive emails from this newsletter. We will miss you.</source>
+				<target state="translated">Dommage! Nous regrettons la  résiliation de votre abonnement. Vous ne recevrez plus cette lettre d'information. </target>
+			</trans-unit>
+
+			<trans-unit id="unsubscribe_error" xml:space="preserve" approved="yes">
+				<source>Sorry, something went wrong. Please contact us regarding your unsubscription.</source>
+				<target state="translated">Désolé, un problème est survenu. Veuillez nous contacter au sujet de la résiliation de votre abonnement.</target>
+			</trans-unit>
+
+			<trans-unit id="back_to_website" xml:space="preserve" approved="yes">
+				<source>Back to website</source>
+				<target state="translated">Retour au site web</target>
+			</trans-unit>
+
+			<trans-unit id="jqhxr_error_message" xml:space="preserve" approved="yes">
+				<source>Technical problem, please try again later.</source>
+				<target state="translated">Problèmes techniques. Merci de bien vouloir réessayer ultérieurement.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

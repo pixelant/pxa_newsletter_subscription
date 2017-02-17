@@ -1,0 +1,14 @@
+plugin.tx_pxanewslettersubscription {
+	view {
+		# cat=plugin.tx_pxanewslettersubscription/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:pxa_newsletter_subscription/Resources/Private/Templates/
+		# cat=plugin.tx_pxanewslettersubscription/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:pxa_newsletter_subscription/Resources/Private/Partials/
+		# cat=plugin.tx_pxanewslettersubscription/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:pxa_newsletter_subscription/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_pxanewslettersubscription//a; type=string; label=Default storage PID
+		storagePid =
+	}
+}

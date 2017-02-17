@@ -1,0 +1,14 @@
+{
+    "name": "pixelant/pxa-newsletter-subscription",
+    "description": "Newsletter Subscription",
+    "type": "typo3-cms-extension",
+    "homepage": "http://www.pixelant.net/",
+    "license": "GPL-2.0+",
+    "support": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
+        }
+    }
+}
