@@ -333,7 +333,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
                                 $name = $email;
                             }
                             // Try to create feuser and store it in repository
-                            $frontendUser = new \Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser();
+                            $frontendUser = $this->objectManager->get(\Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser::class);
                             $frontendUser->setAsSubscriber( $pid, $email, $name, $emailConfirmIsEnabled, $frontendUserGroup );
 
                             // Signal slot for after fe_user creation
