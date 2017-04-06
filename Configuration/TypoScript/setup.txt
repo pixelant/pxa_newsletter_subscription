@@ -59,6 +59,9 @@ plugin.tx_pxanewslettersubscription {
 					}
 					# class property of input
 					class = btn btn-default
+					enableSpinner = 0
+					spinnerClass = spinner fa fa-circle-o-notch fa-spin
+					useButtonTag = 0
 				}
 				unsubscribe {
 					outerWrap {
@@ -69,6 +72,9 @@ plugin.tx_pxanewslettersubscription {
 					}
 					# class property of input
 					class = btn btn-default
+					enableSpinner = 0
+					spinnerClass = spinner fa fa-circle-o-notch fa-spin
+					useButtonTag = 0
 				}
 			}
 

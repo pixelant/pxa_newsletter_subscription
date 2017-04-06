@@ -4,28 +4,31 @@ $(document).ready(function() {
 	// 	default_state: 'hidden'
 	//});
 
-	$("#__FORMNAME__ input[type=submit]").click(function(e) {
-		
+	var formElement = $('#__FORMNAME__');
+	var submitElement = $('[data-identifier="submit"]', formElement);
+	var spinnerElement = $('[data-identifier="spinner"]', formElement);
+
+	submitElement.click(function(e) {
 		e.preventDefault();
-  		
-  		// get form data and also include the input that was pressed
-  		var formData = $(this).closest('form').serializeArray();
-  		formData.push({ name: this.name, value: this.value });
-		
+
+		// get form data and also include the input that was pressed
+		var formData = $(this).closest('form').serializeArray();
+		formData.push({ name: this.name, value: this.value });
+
 		// create a uniqe tag id for temporary message
 		var ts = Math.round(+new Date());
 		var messageTagId = 'contact-form-message' + ts;
-		
-		// Disable button, and fade in i tag inside
-		$('#__FORMNAME__ input[type="submit"] i').fadeIn(50);
-		$('#__FORMNAME__ input[type="submit"]').attr('disabled', 'disabled');
-		
+
+		// Disable button, and fade in spinner
+		spinnerElement.fadeIn(50);
+		submitElement.attr('disabled', 'disabled');
+
 		$.ajax({
 			//type of receiving data
 			type: 'POST',
-			
+
 			//page where ajax is running
-			url: $('#__FORMNAME__').attr('action') + '?type=6171240&tx_pxanewslettersubscription_subscription%5Baction%5D=ajax&L=' + ajaxLanguageId,
+			url: formElement.attr('action') + '?type=6171240&tx_pxanewslettersubscription_subscription%5Baction%5D=ajax',
 
 			//send_data, data which will be send to php
 			data: formData,
@@ -33,30 +36,28 @@ $(document).ready(function() {
 			// if call is ok
 			success: function(response) {
 				//ajax sends msg from php, which informs user, what has happens
-				$('#__FORMNAME__').after('<div id="' + messageTagId + '" class="alert">' + response.message + '<div>');
+				formElement.after('<div id="' + messageTagId + '" class="alert">' + response.message + '<div>');
 				if (response.success) {
 					// display message
 					$('#' + messageTagId).addClass('alert-success');
 					// hide form
-					$('#__FORMNAME__').hide();
+					formElement.hide();
 				} else {
-					// display message
-					$('#' + messageTagId).addClass('alert-danger');
-					// Set message to disapear after 5 sec.
-					$('#' + messageTagId).delay(5000).fadeOut('slow');
+					// display message and set message to disapear after 5 sec.
+					$('#' + messageTagId).addClass('alert-danger').delay(5000).fadeOut('slow');
 				}
-				// Hide i tag (spinner) and enable inputs again
-				$('#__FORMNAME__ input[type="submit"] i').fadeOut(50);
-				$('#__FORMNAME__ input[type="submit"]').removeAttr('disabled');
+				// Hide spinner and enable inputs again
+				spinnerElement.fadeOut(50);
+				submitElement.removeAttr('disabled');
 			},
 
 			error: function(jqXHR, textStatus, errorThrown) {
 				// Set message and set it to disapear after 5 sec.
-				$('#__FORMNAME__').after('<div id="' + messageTagId + '" class="alert alert-danger">' + jqXHR_error_message + '<div>');
+				formElement.after('<div id="' + messageTagId + '" class="alert alert-danger">' + jqXHR_error_message + '<div>');
 				$('#' + messageTagId).delay(5000).fadeOut('slow');
-				// Hide spinner and enable inputs again
-				$('#__FORMNAME__ input[type="submit"] i').fadeOut(50);
-				$('#__FORMNAME__ input[type="submit"]').removeAttr('disabled');
+				// hide spinner and enable inputs again
+				spinnerElement.fadeOut(50);
+				submitElement.removeAttr('disabled');
 			}
 		}); //end ajax
 	}); //end submit
