@@ -70,7 +70,7 @@
 		</f:if>
 
 		<f:comment>Render input field</f:comment>
-		<f:form.textfield placeholder="<f:translate key='name' />" class="{settings.form.field.name.class}" name="name" id="name"></f:form.textfield>
+		<f:form.textfield placeholder="{f:translate(key: 'name')}" class="{settings.form.field.name.class}" name="name" id="name"></f:form.textfield>
 		
 		<f:comment>Check if field should be wrapped with a second div, end</f:comment>
 		<f:if condition="{settings.form.field.name.innerWrap.enabled} == 1">
@@ -99,7 +99,7 @@
 	</f:if>
 
 	<f:comment>Render input field</f:comment>
-	<f:form.textfield placeholder="<f:translate key='email' />" class="{settings.form.field.email.class}" name="email" id="email"></f:form.textfield>
+	<f:form.textfield placeholder="{f:translate(key: 'email')}" class="{settings.form.field.email.class}" name="email" id="email"></f:form.textfield>
 	
 	<f:comment>Check if field should be wrapped with a second div, end</f:comment>
 	<f:if condition="{settings.form.field.email.innerWrap.enabled} == 1">
@@ -126,14 +126,14 @@
 			<f:form.button name="submitType" class="{settings.form.button.subscribe.class}" data="{identifier: 'submit'}">
 				<f:translate key='subscribe' />
 				<f:if condition="{settings.form.button.subscribe.enableSpinner}">
-					<span style="display: none;" class="{settings.form.button.subscribe.spinnerClass}" data-identifier="spinner"><!-- --></span>
+					<span style="display: none;" class="{settings.form.button.subscribe.spinnerClass}" data-identifier="spinner"></span>
 				</f:if>
 			</f:form.button>
 		</f:then>
 		<f:else>
-			<f:form.submit name="submitType" value="<f:translate key='subscribe' />" class="{settings.form.button.subscribe.class}" data="{identifier: 'submit'}" />
+			<f:form.submit name="submitType" value="{f:translate(key: 'subscribe')}" class="{settings.form.button.subscribe.class}" data="{identifier: 'submit'}" />
 			<f:if condition="{settings.form.button.subscribe.enableSpinner}">
-				<span style="display: none;" class="{settings.form.button.subscribe.spinnerClass}" data-identifier="spinner"><!-- --></span>
+				<span style="display: none;" class="{settings.form.button.subscribe.spinnerClass}" data-identifier="spinner"></span>
 			</f:if>
 		</f:else>
 	</f:if>
@@ -160,14 +160,14 @@
 				<f:form.button name="submitType" class="{settings.form.button.unsubscribe.class}" data="{identifier: 'submit'}">
 					<f:translate key='unsubscribe' />
 					<f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
-						<span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}" data-identifier="spinner"><!-- --></span>
+						<span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}" data-identifier="spinner"></span>
 					</f:if>
 				</f:form.button>
 			</f:then>
 			<f:else>
-				<f:form.submit name="submitType" value="<f:translate key='unsubscribe' />" class="{settings.form.button.unsubscribe.class}" data="{identifier: 'submit'}" />
+				<f:form.submit name="submitType" value="{f:translate(key: 'unsubscribe')}" class="{settings.form.button.unsubscribe.class}" data="{identifier: 'submit'}" />
 				<f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
-					<span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}" data-identifier="spinner"><!-- --></span>
+					<span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}" data-identifier="spinner"></span>
 				</f:if>
 			</f:else>
 		</f:if>
