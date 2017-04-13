@@ -28,7 +28,7 @@ $(document).ready(function() {
 			type: 'POST',
 
 			//page where ajax is running
-			url: formElement.attr('action') + '?type=6171240&tx_pxanewslettersubscription_subscription%5Baction%5D=ajax',
+			url: formElement.attr('action'),
 
 			//send_data, data which will be send to php
 			data: formData,

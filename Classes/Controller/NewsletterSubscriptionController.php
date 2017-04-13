@@ -75,7 +75,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @return void
      */
     public function formAction() {
-
+        
         $this->initalize();
 
         $this->assignViewVariables();
@@ -118,9 +118,9 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @return void
      */
     public function ajaxAction() {
-
+        
         $hash = GeneralUtility::removeXSS(GeneralUtility::_GP('hash'));
-
+        
         if ( is_string($hash) === FALSE || strlen(trim($hash)) == 0 ) {
             $response = $this->runAjax();
             header('Content-type: application/json');
@@ -494,32 +494,30 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
             "status" => $mode,
             "hashid" => $id,
             "hash" => $hash,
-            "no_cache" => 1,
         );
 
         if ( $confirmPageId > 0 ) {
 
-            $linkParams['tx_pxanewslettersubscription_subscription']['action'] = 'confirm';
-
             $feLink = $this
                 ->uriBuilder
+                ->reset()
                 ->setTargetPageUid($confirmPageId)
                 ->setArguments($linkParams)
-                ->setUseCacheHash(false)
+                ->setNoCache(1)
+                ->setUseCacheHash(true)
                 ->setCreateAbsoluteUri(true)
-                ->buildFrontendUri();
+                ->uriFor('confirm', null, 'NewsletterSubscription');
 
         } else {
 
-            $linkParams['tx_pxanewslettersubscription_subscription']['action'] = 'ajax';
-
             $feLink = $this
                 ->uriBuilder
-                ->setTargetPageType(6171239)
+                ->reset()
                 ->setArguments($linkParams)
-                ->setUseCacheHash(false)
+                ->setNoCache(1)
+                ->setUseCacheHash(true)
                 ->setCreateAbsoluteUri(true)
-                ->buildFrontendUri();
+                ->uriFor('ajax', null, 'NewsletterSubscription');
 
         }
 
