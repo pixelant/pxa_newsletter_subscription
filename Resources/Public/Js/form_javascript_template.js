@@ -23,6 +23,9 @@ $(document).ready(function() {
 		spinnerElement.fadeIn(50);
 		submitElement.attr('disabled', 'disabled');
 
+		// remove previous messages
+		$('.js__ajax-response').hide();
+
 		$.ajax({
 			//type of receiving data
 			type: 'POST',
@@ -36,7 +39,7 @@ $(document).ready(function() {
 			// if call is ok
 			success: function(response) {
 				//ajax sends msg from php, which informs user, what has happens
-				formElement.after('<div id="' + messageTagId + '" class="alert">' + response.message + '<div>');
+				formElement.after('<div id="' + messageTagId + '" class="alert js__ajax-response">' + response.message + '<div>');
 				if (response.success) {
 					// display message
 					$('#' + messageTagId).addClass('alert-success');
@@ -53,7 +56,7 @@ $(document).ready(function() {
 
 			error: function(jqXHR, textStatus, errorThrown) {
 				// Set message and set it to disapear after 5 sec.
-				formElement.after('<div id="' + messageTagId + '" class="alert alert-danger">' + jqXHR_error_message + '<div>');
+				formElement.after('<div id="' + messageTagId + '" class="alert alert-danger js__ajax-response">' + jqXHR_error_message + '<div>');
 				$('#' + messageTagId).delay(5000).fadeOut('slow');
 				// hide spinner and enable inputs again
 				spinnerElement.fadeOut(50);
