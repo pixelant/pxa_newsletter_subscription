@@ -14,17 +14,10 @@ plugin.tx_pxanewslettersubscription {
 		storagePid = {$plugin.tx_pxanewslettersubscription.persistence.storagePid}
 	}
 	settings {
-		# possible to define what javascript template that should be loaded, __FORMNAME__ is replaced with the "form.tagIdPrefix + content element uid" in js.
-		dynamicJsTemplateFile = EXT:pxa_newsletter_subscription/Resources/Public/Js/form_javascript_template.min.js
-
 		# form settings
 		# NOTE: The default template makes use of these settings. 
 		# 		If template has been modified / overridden, these settings might not work depending on the template.
 		form {
-			
-			# prefix for the id in the rendered form tag, will get content element uid appended to it to generate unique id for every subscription form.
-			tagIdPrefix = newsletter-subscription-
-			
 			# class property of form tag
 			class = form
 			
@@ -158,12 +151,12 @@ lib.AJAXPrototype= PAGE
 lib.AJAXPrototype {
 	typeNum = 6171230
 	config {
-		#disableAllHeaderCode = 1
+		disableAllHeaderCode = 1
 		#xhtml_cleaning = 0
 		admPanel = 0
 		debug = 0
 		no_cache = 1
-		#additionalHeaders = Content-type:application/json
+		additionalHeaders = Content-type:application/json
 	}
 }
 
@@ -187,3 +180,7 @@ AJAX_REGISTER {
 	10.source.data = GP:tx_pxanewslettersubscription_subscription|ceuid
 	10.source.intval = 1
 }
+
+
+# include JS
+page.includeJSFooter.pxa_newsletter_subscription = EXT:pxa_newsletter_subscription/Resources/Public/Js/Form.js

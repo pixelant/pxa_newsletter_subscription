@@ -2,7 +2,6 @@
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUserGroup;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -50,6 +49,10 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      */
     public function formAction()
     {
+        $this->view->assign(
+            'displayNameField',
+            (bool)($this->settings['formFieldNameIsMandatory'] || !$this->settings['formFieldNameHidden'])
+        );
     }
 
     /**
@@ -82,7 +85,9 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * Render ajax action
      *
      * Ajax action:
-     * If hash parameter is set, used to make confirmation, else return result of subscribe/unsubscribe to form in formAction.
+     * If hash parameter is set, used to make confirmation, else return result of subscribe/unsubscribe
+     * to form in formAction.
+     *
      * @return void
      */
     public function ajaxAction()

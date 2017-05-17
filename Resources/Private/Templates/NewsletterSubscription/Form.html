@@ -4,14 +4,14 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
-    <f:form action="ajax" pageType="6171240" id="pxa-newsletter-subscription-form" class="{settings.form.class}">
+    <f:form action="ajax" pageType="6171240" data="{form: 'pxa-newsletter-subscription-form'}" class="{settings.form.class}">
         <f:comment>
             Form fields.
             Wrap content will check if it need to enable it with inner or outer wrap
         </f:comment>
 
         <pxa:wrapContent settings="{settings.form.fields}">
-            <f:comment>Name if enabled</f:comment><f:debug>{_all}</f:debug>
+            <f:comment>Name if enabled</f:comment>
             <f:if condition="{displayNameField}">
                 <pxa:wrapContent settings="{settings.form.field.name}">
                     <f:form.textfield placeholder="{f:translate(key: 'name')}"
@@ -71,11 +71,13 @@
         <pxa:wrapContent settings="{settings.form.button.unsubscribe}">
             <f:if condition="{settings.form.button.unsubscribe.useButtonTag}">
                 <f:then>
-                    <f:form.button name="submitType" class="{settings.form.button.unsubscribe.class}"
+                    <f:form.button name="submitType"
+                                   class="{settings.form.button.unsubscribe.class}"
                                    data="{identifier: 'submit'}">
                         <f:translate key='unsubscribe'/>
                         <f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
-                        <span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}"
+                        <span style="display: none;"
+                              class="{settings.form.button.unsubscribe.spinnerClass}"
                               data-identifier="spinner"></span>
                         </f:if>
                     </f:form.button>
