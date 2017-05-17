@@ -9,7 +9,8 @@ use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 /**
  * NewsletterSubscriptionController
  */
-class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+{
 
     /**
      * frontendUserRepository
@@ -41,47 +42,14 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      */
     protected $signalSlotDispatcher;
 
-    /**
-     * Form identifier
-     *
-     * @var string
-     */
-    protected $formName = 'newletter-subscription-';
-
-    /**
-     * Content Element Uid
-     *
-     * @var int
-     */
-    protected $contentElementUid;
-
-    /**
-     * Template javascript file
-     *
-     * @var string
-     */
-    protected $dynamicJsTemplateFile = '';
-
-    /**
-     * Messages
-     *
-     * @var array
-     */
-    protected $messages = array();
 
     /**
      * Render form action
      *
      * @return void
      */
-    public function formAction() {
-        
-        $this->initalize();
-
-        $this->assignViewVariables();
-
-        $this->addJsFooterInlineCode();
-
+    public function formAction()
+    {
     }
 
     /**
@@ -90,22 +58,22 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * Renders confirm result as a content element if hash parameter is set
      * @return void
      */
-    public function confirmAction() {
+    public function confirmAction()
+    {
 
-        if ( $this->settings['forceFormView'] == 1 ) {
-            $this->forward('form', NULL, NULL, $this->request->getArguments());
+        if ($this->settings['forceFormView'] == 1) {
+            $this->forward('form', null, null, $this->request->getArguments());
         }
 
         $hash = GeneralUtility::removeXSS(GeneralUtility::_GP('hash'));
         $status = GeneralUtility::removeXSS(GeneralUtility::_GP('status'));
         $id = intval(GeneralUtility::removeXSS(GeneralUtility::_GP('hashid')));
 
-        if ( is_string($hash) && strlen(trim($hash)) > 0 ) {
-
+        if (is_string($hash) && strlen(trim($hash)) > 0) {
             if ($status == 'subscribe') {
-                $this->confirmSubscription($hash,$id);
+                $this->confirmSubscription($hash, $id);
             } elseif ($status == 'unsubscribe') {
-                $this->unsubscribe($hash,$id);
+                $this->unsubscribe($hash, $id);
             }
         }
     }
@@ -117,11 +85,12 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * If hash parameter is set, used to make confirmation, else return result of subscribe/unsubscribe to form in formAction.
      * @return void
      */
-    public function ajaxAction() {
-        
+    public function ajaxAction()
+    {
+
         $hash = GeneralUtility::removeXSS(GeneralUtility::_GP('hash'));
-        
-        if ( is_string($hash) === FALSE || strlen(trim($hash)) == 0 ) {
+
+        if (is_string($hash) === false || strlen(trim($hash)) == 0) {
             $response = $this->runAjax();
             header('Content-type: application/json');
             echo json_encode($response);
@@ -132,77 +101,11 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
             $id = intval(GeneralUtility::removeXSS(GeneralUtility::_GP('hashid')));
 
             if ($status == 'subscribe') {
-                $this->confirmSubscription($hash,$id);
+                $this->confirmSubscription($hash, $id);
             } elseif ($status == 'unsubscribe') {
-                $this->unsubscribe($hash,$id);
+                $this->unsubscribe($hash, $id);
             }
         }
-    }
-
-    /**
-     * Initialize Controller
-     *
-     * Setup of properties
-     * @return void
-     */
-    protected function initalize() {
-
-        $contentElementObject = $this->configurationManager->getContentObject()->data;
-
-        $this->contentElementUid = $contentElementObject['uid'];
-        $this->formName = $this->settings['tagIdPrefix'] . $this->contentElementUid;
-
-        if ( $this->isFileAccessible( $this->settings['dynamicJsTemplateFile'] ) ) {
-            $this->dynamicJsTemplateFile = $this->settings['dynamicJsTemplateFile'];
-        } else {
-            $this->messages[] = 'The file with js template is not accesible (' . $this->settings['dynamicJsTemplateFile'] . ')';
-        }
-
-    }
-
-    /**
-     * Returns the content of dynamicJsTemplateFile with "markers" replaced.
-     *
-     * @return string
-     */
-    protected function getProcessedDynamicJavascript() {
-
-        $dynamicJsTemplate = $this->getFileContent( $this->dynamicJsTemplateFile );
-        $dynamicJsTemplate = str_replace('__FORMNAME__', $this->formName, $dynamicJsTemplate);
-
-        return $dynamicJsTemplate;
-    }
-
-    /**
-     * Adds footer inline code
-     *
-     * Only adds javascript if function getProcessedDynamicJavascript generated some output.
-     *
-     */
-    protected function addJsFooterInlineCode() {
-
-        $javascript = $this->getProcessedDynamicJavascript();
-
-        if ( is_string($javascript) && strlen($javascript) > 0 ) {
-            /** @var PageRenderer $pageRenderer */
-            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-            $pageRenderer->addJsFooterInlineCode($this->formName, $javascript);
-        }
-
-    }
-
-    /**
-     * Assign view variables (formAction,)
-     *
-     * @return void
-     */
-    protected function assignViewVariables() {
-
-        $this->view->assign('ceuid',$this->contentElementUid);
-        $this->view->assign('displayNameField',$this->isNameVisibleInForm());
-        $this->view->assign('formName',$this->formName);
-        $this->view->assign('sysLanguageUid', $GLOBALS['TSFE']->sys_language_uid);
-
     }
 
     /**
@@ -210,12 +113,13 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      *
      * @return bool If setup is valid.
      */
-    protected function isConfigurationValid() {
-
+    protected function isConfigurationValid()
+    {
         $isValid = true;
-
-        $frontendUserGroup = $this->frontendUserGroupRepository->getFrontendUserGroupByUid( intval($this->settings['userGroup']) );
-        if ( $frontendUserGroup === NULL ) {
+        $frontendUserGroup = $this->frontendUserGroupRepository->getFrontendUserGroupByUid(
+            intval($this->settings['userGroup'])
+        );
+        if ($frontendUserGroup === null) {
             $this->messages[] = 'Frontend Usergroup is not valid.';
             $isValid = false;
         }
@@ -224,7 +128,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
 
 
         // $GLOBALS['TYPO3_CONF_VARS']['BE']['warning_email_addr']
-
+        return $isValid;
     }
 
     /**
@@ -264,77 +168,87 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
         */
 
         // Check if email exist in pid
-        $emailExist = $this->frontendUserRepository->doesEmailExistInPid( $email, $pid );
+        $emailExist = $this->frontendUserRepository->doesEmailExistInPid($email, $pid);
 
         // Check what action to execute
-        if ( $submitType == LocalizationUtility::translate('unsubscribe', 'pxa_newsletter_subscription') ) {
+        if ($submitType == LocalizationUtility::translate('unsubscribe', 'pxa_newsletter_subscription')) {
             // On Unsubscribe
-            if ( GeneralUtility::validEmail($email) === FALSE ) {
+            if (GeneralUtility::validEmail($email) === false) {
                 // Not a valid email
                 $message = LocalizationUtility::translate('error.invalid.email', 'pxa_newsletter_subscription');
             } else {
-                if ( $emailExist === FALSE ) {
+                if ($emailExist === false) {
                     // email doesn't exist in pid
-                    $message = LocalizationUtility::translate('error.unsubscribe.not-subscribed', 'pxa_newsletter_subscription');
+                    $message = LocalizationUtility::translate('error.unsubscribe.not-subscribed',
+                        'pxa_newsletter_subscription');
                 } else {
-                    if ( $emailConfirmIsEnabled ) {
+                    if ($emailConfirmIsEnabled) {
                         // Send unsubscribe email
                         $frontendUser = $this->frontendUserRepository->getUserByEmailAndPid($email, $pid);
-                        if ($frontendUser !== NULL) {
-                            $this->sendConfirmationEmail($frontendUser->getEmail(), $frontendUser->getName(), $frontendUser->getHash(), $frontendUser->getUid(), TRUE );
-                            $message = LocalizationUtility::translate('success.unsubscribe.unsubscribed-confirm', 'pxa_newsletter_subscription');
+                        if ($frontendUser !== null) {
+                            $this->sendConfirmationEmail($frontendUser->getEmail(), $frontendUser->getName(),
+                                $frontendUser->getHash(), $frontendUser->getUid(), true);
+                            $message = LocalizationUtility::translate('success.unsubscribe.unsubscribed-confirm',
+                                'pxa_newsletter_subscription');
                             $success = true;
                         } else {
-                            $message = LocalizationUtility::translate('error.subscribe.4105', 'pxa_newsletter_subscription');
+                            $message = LocalizationUtility::translate('error.subscribe.4105',
+                                'pxa_newsletter_subscription');
                         }
                     } else {
                         // Set user to deleted
                         $frontendUser = $this->frontendUserRepository->getUserByEmailAndPid($email, $pid);
-                        if ($frontendUser !== NULL) {
+                        if ($frontendUser !== null) {
                             $frontendUser->setDeleted(1);
                             $this->frontendUserRepository->update($frontendUser);
                             $this->persistenceManager->persistAll();
-                            if ( $frontendUser->getDeleted() == TRUE ) {
-                                $message = LocalizationUtility::translate('success.unsubscribe.unsubscribed-noconfirm', 'pxa_newsletter_subscription');
+                            if ($frontendUser->getDeleted() == true) {
+                                $message = LocalizationUtility::translate('success.unsubscribe.unsubscribed-noconfirm',
+                                    'pxa_newsletter_subscription');
                                 $success = true;
                             } else {
-                                $message = LocalizationUtility::translate('error.subscribe.4104', 'pxa_newsletter_subscription');
+                                $message = LocalizationUtility::translate('error.subscribe.4104',
+                                    'pxa_newsletter_subscription');
                             }
                         } else {
-                            $message = LocalizationUtility::translate('error.subscribe.4103', 'pxa_newsletter_subscription');
+                            $message = LocalizationUtility::translate('error.subscribe.4103',
+                                'pxa_newsletter_subscription');
                         }
                     }
                 }
             }
         } else {
             // If not Unsubscribe
-            if ( GeneralUtility::validEmail($email) === FALSE ) {
+            if (GeneralUtility::validEmail($email) === false) {
                 // Not a valid email
                 $message = LocalizationUtility::translate('error.invalid.email', 'pxa_newsletter_subscription');
-            }  else {
-                if ( $this->isNameValid($name) === FALSE ) {
+            } else {
+                if ($this->isNameValid($name) === false) {
                     // Not a valid name
                     $message = LocalizationUtility::translate('error.invalid.name', 'pxa_newsletter_subscription');
                 } else {
-                    if ( $emailExist ) {
+                    if ($emailExist) {
                         // Check if disabled, then resend confirmation mail ?
                         // email already exist in pid
-                        $message = LocalizationUtility::translate('error.subscribe.already-subscribed', 'pxa_newsletter_subscription');
+                        $message = LocalizationUtility::translate('error.subscribe.already-subscribed',
+                            'pxa_newsletter_subscription');
                     } else {
                         /** @var FrontendUserGroup $frontendUserGroup */
                         $frontendUserGroup = $this->frontendUserGroupRepository->getFrontendUserGroupByUid($userGroup);
-                        if ( $frontendUserGroup === NULL ) {
+                        if ($frontendUserGroup === null) {
                             // Could not load usergroup.
                             // TODO: generate email for admin, setup invalid frontend usergroup is invalid.
-                            $message = LocalizationUtility::translate('error.subscribe.4101', 'pxa_newsletter_subscription');
+                            $message = LocalizationUtility::translate('error.subscribe.4101',
+                                'pxa_newsletter_subscription');
                         } else {
                             // Since name is validated and still can be empty if name isn't mandatory, set empty name from email.
-                            if ( strlen(trim($name)) == 0 ) {
+                            if (strlen(trim($name)) == 0) {
                                 $name = $email;
                             }
                             // Try to create feuser and store it in repository
                             $frontendUser = $this->objectManager->get(\Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser::class);
-                            $frontendUser->setAsSubscriber( $pid, $email, $name, $emailConfirmIsEnabled, $frontendUserGroup );
+                            $frontendUser->setAsSubscriber($pid, $email, $name, $emailConfirmIsEnabled,
+                                $frontendUserGroup);
 
                             // Signal slot for after fe_user creation
                             $this->signalSlotDispatcher->dispatch(
@@ -343,24 +257,28 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
                                 array($frontendUser, $this)
                             );
 
-                            $this->frontendUserRepository->add( $frontendUser );
+                            $this->frontendUserRepository->add($frontendUser);
                             $this->persistenceManager->persistAll();
 
-                            if ( $frontendUser->getUid() > 0 ) {
+                            if ($frontendUser->getUid() > 0) {
                                 // User was created
-                                if ( $emailConfirmIsEnabled ) {
+                                if ($emailConfirmIsEnabled) {
                                     // Send subscribe email
-                                    $this->sendConfirmationEmail($frontendUser->getEmail(), $frontendUser->getName(), $frontendUser->getHash(), $frontendUser->getUid(), FALSE);
-                                    $message = LocalizationUtility::translate('success.subscribe.subscribed-confirm', 'pxa_newsletter_subscription');
+                                    $this->sendConfirmationEmail($frontendUser->getEmail(), $frontendUser->getName(),
+                                        $frontendUser->getHash(), $frontendUser->getUid(), false);
+                                    $message = LocalizationUtility::translate('success.subscribe.subscribed-confirm',
+                                        'pxa_newsletter_subscription');
                                     $success = true;
                                 } else {
                                     // Add user
-                                    $message = LocalizationUtility::translate('success.subscribe.subscribed-noconfirm', 'pxa_newsletter_subscription');
+                                    $message = LocalizationUtility::translate('success.subscribe.subscribed-noconfirm',
+                                        'pxa_newsletter_subscription');
                                     $success = true;
                                 }
                             } else {
                                 // The feuser was not created.
-                                $message = LocalizationUtility::translate('error.subscribe.4102', 'pxa_newsletter_subscription') . $frontendUser->getUid();
+                                $message = LocalizationUtility::translate('error.subscribe.4102',
+                                        'pxa_newsletter_subscription') . $frontendUser->getUid();
                             }
                         }
                     }
@@ -380,14 +298,15 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @param string $id
      * @return void
      */
-    protected function confirmSubscription($hash,$id) {
+    protected function confirmSubscription($hash, $id)
+    {
 
         $status = true;
 
         try {
 
             $frontendUser = $this->frontendUserRepository->getUserByUidAndHash($id, $hash);
-            if ($frontendUser !== NULL) {
+            if ($frontendUser !== null) {
                 $frontendUser->setDisable(0);
                 $this->frontendUserRepository->update($frontendUser);
                 $this->persistenceManager->persistAll();
@@ -414,13 +333,13 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @param string $id
      * @return void
      */
-    protected function unsubscribe($hash,$id)
+    protected function unsubscribe($hash, $id)
     {
         $status = true;
 
         try {
             $frontendUser = $this->frontendUserRepository->getUserByUidAndHash($id, $hash);
-            if ($frontendUser !== NULL) {
+            if ($frontendUser !== null) {
                 $frontendUser->setDeleted(1);
                 $this->frontendUserRepository->update($frontendUser);
                 $this->persistenceManager->persistAll();
@@ -449,17 +368,18 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @param bool $unsubscribeMail If the mail is only a unsubscribe mail
      * @return bool
      */
-    protected function sendConfirmationEmail($email, $name, $hash, $id, $unsubscribeMail) {
+    protected function sendConfirmationEmail($email, $name, $hash, $id, $unsubscribeMail)
+    {
 
         try {
             $mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-            $mail->setFrom( $this->getConfirmMailFrom() );
-            $mail->setTo( $this->getConfirmMailTo( $name, $email) );
-            $mail->setSubject( $this->getConfirmMailSubject() );
-            $mail->setBody( $this->getConfirmMailBody($name, $hash, $id, $unsubscribeMail ), 'text/plain' );
+            $mail->setFrom($this->getConfirmMailFrom());
+            $mail->setTo($this->getConfirmMailTo($name, $email));
+            $mail->setSubject($this->getConfirmMailSubject());
+            $mail->setBody($this->getConfirmMailBody($name, $hash, $id, $unsubscribeMail), 'text/plain');
 
-            if ( GeneralUtility::validEmail($this->settings['confirmMailReplyTo']) === TRUE ) {
-                $mail->setReplyTo( $this->settings['confirmMailReplyTo'] );
+            if (GeneralUtility::validEmail($this->settings['confirmMailReplyTo']) === true) {
+                $mail->setReplyTo($this->settings['confirmMailReplyTo']);
             }
 
             $mail->send();
@@ -485,7 +405,8 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @param bool $unsubscribeLink If true, link is to unsubscribe, default is to subscribe
      * @return string
      */
-    protected function getFeLink( $id, $hash, $unsubscribeLink ) {
+    protected function getFeLink($id, $hash, $unsubscribeLink)
+    {
 
         $mode = $unsubscribeLink ? 'unsubscribe' : 'subscribe';
         $confirmPageId = intval($this->settings['confirmPage']);
@@ -496,7 +417,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
             "hash" => $hash,
         );
 
-        if ( $confirmPageId > 0 ) {
+        if ($confirmPageId > 0) {
 
             $feLink = $this
                 ->uriBuilder
@@ -529,25 +450,26 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      *
      * @return array
      */
-    protected function getConfirmMailFrom() {
+    protected function getConfirmMailFrom()
+    {
 
         // Default to Install tool default settings
         $confirmMailSenderName = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
-        $confirmMailSenderEmail= $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
+        $confirmMailSenderEmail = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
 
         // Override with flexform settings if set and valid
-        if ( is_string($this->settings['confirmMailSenderName']) && strlen(trim($this->settings['confirmMailSenderName'])) > 0 ) {
+        if (is_string($this->settings['confirmMailSenderName']) && strlen(trim($this->settings['confirmMailSenderName'])) > 0) {
             $confirmMailSenderName = $this->settings['confirmMailSenderName'];
         }
-        if ( GeneralUtility::validEmail($this->settings['confirmMailSenderEmail']) ) {
+        if (GeneralUtility::validEmail($this->settings['confirmMailSenderEmail'])) {
             $confirmMailSenderEmail = $this->settings['confirmMailSenderEmail'];
         }
 
         // If from email is still empty, use a no-reply address
-        if ( strlen($confirmMailSenderEmail) == 0 ) {
+        if (strlen($confirmMailSenderEmail) == 0) {
             // Won't work on all domains!
             $domain = GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY');
-            if (substr($domain,0,3) == 'www') {
+            if (substr($domain, 0, 3) == 'www') {
                 $domain = substr($domain, 4);
                 $confirmMailSenderEmail = 'no-reply@' . $domain;
             } else {
@@ -556,7 +478,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
             $confirmMailSenderName = $confirmMailSenderEmail;
         }
 
-        if ( strlen($confirmMailSenderName) == 0 ) {
+        if (strlen($confirmMailSenderName) == 0) {
             $confirmMailSenderName = $confirmMailSenderEmail;
         }
 
@@ -564,7 +486,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
             $confirmMailSenderName = '"' . $confirmMailSenderName . '"';
         }
 
-        return array( $confirmMailSenderEmail => $confirmMailSenderName );
+        return array($confirmMailSenderEmail => $confirmMailSenderName);
 
     }
 
@@ -575,14 +497,15 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @param string $email Email
      * @return array
      */
-    protected function getConfirmMailTo($name, $email) {
+    protected function getConfirmMailTo($name, $email)
+    {
 
         // Set defaults, name same as email
         $confirmMailRecipientName = $email;
         $confirmMailRecipientEmail = $email;
 
         // If name is set, use it
-        if ( is_string($name) && strlen(trim($name)) > 0 ) {
+        if (is_string($name) && strlen(trim($name)) > 0) {
             $confirmMailRecipientName = $name;
         }
 
@@ -590,7 +513,7 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
             $confirmMailRecipientName = '"' . $confirmMailRecipientName . '"';
         }
 
-        return array( $confirmMailRecipientEmail => $confirmMailRecipientName );
+        return array($confirmMailRecipientEmail => $confirmMailRecipientName);
     }
 
     /**
@@ -598,13 +521,14 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      *
      * @return string
      */
-    protected function getConfirmMailSubject() {
+    protected function getConfirmMailSubject()
+    {
 
         // Set defaults subject from translation
         $subject = LocalizationUtility::translate('confirm_mail_subject', 'pxa_newsletter_subscription');
 
         // Override with flexform settings if set and valid
-        if ( is_string($this->settings['confirmMailSubject']) && strlen(trim($this->settings['confirmMailSubject'])) > 0 ) {
+        if (is_string($this->settings['confirmMailSubject']) && strlen(trim($this->settings['confirmMailSubject'])) > 0) {
             $subject = $this->settings['confirmMailSubject'];
         }
         return $subject;
@@ -620,39 +544,43 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @param bool $unsubscribeMail If the mail is only a unsubscribe mail
      * @return string
      */
-    protected function getConfirmMailBody($name, $hash, $id, $unsubscribeMail) {
+    protected function getConfirmMailBody($name, $hash, $id, $unsubscribeMail)
+    {
 
-        $subscribeLink = $this->getFeLink( $id, $hash, false );
-        $unsubscribeLink = $this->getFeLink( $id, $hash, true );
+        $subscribeLink = $this->getFeLink($id, $hash, false);
+        $unsubscribeLink = $this->getFeLink($id, $hash, true);
 
         // Set defaults from original translation, has replacement in texts
-        $bodyText = LocalizationUtility::translate('confirm_mail_greeting', 'pxa_newsletter_subscription',array($name)) . PHP_EOL . PHP_EOL;
-        $bodySubscribeLink = LocalizationUtility::translate('confirm_mail_line1', 'pxa_newsletter_subscription', array( PHP_EOL . PHP_EOL . $subscribeLink . PHP_EOL . PHP_EOL));
-        $bodyUnsubscribeLink = LocalizationUtility::translate('confirm_mail_line2', 'pxa_newsletter_subscription',array( PHP_EOL . PHP_EOL . $unsubscribeLink . PHP_EOL . PHP_EOL));
+        $bodyText = LocalizationUtility::translate('confirm_mail_greeting', 'pxa_newsletter_subscription',
+                array($name)) . PHP_EOL . PHP_EOL;
+        $bodySubscribeLink = LocalizationUtility::translate('confirm_mail_line1', 'pxa_newsletter_subscription',
+            array(PHP_EOL . PHP_EOL . $subscribeLink . PHP_EOL . PHP_EOL));
+        $bodyUnsubscribeLink = LocalizationUtility::translate('confirm_mail_line2', 'pxa_newsletter_subscription',
+            array(PHP_EOL . PHP_EOL . $unsubscribeLink . PHP_EOL . PHP_EOL));
         $bodyFooter = '';
 
         // Override with flexform values if set
-        if ( $unsubscribeMail ) {
-            if ( is_string($this->settings['confirmMailUnsubscribeBody']) && strlen(trim($this->settings['confirmMailUnsubscribeBody'])) > 0 ) {
+        if ($unsubscribeMail) {
+            if (is_string($this->settings['confirmMailUnsubscribeBody']) && strlen(trim($this->settings['confirmMailUnsubscribeBody'])) > 0) {
                 $bodyText = $this->settings['confirmMailUnsubscribeBody'] . PHP_EOL . PHP_EOL;
             }
         } else {
-            if ( is_string($this->settings['confirmMailSubscribeBody']) && strlen(trim($this->settings['confirmMailSubscribeBody'])) > 0 ) {
+            if (is_string($this->settings['confirmMailSubscribeBody']) && strlen(trim($this->settings['confirmMailSubscribeBody'])) > 0) {
                 $bodyText = $this->settings['confirmMailSubscribeBody'] . PHP_EOL . PHP_EOL;
             }
         }
 
-        if ( is_string($this->settings['confirmMailSubscribeInstruction']) && strlen(trim($this->settings['confirmMailSubscribeInstruction'])) > 0 ) {
+        if (is_string($this->settings['confirmMailSubscribeInstruction']) && strlen(trim($this->settings['confirmMailSubscribeInstruction'])) > 0) {
             $bodySubscribeLink = $this->settings['confirmMailSubscribeInstruction'];
             $bodySubscribeLink .= PHP_EOL . $subscribeLink . PHP_EOL . PHP_EOL;
         }
 
-        if ( is_string($this->settings['confirmMailUnsubscribeInstruction']) && strlen(trim($this->settings['confirmMailUnsubscribeInstruction'])) > 0 ) {
+        if (is_string($this->settings['confirmMailUnsubscribeInstruction']) && strlen(trim($this->settings['confirmMailUnsubscribeInstruction'])) > 0) {
             $bodyUnsubscribeLink = $this->settings['confirmMailUnsubscribeInstruction'];
             $bodyUnsubscribeLink .= PHP_EOL . $unsubscribeLink . PHP_EOL . PHP_EOL;
         }
 
-        if ( is_string($this->settings['confirmMailFooter']) && strlen(trim($this->settings['confirmMailFooter'])) > 0 ) {
+        if (is_string($this->settings['confirmMailFooter']) && strlen(trim($this->settings['confirmMailFooter'])) > 0) {
             $bodyFooter = PHP_EOL . PHP_EOL . $this->settings['confirmMailFooter'];
         }
         // Remove subscribe link part of message if it is a unsubscribe mail.
@@ -670,11 +598,12 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @var string $argument Name of argument
      * @return string
      */
-    protected function getArgument($argument) {
+    protected function getArgument($argument)
+    {
 
         $return = '';
-        if ( $this->request->hasArgument($argument) ) {
-            $return = GeneralUtility::removeXSS( $this->request->getArgument($argument) );
+        if ($this->request->hasArgument($argument)) {
+            $return = GeneralUtility::removeXSS($this->request->getArgument($argument));
         }
         return $return;
     }
@@ -685,13 +614,14 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @var string $name Name
      * @return bool
      */
-    protected function isNameValid($name) {
-        $isValid = FALSE;
-        if ( $this->settings['formFieldNameIsMandatory'] == 0 ) {
-            $isValid = TRUE;
+    protected function isNameValid($name)
+    {
+        $isValid = false;
+        if ($this->settings['formFieldNameIsMandatory'] == 0) {
+            $isValid = true;
         } else {
-            if ( is_string($name) && strlen(trim($name)) > 0 ) {
-                $isValid = TRUE;
+            if (is_string($name) && strlen(trim($name)) > 0) {
+                $isValid = true;
             }
         }
         return $isValid;
@@ -702,51 +632,14 @@ class NewsletterSubscriptionController extends \TYPO3\CMS\Extbase\Mvc\Controller
      *
      * @return bool
      */
-    protected function isNameVisibleInForm() {
+    protected function isNameVisibleInForm()
+    {
         $isVisible = true;
-        if ( $this->settings['formFieldNameIsMandatory'] == 0 ) {
-            if ( $this->settings['formFieldNameHidden'] == 1 ) {
+        if ($this->settings['formFieldNameIsMandatory'] == 0) {
+            if ($this->settings['formFieldNameHidden'] == 1) {
                 $isVisible = false;
             }
         }
         return $isVisible;
-    }
-
-    /**
-     * Fetches content from file
-     *
-     * @param string $filename
-     * @return string FileContent
-     */
-    public function getFileContent($filename) {
-
-        $dynamicJavascript = '';
-
-        if ( $this->isFileAccessible($filename) ) {
-            $absoluteFilename = GeneralUtility::getFileAbsFileName($filename);
-            $dynamicJavascript = GeneralUtility::getUrl($absoluteFilename);
-        }
-
-        return $dynamicJavascript;
-    }
-
-    /**
-     * Check if file is accessible
-     *
-     * @param string $filename Relative path to file, EXT: works.
-     * @return bool
-     */
-    public function isFileAccessible($filename) {
-
-        $isFileAccessible = false;
-
-        $absoluteFilename = GeneralUtility::getFileAbsFileName($filename);
-        if (GeneralUtility::isAllowedAbsPath($absoluteFilename)) {
-            if ( \file_exists($absoluteFilename) ) {
-                $isFileAccessible = true;
-            }
-        }
-
-        return $isFileAccessible;
     }
 }

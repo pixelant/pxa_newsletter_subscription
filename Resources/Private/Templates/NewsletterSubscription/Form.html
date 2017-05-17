@@ -1,182 +1,98 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:pxa="http://typo3.org/ns/Pixelant/PxaNewsletterSubscription/ViewHelpers" data-namespace-typo3-fluid="true">
+
 <f:layout name="Default"/>
 
 <f:section name="main">
+    <f:form action="ajax" pageType="6171240" id="pxa-newsletter-subscription-form" class="{settings.form.class}">
+        <f:comment>
+            Form fields.
+            Wrap content will check if it need to enable it with inner or outer wrap
+        </f:comment>
 
-	<f:comment>Don't change the id of the form, it is targeted from js, </f:comment>
-	<f:form action="ajax" pageType="6171240" id="{formName}" class="{settings.form.class}">
-		<f:form.hidden name="ceuid" value="{ceuid}" />
+        <pxa:wrapContent settings="{settings.form.fields}">
+            <f:comment>Name if enabled</f:comment><f:debug>{_all}</f:debug>
+            <f:if condition="{displayNameField}">
+                <pxa:wrapContent settings="{settings.form.field.name}">
+                    <f:form.textfield placeholder="{f:translate(key: 'name')}"
+                                      class="{settings.form.field.name.class}"
+                                      name="name"
+                                      id="name"/>
+                </pxa:wrapContent>
+            </f:if>
 
-		<f:render section="inputFields" arguments="{_all}" />
+            <pxa:wrapContent settings="{settings.form.field.email}">
+                <f:form.textfield placeholder="{f:translate(key: 'email')}"
+                                  class="{settings.form.field.email.class}"
+                                  name="email"
+                                  id="email"/>
+            </pxa:wrapContent>
+        </pxa:wrapContent>
 
-		<f:render section="inputButtons" arguments="{_all}" />
-				
-	</f:form>
-	<script type="text/javascript">
-		var jqXHR_error_message = '<f:translate key='jqhxr_error_message' />';
-		var ajaxLanguageId = {sysLanguageUid};
-	</script>
-
+        <pxa:wrapContent settings="{settings.form.inputButtons}">
+            <f:render section="button.subscribe" arguments="{_all}"/>
+            <f:render section="button.unsubscribe" arguments="{_all}"/>
+        </pxa:wrapContent>
+    </f:form>
 </f:section>
 
-<f:section name="inputFields">
-
-	<f:comment>Check if inputs should be wrapped with a div, start</f:comment>
-	<f:if condition="{settings.form.fields.outerWrap.enabled} == 1">
-		<div class="{settings.form.fields.outerWrap.class}">
-	</f:if>
-
-	<f:comment>Render sections with inputs </f:comment>
-	<f:render section="field.name" arguments="{_all}" />
-	<f:render section="field.email" arguments="{_all}" />
-
-	<f:comment>Check if inputs should be wrapped with a div, end</f:comment>
-	<f:if condition="{settings.form.fields.outerWrap.enabled} == 1">
-		</div>
-	</f:if>
-
-</f:section>
-
-<f:section name="inputButtons">
-
-	<f:comment>Check if buttons should be wrapped with a div, start</f:comment>
-	<f:if condition="{settings.form.inputButtons.outerWrap.enabled} == 1">
-		<div class="{settings.form.inputButtons.outerWrap.class}">
-	</f:if>
-
-	<f:comment>Render sections with buttons</f:comment>
-	<f:render section="button.subscribe" arguments="{_all}" />
-	<f:render section="button.unsubscribe" arguments="{_all}" />
-
-	<f:comment>Check if buttons should be wrapped with a div, end</f:comment>
-	<f:if condition="{settings.form.inputButtons.outerWrap.enabled} == 1">
-		</div>
-	</f:if>
-
-</f:section>
-
-<f:section name="field.name">
-
-	<f:comment>Should name field be visible in form</f:comment>
-	<f:if condition="{displayNameField}">
-	
-		<f:comment>Check if field should be wrapped with a div, start</f:comment>
-		<f:if condition="{settings.form.field.name.outerWrap.enabled} == 1">
-			<div class="{settings.form.field.name.outerWrap.class}">
-		</f:if>
-		
-		<f:comment>Check if field should be wrapped with a second div, start</f:comment>
-		<f:if condition="{settings.form.field.name.innerWrap.enabled} == 1">
-			<div class="{settings.form.field.name.innerWrap.class}">
-		</f:if>
-
-		<f:comment>Render input field</f:comment>
-		<f:form.textfield placeholder="{f:translate(key: 'name')}" class="{settings.form.field.name.class}" name="name" id="name"></f:form.textfield>
-		
-		<f:comment>Check if field should be wrapped with a second div, end</f:comment>
-		<f:if condition="{settings.form.field.name.innerWrap.enabled} == 1">
-			</div>
-		</f:if>
-
-		<f:comment>Check if field should be wrapped with a div, end</f:comment>
-		<f:if condition="{settings.form.field.name.outerWrap.enabled} == 1">
-			</div>
-		</f:if>
-
-	</f:if>
-
-</f:section>
-
-<f:section name="field.email">
-
-	<f:comment>Check if field should be wrapped with a div, start</f:comment>
-	<f:if condition="{settings.form.field.email.outerWrap.enabled} == 1">
-		<div class="{settings.form.field.email.outerWrap.class}">
-	</f:if>
-
-	<f:comment>Check if field should be wrapped with a second div, start</f:comment>
-	<f:if condition="{settings.form.field.email.innerWrap.enabled} == 1">
-		<div class="{settings.form.field.email.innerWrap.class}">
-	</f:if>
-
-	<f:comment>Render input field</f:comment>
-	<f:form.textfield placeholder="{f:translate(key: 'email')}" class="{settings.form.field.email.class}" name="email" id="email"></f:form.textfield>
-	
-	<f:comment>Check if field should be wrapped with a second div, end</f:comment>
-	<f:if condition="{settings.form.field.email.innerWrap.enabled} == 1">
-		</div>
-	</f:if>
-
-	<f:comment>Check if field should be wrapped with a div, end</f:comment>
-	<f:if condition="{settings.form.field.email.outerWrap.enabled} == 1">
-		</div>
-	</f:if>
-
-</f:section>
 
 <f:section name="button.subscribe">
-
-	<f:comment>Check if button should be wrapped with a div, start</f:comment>
-	<f:if condition="{settings.form.button.subscribe.outerWrap.enabled} == 1">
-		<div class="{settings.form.button.subscribe.outerWrap.class}">
-	</f:if>
-
-	<f:comment>Render button</f:comment>
-	<f:if condition="{settings.form.button.subscribe.useButtonTag}">
-		<f:then>
-			<f:form.button name="submitType" class="{settings.form.button.subscribe.class}" data="{identifier: 'submit'}">
-				<f:translate key='subscribe' />
-				<f:if condition="{settings.form.button.subscribe.enableSpinner}">
-					<span style="display: none;" class="{settings.form.button.subscribe.spinnerClass}" data-identifier="spinner"></span>
-				</f:if>
-			</f:form.button>
-		</f:then>
-		<f:else>
-			<f:form.submit name="submitType" value="{f:translate(key: 'subscribe')}" class="{settings.form.button.subscribe.class}" data="{identifier: 'submit'}" />
-			<f:if condition="{settings.form.button.subscribe.enableSpinner}">
-				<span style="display: none;" class="{settings.form.button.subscribe.spinnerClass}" data-identifier="spinner"></span>
-			</f:if>
-		</f:else>
-	</f:if>
-
-	<f:comment>Check if button should be wrapped with a div, start</f:comment>
-	<f:if condition="{settings.form.button.subscribe.outerWrap.enabled} == 1">
-		</div>
-	</f:if>
-
+    <pxa:wrapContent settings="{settings.form.button.subscribe}">
+        <f:if condition="{settings.form.button.subscribe.useButtonTag}">
+            <f:then>
+                <f:form.button name="submitType"
+                               class="{settings.form.button.subscribe.class}"
+                               data="{identifier: 'submit'}">
+                    <f:translate key='subscribe'/>
+                    <f:if condition="{settings.form.button.subscribe.enableSpinner}">
+                    <span style="display: none;"
+                          class="{settings.form.button.subscribe.spinnerClass}"
+                          data-identifier="spinner"></span>
+                    </f:if>
+                </f:form.button>
+            </f:then>
+            <f:else>
+                <f:form.submit name="submitType" value="{f:translate(key: 'subscribe')}"
+                               class="{settings.form.button.subscribe.class}"
+                               data="{identifier: 'submit'}"/>
+                <f:if condition="{settings.form.button.subscribe.enableSpinner}">
+                <span style="display: none;"
+                      class="{settings.form.button.subscribe.spinnerClass}"
+                      data-identifier="spinner"></span>
+                </f:if>
+            </f:else>
+        </f:if>
+    </pxa:wrapContent>
 </f:section>
 
 <f:section name="button.unsubscribe">
-
-	<f:if condition="{settings.displayUnsubscribeButton}">
-
-		<f:comment>Check if button should be wrapped with a div, start</f:comment>
-		<f:if condition="{settings.form.button.unsubscribe.outerWrap.enabled} == 1">
-			<div class="{settings.form.button.unsubscribe.outerWrap.class}">
-		</f:if>
-
-		<f:comment>Render button</f:comment>
-		<f:if condition="{settings.form.button.unsubscribe.useButtonTag}">
-			<f:then>
-				<f:form.button name="submitType" class="{settings.form.button.unsubscribe.class}" data="{identifier: 'submit'}">
-					<f:translate key='unsubscribe' />
-					<f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
-						<span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}" data-identifier="spinner"></span>
-					</f:if>
-				</f:form.button>
-			</f:then>
-			<f:else>
-				<f:form.submit name="submitType" value="{f:translate(key: 'unsubscribe')}" class="{settings.form.button.unsubscribe.class}" data="{identifier: 'submit'}" />
-				<f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
-					<span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}" data-identifier="spinner"></span>
-				</f:if>
-			</f:else>
-		</f:if>
-
-		<f:comment>Check if button should be wrapped with a div, start</f:comment>
-		<f:if condition="{settings.form.button.unsubscribe.outerWrap.enabled} == 1">
-			</div>
-		</f:if>
-
-	</f:if>
-
+    <f:if condition="{settings.displayUnsubscribeButton}">
+        <pxa:wrapContent settings="{settings.form.button.unsubscribe}">
+            <f:if condition="{settings.form.button.unsubscribe.useButtonTag}">
+                <f:then>
+                    <f:form.button name="submitType" class="{settings.form.button.unsubscribe.class}"
+                                   data="{identifier: 'submit'}">
+                        <f:translate key='unsubscribe'/>
+                        <f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
+                        <span style="display: none;" class="{settings.form.button.unsubscribe.spinnerClass}"
+                              data-identifier="spinner"></span>
+                        </f:if>
+                    </f:form.button>
+                </f:then>
+                <f:else>
+                    <f:form.submit name="submitType"
+                                   value="{f:translate(key: 'unsubscribe')}"
+                                   class="{settings.form.button.unsubscribe.class}"
+                                   data="{identifier: 'submit'}"/>
+                    <f:if condition="{settings.form.button.unsubscribe.enableSpinner}">
+                    <span style="display: none;"
+                          class="{settings.form.button.unsubscribe.spinnerClass}"
+                          data-identifier="spinner"></span>
+                    </f:if>
+                </f:else>
+            </f:if>
+        </pxa:wrapContent>
+    </f:if>
 </f:section>
+</html>

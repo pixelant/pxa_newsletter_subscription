@@ -1,14 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
 <f:layout name="Standalone"/>
 
-The standalone layout is used since it is not rendered on a page
-
 <f:section name="main">
-	<div class="{settings.ajax.class}">
-		<p>{message}</p>
-		<p>
-			<a class="{settings.ajax.button.class}" href="/">
-				<f:translate key="back_to_website" extensionName="PxaNewsletterSubscription"/>
-			</a>
-		</p>
-	</div>
+    <div class="{settings.ajax.class}">
+        <p>{message}</p>
+        <p>
+            <a class="{settings.ajax.button.class}" href="/">
+                <f:translate key="back_to_website" extensionName="PxaNewsletterSubscription"/>
+            </a>
+        </p>
+    </div>
 </f:section>
+</html>

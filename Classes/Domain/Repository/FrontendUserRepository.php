@@ -26,6 +26,7 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
  * Extending Frontend User Repository
@@ -34,118 +35,119 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
+class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+{
 
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
+    /**
+     * initialize default settings
+     */
+    public function initializeObject()
+    {
+        /** @var Typo3QuerySettings $defaultQuerySettings */
+        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
 
-	/**
-	* Gets the count of frontend users with email in a pid.
-	*
-	* @param string $email
-	* @param int $pid
-	* @return int
-	*/
-	public function getCountByEmailAndPid($email, $pid) {
+        $defaultQuerySettings->setRespectStoragePage(false);
+        $defaultQuerySettings->setIgnoreEnableFields(true);
+        $defaultQuerySettings->setEnableFieldsToBeIgnored(['disabled']);
 
-		$query = $this->createQuery();
-			
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE); 
-		$query->getQuerySettings()->setEnableFieldsToBeIgnored(array('disabled'));
+        $this->setDefaultQuerySettings($defaultQuerySettings);
+    }
 
-		$countUsers = $query
-			->matching(
-				$query->logicalAnd(
-        			$query->equals('email', $email),
-        			$query->equals('pid', $pid)
-        		)
-        	)
-        	->count();
-		
-		return $countUsers;
-	}
+    /**
+     * Gets the count of frontend users with email in a pid.
+     *
+     * @param string $email
+     * @param int $pid
+     * @return int
+     */
+    public function getCountByEmailAndPid($email, $pid)
+    {
 
-	/**
-	* Does frontend user with email exist on page with pid.
-	*
-	* @param string $email
-	* @param int $pid
-	* @return bool
-	*/
-	public function doesEmailExistInPid($email, $pid) {
+        $query = $this->createQuery();
 
-		$query = $this->createQuery();
-			
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE); 
-		$query->getQuerySettings()->setEnableFieldsToBeIgnored(array('disabled'));
+        $countUsers = $query
+            ->matching(
+                $query->logicalAnd(
+                    $query->equals('email', $email),
+                    $query->equals('pid', $pid)
+                )
+            )
+            ->count();
 
-		$countUsers = $query
-			->matching(
-				$query->logicalAnd(
-        			$query->equals('email', $email),
-        			$query->equals('pid', $pid)
-        		)
-        	)
-        	->count();
-		
-		return $countUsers > 0;
-	}
+        return $countUsers;
+    }
 
-	/**
-	* Gets a Frontend User by uid and hash (fax)
-	*
-	* @param int $uid
-	* @param string $hash
-	* @return Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser
-	*/
-	public function getUserByUidAndHash($uid, $hash) {
+    /**
+     * Does frontend user with email exist on page with pid.
+     *
+     * @param string $email
+     * @param int $pid
+     * @return bool
+     */
+    public function doesEmailExistInPid($email, $pid)
+    {
 
-		$query = $this->createQuery();
-			
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE); 
-		$query->getQuerySettings()->setEnableFieldsToBeIgnored(array('disabled'));
+        $query = $this->createQuery();
 
-		$frontendUser = $query
-			->matching(
-				$query->logicalAnd(
-        			$query->equals('uid', $uid),
-        			$query->equals('fax', $hash)
-        		)
-        	)
-        	->execute()
-			->getFirst();
-		
-		return $frontendUser;
-	}
+        $countUsers = $query
+            ->matching(
+                $query->logicalAnd(
+                    $query->equals('email', $email),
+                    $query->equals('pid', $pid)
+                )
+            )
+            ->count();
 
-	/**
-	* Gets a sigle (first) Frontend User by email and pid
-	*
-	* @param string $email
-	* @param int $pid
-	* @return Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser
-	*/
-	public function getUserByEmailAndPid($email, $pid) {
+        return $countUsers > 0;
+    }
 
-		$query = $this->createQuery();
-			
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE); 
-		$query->getQuerySettings()->setEnableFieldsToBeIgnored(array('disabled'));
+    /**
+     * Gets a Frontend User by uid and hash (fax)
+     *
+     * @param int $uid
+     * @param string $hash
+     * @return \Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser|object
+     */
+    public function getUserByUidAndHash($uid, $hash)
+    {
 
-		$frontendUser = $query
-			->matching(
-				$query->logicalAnd(
-					$query->equals('email', $email),
-					$query->equals('pid', $pid)
-				)
-			)
-			->execute()
-			->getFirst();
-		
-		return $frontendUser;
-	}
+        $query = $this->createQuery();
 
+        $frontendUser = $query
+            ->matching(
+                $query->logicalAnd(
+                    $query->equals('uid', $uid),
+                    $query->equals('fax', $hash)
+                )
+            )
+            ->execute()
+            ->getFirst();
+
+        return $frontendUser;
+    }
+
+    /**
+     * Gets a sigle (first) Frontend User by email and pid
+     *
+     * @param string $email
+     * @param int $pid
+     * @return \Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser|object
+     */
+    public function getUserByEmailAndPid($email, $pid)
+    {
+
+        $query = $this->createQuery();
+
+        $frontendUser = $query
+            ->matching(
+                $query->logicalAnd(
+                    $query->equals('email', $email),
+                    $query->equals('pid', $pid)
+                )
+            )
+            ->execute()
+            ->getFirst();
+
+        return $frontendUser;
+    }
 }
-?>

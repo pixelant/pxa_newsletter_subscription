@@ -10,33 +10,29 @@
 # "version" and "dependencies" must not be touched!
 ########################################################################
 
-$EM_CONF[$_EXTKEY] = array(
-	'title' => 'Newsletter Subscription',
-	'description' => 'Newsletter Subscription',
-	'category' => 'plugin',
-	'author' => 'Inna Titorenko',
-	'author_email' => 'inna@pixelant.se',
-	'author_company' => 'Pixelant',
-	'shy' => '',
-	'priority' => '',
-	'module' => '',
-	'state' => 'beta',
-	'internal' => '',
-	'uploadfolder' => '0',
-	'createDirs' => '',
-	'modify_tables' => '',
-	'clearCacheOnLoad' => 0,
-	'lockType' => '',
-	'version' => '4.1.2',
-	'constraints' => array(
-		'depends' => array(
-			'typo3' => '8.7'
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-);
-
-?>
+$EM_CONF[$_EXTKEY] = [
+    'title' => 'Newsletter Subscription',
+    'description' => 'Newsletter Subscription',
+    'category' => 'plugin',
+    'author' => 'Inna Titorenko',
+    'author_email' => 'inna@pixelant.se',
+    'author_company' => 'Pixelant',
+    'shy' => '',
+    'priority' => '',
+    'module' => '',
+    'state' => 'beta',
+    'internal' => '',
+    'uploadfolder' => '0',
+    'createDirs' => '',
+    'modify_tables' => '',
+    'clearCacheOnLoad' => 0,
+    'lockType' => '',
+    'version' => '4.1.2',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '8.7'
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+];

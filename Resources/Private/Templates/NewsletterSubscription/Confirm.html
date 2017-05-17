@@ -1,15 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
 <f:layout name="Default"/>
 
 <f:section name="main">
-	
-	<f:if condition="{settings.confirm.outerWrap.enabled} == 1">
-		<div class="{settings.confirm.outerWrap.class} {f:if(condition: status, then: '{settings.confirm.outerWrap.classSuccess}', else: '{settings.confirm.outerWrap.classFailure}')}">
-	</f:if>
-
-	<p class="{settings.confirm.class} {f:if(condition: status, then: '{settings.confirm.classSuccess}', else: '{settings.confirm.classFailure}')}">{message}</p>
-	
-	<f:if condition="{settings.confirm.outerWrap.enabled} == 1">
-		</div>
-	</f:if>
-	
+    <f:if condition="{settings.confirm.outerWrap.enabled} == 1">
+        <f:then>
+            <div class="{settings.confirm.outerWrap.class} {f:if(condition: status, then: '{settings.confirm.outerWrap.classSuccess}', else: '{settings.confirm.outerWrap.classFailure}')}">
+                <f:render section="message" argument="{_all}"/>
+            </div>
+        </f:then>
+        <f:else><f:render section="message" argument="{_all}"/></f:else>
+    </f:if>
 </f:section>
+
+<f:section name="message">
+    <p class="{settings.confirm.class} {f:if(condition: status, then: '{settings.confirm.classSuccess}', else: '{settings.confirm.classFailure}')}">
+        {message}
+    </p>
+</f:section>
+</html>

@@ -34,30 +34,27 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
+class FrontendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
+{
 
-class FrontendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository {
+    /**
+     * Gets a Frontend User Group by uid without respecting storage page.
+     *
+     * @param int $uid
+     * @return object
+     */
+    public function getFrontendUserGroupByUid($uid)
+    {
 
-	/**
-	* Gets a Frontend User Group by uid without respecting storage page.
-	*
-	* @param int $uid
-	* @return int
-	*/
-	public function getFrontendUserGroupByUid($uid) {
+        $query = $this->createQuery();
 
-		$query = $this->createQuery();
-			
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		
-		$frontendUserGroup = $query
-			->matching(
-				$query->equals('uid',$uid)
-			)
-			->execute()
-			->getFirst();
-		
-		return $frontendUserGroup;
-	}
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
+        return $query
+            ->matching(
+                $query->equals('uid', $uid)
+            )
+            ->execute()
+            ->getFirst();
+    }
 }
-?>

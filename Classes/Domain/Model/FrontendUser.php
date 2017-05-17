@@ -35,105 +35,112 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Model;
  *
  */
 
-class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+{
 
-	/**
-	 * @var boolean
-	 */	
-	protected $disable;
+    /**
+     * @var boolean
+     */
+    protected $disable;
 
-	/**
-	 * @var boolean
-	 */	
-	protected $deleted;
+    /**
+     * @var boolean
+     */
+    protected $deleted;
 
-	/**
-	 * @param boolean $disable
-	 */
-	public function setDisable($disable) {
-		$this->disable = $disable;
-	}
+    /**
+     * @param boolean $disable
+     */
+    public function setDisable($disable)
+    {
+        $this->disable = $disable;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function getDisable() {
-		return $this->disable;
-	}
+    /**
+     * @return boolean
+     */
+    public function getDisable()
+    {
+        return $this->disable;
+    }
 
-	/**
-	 * @param boolean $deleted
-	 */
-	public function setDeleted($deleted) {
-		$this->deleted = $deleted;
-	}
+    /**
+     * @param boolean $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function getDeleted() {
-		return $this->deleted;
-	}
+    /**
+     * @return boolean
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
-	/**
-	* Sets password with a random generated password.
-	*
-	* @param int $length The length of the password.
-	* @return void
-	*/
-	public function setRandomPassword($length = 12) {
-		
-		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
-		$password = substr( str_shuffle( $chars ), 0, $length );
+    /**
+     * Sets password with a random generated password.
+     *
+     * @param int $length The length of the password.
+     * @return void
+     */
+    public function setRandomPassword($length = 12)
+    {
 
-		$this->password = $password;
-	
-	}
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+        $password = substr(str_shuffle($chars), 0, $length);
 
-	/**
-	* Sets random hash (uses fax property).
-	*
-	* @return void
-	*/
-	public function setHash()
-	{
-		$randomHash = substr(md5(uniqid(rand(), true)), 16, 16);
-		$this->fax = $randomHash;
-	}
+        $this->password = $password;
+    }
 
-	/**
-	* Gets random hash (uses fax property).
-	*
-	* @return string
-	*/
-	public function getHash()
-	{
-		return $this->fax;
-	}
+    /**
+     * Sets random hash (uses fax property).
+     *
+     * @return void
+     */
+    public function setHash()
+    {
+        $randomHash = substr(md5(uniqid(rand(), true)), 16, 16);
+        $this->fax = $randomHash;
+    }
 
-	/**
-	* Creates a new Frontend User as a subscriber.
-	*
-	* @param int $pid The page to store the Frontend User on.
-	* @param string $email The email of the user.
-	* @param string $name The name of the user.
-	* @param bool $confirm If the user needs to confirm subscription by email.
-	* @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup The usergroup user should be a member of.
-	* @return void
-	*/
-	public function setAsSubscriber($pid, $email, $name, $confirm, \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup) {
-		
-			$this->setPid(intval($pid));
-			$this->setUsername($email);
-			$this->setEmail($email);
-			$this->setName($name);
-			$this->setDisable(intval($confirm));
-			$this->setHash();
-			$this->setRandomPassword(12);
-			$this->addUsergroup($usergroup);
-	
-	}
+    /**
+     * Gets random hash (uses fax property).
+     *
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->fax;
+    }
 
+    /**
+     * Creates a new Frontend User as a subscriber.
+     *
+     * @param int $pid The page to store the Frontend User on.
+     * @param string $email The email of the user.
+     * @param string $name The name of the user.
+     * @param bool $confirm If the user needs to confirm subscription by email.
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup The usergroup user should be a member of.
+     * @return void
+     */
+    public function setAsSubscriber(
+        $pid,
+        $email,
+        $name,
+        $confirm,
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup
+    ) {
 
+        $this->setPid(intval($pid));
+        $this->setUsername($email);
+        $this->setEmail($email);
+        $this->setName($name);
+        $this->setDisable(intval($confirm));
+        $this->setHash();
+        $this->setRandomPassword(12);
+        $this->addUsergroup($usergroup);
+    }
 }
-?>
