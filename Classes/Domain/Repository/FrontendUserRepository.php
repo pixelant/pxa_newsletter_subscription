@@ -1,4 +1,5 @@
 <?php
+
 namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
 
 /***************************************************************
@@ -54,27 +55,15 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
     }
 
     /**
-     * Gets the count of frontend users with email in a pid.
+     * Find one user
      *
-     * @param string $email
-     * @param int $pid
-     * @return int
+     * @param int $uid
+     * @return object
      */
-    public function getCountByEmailAndPid($email, $pid)
+    public function findByUid($uid)
     {
-
         $query = $this->createQuery();
-
-        $countUsers = $query
-            ->matching(
-                $query->logicalAnd(
-                    $query->equals('email', $email),
-                    $query->equals('pid', $pid)
-                )
-            )
-            ->count();
-
-        return $countUsers;
+        return $query->matching($query->equals('uid', $uid))->execute()->getFirst();
     }
 
     /**
@@ -99,31 +88,6 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
             ->count();
 
         return $countUsers > 0;
-    }
-
-    /**
-     * Gets a Frontend User by uid and hash (fax)
-     *
-     * @param int $uid
-     * @param string $hash
-     * @return \Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser|object
-     */
-    public function getUserByUidAndHash($uid, $hash)
-    {
-
-        $query = $this->createQuery();
-
-        $frontendUser = $query
-            ->matching(
-                $query->logicalAnd(
-                    $query->equals('uid', $uid),
-                    $query->equals('fax', $hash)
-                )
-            )
-            ->execute()
-            ->getFirst();
-
-        return $frontendUser;
     }
 
     /**

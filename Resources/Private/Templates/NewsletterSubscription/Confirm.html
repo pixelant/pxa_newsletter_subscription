@@ -6,10 +6,10 @@
     <f:if condition="{settings.confirm.outerWrap.enabled} == 1">
         <f:then>
             <div class="{settings.confirm.outerWrap.class} {f:if(condition: status, then: '{settings.confirm.outerWrap.classSuccess}', else: '{settings.confirm.outerWrap.classFailure}')}">
-                <f:render section="message" argument="{_all}"/>
+                <f:render section="message" arguments="{_all}"/>
             </div>
         </f:then>
-        <f:else><f:render section="message" argument="{_all}"/></f:else>
+        <f:else><f:render section="message" arguments="{_all}"/></f:else>
     </f:if>
 </f:section>
 

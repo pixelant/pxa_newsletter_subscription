@@ -44,11 +44,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
     protected $disable;
 
     /**
-     * @var boolean
-     */
-    protected $deleted;
-
-    /**
      * @param boolean $disable
      */
     public function setDisable($disable)
@@ -65,22 +60,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
     }
 
     /**
-     * @param boolean $deleted
-     */
-    public function setDeleted($deleted)
-    {
-        $this->deleted = $deleted;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getDeleted()
-    {
-        return $this->deleted;
-    }
-
-    /**
      * Sets password with a random generated password.
      *
      * @param int $length The length of the password.
@@ -93,27 +72,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
         $password = substr(str_shuffle($chars), 0, $length);
 
         $this->password = $password;
-    }
-
-    /**
-     * Sets random hash (uses fax property).
-     *
-     * @return void
-     */
-    public function setHash()
-    {
-        $randomHash = substr(md5(uniqid(rand(), true)), 16, 16);
-        $this->fax = $randomHash;
-    }
-
-    /**
-     * Gets random hash (uses fax property).
-     *
-     * @return string
-     */
-    public function getHash()
-    {
-        return $this->fax;
     }
 
     /**
@@ -139,7 +97,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
         $this->setEmail($email);
         $this->setName($name);
         $this->setDisable(intval($confirm));
-        $this->setHash();
         $this->setRandomPassword(12);
         $this->addUsergroup($usergroup);
     }

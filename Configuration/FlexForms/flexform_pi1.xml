@@ -14,52 +14,24 @@
 				<el>
 					<settings.enableEmailConfirm>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:enableEmailConfirm
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:enableEmailConfirm</label>
+							<onChange>reload</onChange>
 							<config>
 								<type>check</type>
 							</config>
-							<onChange>reload</onChange>
 						</TCEforms>
 					</settings.enableEmailConfirm>
 					<settings.formFieldNameIsMandatory>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:formFieldNameIsMandatory
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:formFieldNameIsMandatory</label>
 							<config>
 								<type>check</type>
 							</config>
-							<onChange>reload</onChange>
 						</TCEforms>
 					</settings.formFieldNameIsMandatory>
-					<settings.formFieldNameHidden>
-						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:formFieldNameHidden
-							</label>
-							<displayCond>FIELD:settings.formFieldNameIsMandatory:=:0</displayCond>
-							<config>
-								<type>check</type>
-							</config>
-						</TCEforms>
-					</settings.formFieldNameHidden>
-					<settings.forceFormView>
-						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:forceFormView
-							</label>
-							<config>
-								<type>check</type>
-							</config>
-						</TCEforms>
-					</settings.forceFormView>
 					<settings.displayUnsubscribeButton>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:displayUnsubscribeButton
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:displayUnsubscribeButton</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -125,123 +97,70 @@
 		<confirmMail>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>
-						Confirmation Mail
-					</sheetTitle>
-					<!-- <displayCond>FIELD:settings.enableEmailConfirm:=:1</displayCond> -->
+					<sheetTitle>Confirmation Mail</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 					<settings.confirmMailSenderName>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSenderName
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSenderName</label>
+							<displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
 							<config>
 								<type>input</type>
 								<size>20</size>
 								<max>30</max>
+                                <eval>trim,required</eval>
 							</config>
 						</TCEforms>
 					</settings.confirmMailSenderName>
 					<settings.confirmMailSenderEmail>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSenderEmail
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSenderEmail</label>
+							<displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
 							<config>
 								<type>input</type>
 								<size>20</size>
 								<max>30</max>
-								<eval>trim</eval>
+                                <eval>trim,required</eval>
 							</config>
 						</TCEforms>
 					</settings.confirmMailSenderEmail>
-					<settings.confirmMailReplyTo>
-						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailReplyTo
-							</label>
-							<config>
-								<type>input</type>
-								<size>20</size>
-								<max>30</max>
-								<eval>trim</eval>
-							</config>
-						</TCEforms>
-					</settings.confirmMailReplyTo>
 					<settings.confirmMailSubject>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubject
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubject</label>
+							<displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
 							<config>
 								<type>input</type>
 								<size>35</size>
 								<max>35</max>
+                                <eval>trim,required</eval>
 							</config>
 						</TCEforms>
 					</settings.confirmMailSubject>
 					<settings.confirmMailSubscribeBody>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubscribeBody
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubscribeBody</label>
+							<displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
 							<config>
 								<type>text</type>
 								<cols>35</cols>
 								<rows>10</rows>
+                                <eval>trim,required</eval>
 							</config>
 						</TCEforms>
 					</settings.confirmMailSubscribeBody>
 					<settings.confirmMailUnsubscribeBody>
 						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailUnsubscribeBody
-							</label>
+							<label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailUnsubscribeBody</label>
+							<displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
 							<config>
 								<type>text</type>
 								<cols>35</cols>
 								<rows>10</rows>
+                                <eval>trim,required</eval>
 							</config>
 						</TCEforms>
 					</settings.confirmMailUnsubscribeBody>
-					<settings.confirmMailSubscribeInstruction>
-						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubscribeInstruction
-							</label>
-							<config>
-								<type>text</type>
-								<cols>35</cols>
-								<rows>2</rows>
-							</config>
-						</TCEforms>
-					</settings.confirmMailSubscribeInstruction>
-					<settings.confirmMailUnsubscribeInstruction>
-						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailUnsubscribeInstruction
-							</label>
-							<config>
-								<type>text</type>
-								<cols>35</cols>
-								<rows>2</rows>
-							</config>
-						</TCEforms>
-					</settings.confirmMailUnsubscribeInstruction>
-					<settings.confirmMailFooter>
-						<TCEforms>
-							<label>
-								LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailFooter
-							</label>
-							<config>
-								<type>text</type>
-								<cols>35</cols>
-								<rows>3</rows>
-							</config>
-						</TCEforms>
-					</settings.confirmMailFooter>
 				</el>
 			</ROOT>
 		</confirmMail>

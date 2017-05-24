@@ -8,6 +8,9 @@ defined('TYPO3_MODE') || die;
     'Subscription'
 );
 
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['pxanewslettersubscription_subscription'] =
+    'pages,recursive,layout,select_key';
+
 // Add flexform
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['pxanewslettersubscription_subscription'] =
     'pi_flexform';

@@ -5,6 +5,8 @@
 
 <f:section name="main">
     <f:form action="ajax" pageType="6171240" data="{form: 'pxa-newsletter-subscription-form'}" class="{settings.form.class}">
+        <f:form.hidden name="ceuid" value="{ceuid}" />
+
         <f:comment>
             Form fields.
             Wrap content will check if it need to enable it with inner or outer wrap
@@ -12,7 +14,7 @@
 
         <pxa:wrapContent settings="{settings.form.fields}">
             <f:comment>Name if enabled</f:comment>
-            <f:if condition="{displayNameField}">
+            <f:if condition="{settings.formFieldNameIsMandatory}">
                 <pxa:wrapContent settings="{settings.form.field.name}">
                     <f:form.textfield placeholder="{f:translate(key: 'name')}"
                                       class="{settings.form.field.name.class}"
@@ -33,6 +35,7 @@
             <f:render section="button.subscribe" arguments="{_all}"/>
             <f:render section="button.unsubscribe" arguments="{_all}"/>
         </pxa:wrapContent>
+        <div style="clear: both"></div>
     </f:form>
 </f:section>
 
@@ -41,7 +44,7 @@
     <pxa:wrapContent settings="{settings.form.button.subscribe}">
         <f:if condition="{settings.form.button.subscribe.useButtonTag}">
             <f:then>
-                <f:form.button name="submitType"
+                <f:form.button name="submitSubscribe"
                                class="{settings.form.button.subscribe.class}"
                                data="{identifier: 'submit'}">
                     <f:translate key='subscribe'/>
@@ -53,7 +56,7 @@
                 </f:form.button>
             </f:then>
             <f:else>
-                <f:form.submit name="submitType" value="{f:translate(key: 'subscribe')}"
+                <f:form.submit name="submitSubscribe" value="{f:translate(key: 'subscribe')}"
                                class="{settings.form.button.subscribe.class}"
                                data="{identifier: 'submit'}"/>
                 <f:if condition="{settings.form.button.subscribe.enableSpinner}">
@@ -71,7 +74,7 @@
         <pxa:wrapContent settings="{settings.form.button.unsubscribe}">
             <f:if condition="{settings.form.button.unsubscribe.useButtonTag}">
                 <f:then>
-                    <f:form.button name="submitType"
+                    <f:form.button name="submitUnsubscribe"
                                    class="{settings.form.button.unsubscribe.class}"
                                    data="{identifier: 'submit'}">
                         <f:translate key='unsubscribe'/>
@@ -83,7 +86,7 @@
                     </f:form.button>
                 </f:then>
                 <f:else>
-                    <f:form.submit name="submitType"
+                    <f:form.submit name="submitUnsubscribe"
                                    value="{f:translate(key: 'unsubscribe')}"
                                    class="{settings.form.button.unsubscribe.class}"
                                    data="{identifier: 'submit'}"/>

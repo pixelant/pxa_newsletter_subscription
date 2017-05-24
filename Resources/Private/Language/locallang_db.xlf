@@ -9,17 +9,11 @@
             <trans-unit id="formFieldNameIsMandatory" xml:space="preserve">
                 <source>Name is mandatory for subscribe</source>
             </trans-unit>
-            <trans-unit id="formFieldNameHidden" xml:space="preserve">
-                <source>Exclude name in the subscribe form</source>
-            </trans-unit>
             <trans-unit id="save_folder" xml:space="preserve">
                 <source>Save to folder</source>
             </trans-unit>
             <trans-unit id="choose_usergroup" xml:space="preserve">
                 <source>Select a usergroup</source>
-            </trans-unit>
-            <trans-unit id="forceFormView" xml:space="preserve">
-                <source>Force form view (Usable f.ex. when you have a subscribe in the footer)</source>
             </trans-unit>
             <trans-unit id="displayUnsubscribeButton" xml:space="preserve">
                 <source>Display unsubscribe button</source>
@@ -33,9 +27,6 @@
             <trans-unit id="confirmMailSenderEmail" xml:space="preserve">
                 <source>Sender e-mail in confirm mail</source>
             </trans-unit>
-            <trans-unit id="confirmMailReplyTo" xml:space="preserve">
-                <source>Reply to address in confirm mail</source>
-            </trans-unit>
             <trans-unit id="confirmMailSubject" xml:space="preserve">
                 <source>Subject of confirmation mail</source>
             </trans-unit>
@@ -44,15 +35,6 @@
             </trans-unit>
             <trans-unit id="confirmMailUnsubscribeBody" xml:space="preserve">
                 <source>Body of unsubscribe confirmation mail</source>
-            </trans-unit>
-            <trans-unit id="confirmMailSubscribeInstruction" xml:space="preserve">
-                <source>Subscribe instruction in confirmation mail (displayed above subscribelink)</source>
-            </trans-unit>
-            <trans-unit id="confirmMailUnsubscribeInstruction" xml:space="preserve">
-                <source>Unsubscribe instruction in confirmation mail (displayed above unsubscribelink)</source>
-            </trans-unit>
-            <trans-unit id="confirmMailFooter" xml:space="preserve">
-                <source>Footer in confirmation mail</source>
             </trans-unit>
         </body>
     </file>
