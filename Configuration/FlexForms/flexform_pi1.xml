@@ -75,7 +75,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmPage</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
+                            <displayCond>FIELD:settings.enableEmailConfirm:REQ:TRUE</displayCond>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -100,12 +100,12 @@
                 <TCEforms>
                     <sheetTitle>Confirmation Mail</sheetTitle>
                 </TCEforms>
+                <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
                 <type>array</type>
                 <el>
                     <settings.confirmMailSenderName>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSenderName</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
                             <config>
                                 <type>input</type>
                                 <size>20</size>
@@ -117,7 +117,6 @@
                     <settings.confirmMailSenderEmail>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSenderEmail</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
                             <config>
                                 <type>input</type>
                                 <size>20</size>
@@ -129,7 +128,6 @@
                     <settings.confirmMailSubject>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubject</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
                             <config>
                                 <type>input</type>
                                 <size>35</size>
@@ -141,7 +139,6 @@
                     <settings.confirmLinkText>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmLinkText</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
                             <config>
                                 <type>input</type>
                                 <size>35</size>
@@ -153,7 +150,7 @@
                     <settings.confirmMailSubscribeBody>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailSubscribeBody</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
+                            <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
                             <config>
                                 <type>text</type>
                                 <cols>35</cols>
@@ -166,7 +163,7 @@
                     <settings.confirmMailUnsubscribeBody>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:confirmMailUnsubscribeBody</label>
-                            <displayCond>FIELD:sDEF.settings.enableEmailConfirm:REQ:TRUE</displayCond>
+                            <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
                             <config>
                                 <type>text</type>
                                 <cols>35</cols>
