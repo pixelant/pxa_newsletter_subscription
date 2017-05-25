@@ -29,6 +29,8 @@ class EmailNotificationService
 
     /**
      * Initialize main vars
+     *
+     * @param array $settings
      */
     public function __construct($settings)
     {
@@ -39,7 +41,8 @@ class EmailNotificationService
     }
 
     /**
-     * S
+     * Send email
+     *
      * @param FrontendUser $feUser
      * @param string $link
      * @param bool $unSubscribeMail
@@ -47,6 +50,8 @@ class EmailNotificationService
      */
     public function sendConfirmationEmail(FrontendUser $feUser, $link, $unSubscribeMail)
     {
+        $link = $this->generateLink($link);
+
         $this->mailMessage->setFrom($this->getSender());
         $this->mailMessage->setTo($feUser->getEmail());
         $this->mailMessage->setSubject($this->getConfirmMailSubject());
@@ -130,6 +135,25 @@ class EmailNotificationService
         }
 
         return $bodyText;
+    }
+
+    /**
+     * If link text is set, generate HTML for link
+     *
+     * @param string $link
+     * @return string
+     */
+    protected function generateLink($link)
+    {
+        if (!empty($this->settings['confirmLinkText'])) {
+            $link = sprintf(
+                '<a href="%s">%s</a>',
+                $link,
+                $this->settings['confirmLinkText']
+            );
+        }
+
+        return $link;
     }
 
     /**

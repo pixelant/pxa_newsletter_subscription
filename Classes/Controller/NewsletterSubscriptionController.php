@@ -72,7 +72,7 @@ class NewsletterSubscriptionController extends ActionController
     /**
      * Render confirm action
      *
-     * Renders confirm result as a content element if hash parameter is set
+     * Renders confirm result as a content element
      *
      * @param string $status
      * @param string $hashid
@@ -103,7 +103,12 @@ class NewsletterSubscriptionController extends ActionController
     public function ajaxAction()
     {
         $isNewSubscription = $this->request->hasArgument('submitSubscribe');
-        $arguments = array_map('trim', $this->request->getArguments());
+        $arguments = $this->request->getArguments();
+        foreach (['email, name'] as $item) {
+            if (array_key_exists($item, $arguments)) {
+                $arguments[$item] = trim($arguments[$item]);
+            }
+        }
 
         $message = $this->validateSubscription($isNewSubscription, $arguments);
         $valid = $message === '';
@@ -269,18 +274,19 @@ class NewsletterSubscriptionController extends ActionController
      */
     protected function confirmSubscription($hash, $id)
     {
-
         $status = false;
 
         if ($this->hashService->validateHmac('pxa_newsletter_subscription-subscribe' . $id, $hash)) {
+            /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid($id);
-            $frontendUser->setDisable(0);
+            if ($frontendUser !== null && $frontendUser->getDisable()) {
+                $frontendUser->setDisable(0);
 
-            $this->frontendUserRepository->update($frontendUser);
-            $this->persistenceManager->persistAll();
+                $this->frontendUserRepository->update($frontendUser);
 
-            $message = $this->translate('subscribe_ok');
-            $status = true;
+                $message = $this->translate('subscribe_ok');
+                $status = true;
+            }
         }
 
         if (!isset($message)) {
@@ -307,11 +313,12 @@ class NewsletterSubscriptionController extends ActionController
         if ($this->hashService->validateHmac('pxa_newsletter_subscription-unsubscribe' . $id, $hash)) {
             $frontendUser = $this->frontendUserRepository->findByUid($id);
 
-            $this->frontendUserRepository->remove($frontendUser);
-            $this->persistenceManager->persistAll();
+            if ($frontendUser !== null) {
+                $this->frontendUserRepository->remove($frontendUser);
 
-            $message = $this->translate('unsubscribe_ok');
-            $status = true;
+                $message = $this->translate('unsubscribe_ok');
+                $status = true;
+            }
         }
 
         if (!isset($message)) {
@@ -338,11 +345,11 @@ class NewsletterSubscriptionController extends ActionController
         $confirmPageId = intval($this->settings['confirmPage']) ?
             intval($this->settings['confirmPage']) : $GLOBALS['TSFE']->id;
 
-        $linkParams = array(
+        $linkParams = [
             'status' => $status,
             'hashid' => $id,
             'hash' => $this->hashService->generateHmac('pxa_newsletter_subscription-' . $status . $id)
-        );
+        ];
 
 
         return $this

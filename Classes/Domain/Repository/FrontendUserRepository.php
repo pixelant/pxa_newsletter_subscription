@@ -75,7 +75,6 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
      */
     public function doesEmailExistInPid($email, $pid)
     {
-
         $query = $this->createQuery();
 
         $countUsers = $query
