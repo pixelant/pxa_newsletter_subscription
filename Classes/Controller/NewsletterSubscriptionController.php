@@ -19,6 +19,12 @@ class NewsletterSubscriptionController extends ActionController
     const STATUS_UNSUBSCRIBE = 'unsubscribe';
 
     /**
+     * RTE fields in settings to process with lib.parseFunc_RTE
+     * @var array
+     */
+    protected static $rteFields = ['confirmMailSubscribeBody', 'confirmMailUnsubscribeBody'];
+
+    /**
      * frontendUserRepository
      *
      * @var \Pixelant\PxaNewsletterSubscription\Domain\Repository\FrontendUserRepository
@@ -55,6 +61,20 @@ class NewsletterSubscriptionController extends ActionController
      * @inject
      */
     protected $hashService;
+
+    /**
+     * Prepare confirmation emails for ajax action
+     */
+    public function initializeAjaxAction()
+    {
+        foreach (self::$rteFields as $rteField) {
+            $this->settings[$rteField] = $this->configurationManager->getContentObject()->parseFunc(
+                $this->settings[$rteField],
+                [],
+                '< lib.parseFunc_RTE'
+            );
+        }
+    }
 
     /**
      * Render form action
@@ -104,7 +124,7 @@ class NewsletterSubscriptionController extends ActionController
     {
         $isNewSubscription = $this->request->hasArgument('submitSubscribe');
         $arguments = $this->request->getArguments();
-        foreach (['email, name'] as $item) {
+        foreach (['email', 'name'] as $item) {
             if (array_key_exists($item, $arguments)) {
                 $arguments[$item] = trim($arguments[$item]);
             }

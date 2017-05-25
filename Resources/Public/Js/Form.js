@@ -1,20 +1,19 @@
 (function (w, $) {
-	var formElement = $('form[data-form="pxa-newsletter-subscription-form"]'),
-		submitElement = $('[data-identifier="submit"]', formElement),
-		spinnerElement = $('[data-identifier="spinner"]', formElement);
+	var submitElement = $('[data-identifier="submit"]', 'form[data-form="pxa-newsletter-subscription-form"]');
 
 	submitElement.on('click', function (e) {
 		e.preventDefault();
 
 		var currentButton = $(this),
+			formElement = currentButton.parents('form[data-form="pxa-newsletter-subscription-form"]'),
+			spinnerElement = $('[data-identifier="spinner"]', formElement),
 			data = formElement.serializeArray();
 
 		data.push({name: currentButton.attr('name'), value: 1});
 
-
 		// Disable button, and fade in spinner
 		spinnerElement.fadeIn(50);
-		submitElement.prop('disabled', true);
+		currentButton.prop('disabled', true);
 
 		$.ajax({
 			//type of receiving data
@@ -50,7 +49,7 @@
 		}).always(function () {
 			// Hide spinner and enable inputs again
 			spinnerElement.fadeOut(50);
-			submitElement.prop('disabled', false);
+			currentButton.prop('disabled', false);
 		}); //end ajax
 	}); //end submit
 
