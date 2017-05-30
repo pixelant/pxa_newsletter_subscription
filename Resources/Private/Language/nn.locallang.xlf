@@ -1,0 +1,124 @@
+<?xml version="1.0" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="nb" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01" target-language="nn">
+        <header></header>
+        <body>
+            <trans-unit id="name" xml:space="preserve">
+                <source>Navn</source>
+                <target>Namn</target>
+            </trans-unit>
+            <trans-unit id="email" xml:space="preserve">
+                <source>E-post</source>
+                <target>E-post</target>
+            </trans-unit>
+            <trans-unit id="error.invalid.email" xml:space="preserve">
+                <source>Ugyldig epostadresse.</source>
+                <target>Ugyldig e-postadresse.</target>
+            </trans-unit>
+            <trans-unit id="error.invalid.name" xml:space="preserve">
+                <source>Ugyldig eller manglende navn.</source>
+                <target>Ugyldig eller manglande namn.</target>
+            </trans-unit>
+            <trans-unit id="error.unsubscribe.not-subscribed" xml:space="preserve">
+                <source>Det finnes ikke noe abonnement for denne e-postadressen.</source>
+                <target>Det finst ikkje noko abonnement for denne e-postadressa.</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.already-subscribed" xml:space="preserve">
+                <source>Et abonnement med denne epostadressen finnes allerede.</source>
+                <target>Eit abonnement med denne e-postadressen finst allereie.</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.4101" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4101)</source>
+                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4101)</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.4102" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4102)</source>
+                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4102)</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.4103" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4103)</source>
+                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4103)</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.4104" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen.(Kode: 4104)</source>
+                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4104)</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.4105" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4105)</source>
+                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4105)</target>
+            </trans-unit>
+            <trans-unit id="error.invalid.configuration" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen.</source>
+                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sidan på nytt og prøv igjen.</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe.4106" xml:space="preserve">
+                <source>E-postbekreftelsen kunne ikke sendes. (Kode: 4106)</source>
+                <target>E-poststadfestinga kunne ikkje sendast. (Kode: 4106)</target>
+            </trans-unit>
+            <trans-unit id="subscribe" xml:space="preserve">
+                <source>Abonner</source>
+                <target>Abonner</target>
+            </trans-unit>
+            <trans-unit id="unsubscribe" xml:space="preserve">
+                <source>Avslutt abonnementet</source>
+                <target>Avslutt abonnementet</target>
+            </trans-unit>
+            <trans-unit id="success.subscribe.subscribed-noconfirm" xml:space="preserve">
+                <source>Du abonnerer nå på nyhetsbrevet.</source>
+                <target>Du abonnerer no på nyhendebrevet.</target>
+            </trans-unit>
+            <trans-unit id="success.subscribe.subscribed-confirm" xml:space="preserve">
+                <source>Du er nesten ferdig. Du vil straks motta en e-postbekreftelse med informasjon om hvordan du bekrefter din e-postadresse.</source>
+                <target>Du er nesten ferdig. Du vil straks motta ei e-poststadfesting med informasjon om korleis du stadfestar e-postadressa di.</target>
+            </trans-unit>
+            <trans-unit id="success.unsubscribe.unsubscribed-noconfirm" xml:space="preserve">
+                <source>Du vil ikke lenger motta vårt nyhetsbrev.</source>
+                <target>Du vil ikkje lenger motta nyhendebrevet vårt.</target>
+            </trans-unit>
+            <trans-unit id="success.unsubscribe.unsubscribed-confirm" xml:space="preserve">
+                <source>Du er nesten ferdig. Du vil straks motta en e-postbekreftelse med informasjon om hvordan du bekrefter din e-postadresse.</source>
+                <target>Du er nesten ferdig. Du vil straks motta ei e-poststadfesting med informasjon om korleis du stadfestar e-postadressa di.</target>
+            </trans-unit>
+            <trans-unit id="confirm_mail_subject" xml:space="preserve">
+                <source>Bekreftelse av nyhetsbrevpåmelding</source>
+                <target>Stadfesting av nyhendebrevpåmelding</target>
+            </trans-unit>
+            <trans-unit id="confirm_mail_greeting" xml:space="preserve">
+                <source>Hei %s,</source>
+                <target>Hei %s,</target>
+            </trans-unit>
+            <trans-unit id="confirm_mail_line1" xml:space="preserve">
+                <source>Bekreft e-postadressen din ved å klikke på følgende link: %s</source>
+                <target>Stadfest e-postadressa di ved å klikka på følgjande link: %s</target>
+            </trans-unit>
+            <trans-unit id="confirm_mail_line2" xml:space="preserve">
+                <source>Hvis du ønsker å melde deg av nyhetsbrevet en gang i fremtiden kan du følge denne lenken: %s Tusen takk.</source>
+                <target>Viss du ynskjer å melda deg av nyhendebrevet ein gong i framtida kan du følgja denne lenkja: %s Tusen takk.</target>
+            </trans-unit>
+            <trans-unit id="subscribe_ok" xml:space="preserve">
+                <source>Du abonnerer nå på nyhetsbrevet.</source>
+                <target>Du abonnerer no på nyhendebrevet.</target>
+            </trans-unit>
+            <trans-unit id="subscribe_error" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Kontakt oss angående abonnementet ditt.</source>
+                <target>Beklagar, noko gjekk gale. Kontakt oss angåande abonnementet ditt.</target>
+            </trans-unit>
+            <trans-unit id="unsubscribe_ok" xml:space="preserve">
+                <source>Du vil ikke lenger motta vårt nyhetsbrev.</source>
+                <target>Du vil ikkje lenger motta nyhendebrevet vårt.</target>
+            </trans-unit>
+            <trans-unit id="unsubscribe_error" xml:space="preserve">
+                <source>Beklager, noe gikk galt. Kontakt oss angående ditt ønske om å ikke lenger motta nyhetsbrevet.</source>
+                <target>Beklagar, noko gjekk gale. Kontakt oss andsynes ønsket ditt om å ikkje lenger motta nyhendebrevet.</target>
+            </trans-unit>
+            <trans-unit id="back_to_website" xml:space="preserve">
+                <source>Tilbake til nettstedet</source>
+                <target>Tilbake til nettstaden</target>
+            </trans-unit>
+            <trans-unit id="jqhxr_error_message" xml:space="preserve">
+                <source>Det oppsto et teknisk problem. Vennligst prøv igjen senere.</source>
+                <target>Det oppstod eit teknisk problem. Ver venleg og prøv igjen seinare.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

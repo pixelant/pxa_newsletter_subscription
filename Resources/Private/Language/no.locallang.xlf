@@ -57,7 +57,7 @@
             </trans-unit>
             <trans-unit id="subscribe" xml:space="preserve">
                 <source>Subscribe</source>
-                <target>Abonnér</target>
+                <target>Abonner</target>
             </trans-unit>
             <trans-unit id="unsubscribe" xml:space="preserve">
                 <source>Unsubscribe</source>
