@@ -48,6 +48,12 @@
             <trans-unit id="adminNotificationSenderEmail">
                 <source>Sender e-mail</source>
             </trans-unit>
+            <trans-unit id="adminNotificationReceiverName">
+                <source>Receiver name</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationReceiverEmail">
+                <source>Receiver e-mail</source>
+            </trans-unit>
             <trans-unit id="adminNotificationSubject">
                 <source>Subject</source>
             </trans-unit>

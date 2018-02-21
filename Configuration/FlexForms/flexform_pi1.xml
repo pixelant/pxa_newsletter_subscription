@@ -193,7 +193,7 @@
                 <displayCond>FIELD:sDEF.settings.enableAdminNotification:REQ:TRUE</displayCond>
                 <type>array</type>
                 <el>
-                    <settings.adminNotificationSenderName>
+                    <settings.adminNotificationSettings.senderName>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationSenderName</label>
                             <config>
@@ -203,10 +203,21 @@
                                 <eval>trim,required</eval>
                             </config>
                         </TCEforms>
-                    </settings.adminNotificationSenderName>
-                    <settings.adminNotificationSenderEmail>
+                    </settings.adminNotificationSettings.senderName>
+                    <settings.adminNotificationSettings.senderEmail>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationSenderEmail</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>30</max>
+                                <eval>trim,required,email</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.adminNotificationSettings.senderEmail>
+                    <settings.adminNotificationSettings.receiverName>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationReceiverName</label>
                             <config>
                                 <type>input</type>
                                 <size>20</size>
@@ -214,8 +225,19 @@
                                 <eval>trim,required</eval>
                             </config>
                         </TCEforms>
-                    </settings.adminNotificationSenderEmail>
-                    <settings.adminNotificationSubject>
+                    </settings.adminNotificationSettings.receiverName>
+                    <settings.adminNotificationSettings.receiverEmail>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationReceiverEmail</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>30</max>
+                                <eval>trim,required,email</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.adminNotificationSettings.receiverEmail>
+                    <settings.adminNotificationSettings.subject>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationSubject</label>
                             <config>
@@ -225,8 +247,8 @@
                                 <eval>trim,required</eval>
                             </config>
                         </TCEforms>
-                    </settings.adminNotificationSubject>
-                    <settings.adminNotificationSubscribeBody>
+                    </settings.adminNotificationSettings.subject>
+                    <settings.adminNotificationSettings.subscribeBody>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationSubscribeBody</label>
                             <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
@@ -238,8 +260,8 @@
                                 <enableRichtext>1</enableRichtext>
                             </config>
                         </TCEforms>
-                    </settings.adminNotificationSubscribeBody>
-                    <settings.adminNotificationUnsubscribeBody>
+                    </settings.adminNotificationSettings.subscribeBody>
+                    <settings.adminNotificationSettings.unsubscribeBody>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_db.xlf:adminNotificationUnsubscribeBody</label>
                             <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
@@ -251,7 +273,7 @@
                                 <enableRichtext>1</enableRichtext>
                             </config>
                         </TCEforms>
-                    </settings.adminNotificationUnsubscribeBody>
+                    </settings.adminNotificationSettings.unsubscribeBody>
                 </el>
             </ROOT>
         </adminNotificationSettings>
