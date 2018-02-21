@@ -4,6 +4,7 @@ namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUserGroup;
+use Pixelant\PxaNewsletterSubscription\Service\AdminNotificationService;
 use Pixelant\PxaNewsletterSubscription\Service\EmailNotificationService;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -208,6 +209,15 @@ class NewsletterSubscriptionController extends ActionController
             } else {
                 // Add user
                 $message = $this->translate('success.subscribe.subscribed-noconfirm');
+
+                // Send notification to admin
+                $adminNotificationService = GeneralUtility::makeInstance(
+                    AdminNotificationService::class,
+                    $this->settings['adminNotificationSettings'],
+                    'subscribe'
+                );
+
+                $adminNotificationService->sendNotification($frontendUser);
             }
 
             $success = true;
