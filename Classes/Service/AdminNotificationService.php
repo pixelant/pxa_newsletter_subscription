@@ -105,7 +105,6 @@ class AdminNotificationService
 
         // Send
         $this->mailService->send();
-        $this->iamnothere();
     }
 
     /**
