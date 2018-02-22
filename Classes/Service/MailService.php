@@ -98,7 +98,7 @@ class MailService
      */
     public function setReceiver($email, $name = '')
     {
-        $test = $this->mailMessage->setTo([$email => $name]);
+        $this->mailMessage->setTo([$email => $name]);
     }
 
     /**
