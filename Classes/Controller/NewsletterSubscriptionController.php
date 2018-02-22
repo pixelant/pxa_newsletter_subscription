@@ -244,8 +244,18 @@ class NewsletterSubscriptionController extends ActionController
                 $this->frontendUserRepository->remove($frontendUser);
                 $this->persistenceManager->persistAll();
 
+                // Send notification to admin
+                $adminNotificationService = GeneralUtility::makeInstance(
+                    AdminNotificationService::class,
+                    $this->settings['adminNotificationSettings'],
+                    'unsubscribe'
+                );
+
+                $adminNotificationService->sendNotification($frontendUser);
+
                 $message = $this->translate('success.unsubscribe.unsubscribed-noconfirm');
             }
+
             $success = true;
         }
 
@@ -364,6 +374,17 @@ class NewsletterSubscriptionController extends ActionController
 
         if (!isset($message)) {
             $message = $this->translate('unsubscribe_error');
+        }
+
+        // Send admin notification if everything went well
+        if ($status) {
+            $adminNotificationService = GeneralUtility::makeInstance(
+                AdminNotificationService::class,
+                $this->settings['adminNotificationSettings'],
+                'unsubscribe'
+            );
+
+            $adminNotificationService->sendNotification($frontendUser);
         }
 
         $this->view->assignMultiple([
