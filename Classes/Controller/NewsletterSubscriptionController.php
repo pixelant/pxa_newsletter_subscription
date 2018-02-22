@@ -323,6 +323,17 @@ class NewsletterSubscriptionController extends ActionController
             $message = $this->translate('subscribe_error');
         }
 
+        // Send admin notification if everything went well
+        if ($status) {
+            $adminNotificationService = GeneralUtility::makeInstance(
+                AdminNotificationService::class,
+                $this->settings['adminNotificationSettings'],
+                'subscribe'
+            );
+
+            $adminNotificationService->sendNotification($frontendUser);
+        }
+
         $this->view->assignMultiple([
             'message' => $message,
             'status' => $status
