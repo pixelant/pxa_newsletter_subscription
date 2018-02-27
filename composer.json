@@ -10,5 +10,9 @@
         "psr-4": {
             "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
         }
+    },
+    "replace": {
+        "pxa-newsletter-subscription": "self.version",
+        "typo3-ter/pxa-newsletter-subscription": "self.version"
     }
 }
