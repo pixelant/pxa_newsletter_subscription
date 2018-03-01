@@ -138,6 +138,9 @@ plugin.tx_pxanewslettersubscription {
             class = hero-unit
             button.class = btn btn-primary btn-large
         }
+
+        successRedirectPid = {$plugin.tx_pxanewslettersubscription.settings.successRedirectPid}
+        successRedirectIncludeInfo = {$plugin.tx_pxanewslettersubscription.settings.successRedirectIncludeInfo}
     }
 
     features {

@@ -138,10 +138,23 @@ class NewsletterSubscriptionController extends ActionController
             list($valid, $message) = $this->processSubscription($isNewSubscription, $arguments);
         }
 
+        $redirectUrl = '';
+        if($this->settings['successRedirectPid'] != '') {
+
+	        $redirectUrl = $this
+		        ->uriBuilder
+		        ->reset()
+		        ->setArgumentPrefix('')
+		        ->setTargetPageUid($this->settings['successRedirectPid'])
+		        ->setCreateAbsoluteUri(true)
+		        ->uriFor(null, []);
+        }
+
         echo json_encode(
             [
                 'success' => $valid,
-                'message' => $message
+                'message' => $message,
+	            'redirect' => $redirectUrl
             ]
         );
         exit(0);

@@ -30,10 +30,14 @@
 			formElement.after(message);
 
 			if (response.success) {
-				// display message
-				message.addClass('alert-success');
-				// hide form
-				formElement.hide();
+				if(response.redirect != '') {
+					$(location).attr('href', response.redirect);
+				} else {
+					// display message
+					message.addClass('alert-success');
+					// hide form
+					formElement.hide();
+				}
 			} else {
 				// display message and set message to disapear after 5 sec.
 				message.addClass('alert-danger').delay(5000).fadeOut('slow');
