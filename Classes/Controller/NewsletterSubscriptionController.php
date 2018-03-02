@@ -57,7 +57,7 @@ class NewsletterSubscriptionController extends ActionController
     /**
      * Hash Service
      *
-     * @var \TYPO3\CMS\Extbase\Security\Cryptography\HashService
+     * @var \Pixelant\PxaNewsletterSubscription\Service\HashService
      * @inject
      */
     protected $hashService;
@@ -105,6 +105,25 @@ class NewsletterSubscriptionController extends ActionController
         switch ($status) {
             case self::STATUS_SUBSCRIBE:
                 $this->confirmSubscription($hash, $id);
+
+	            if($this->settings['confirmationRedirectPid'] != '') {
+
+		            $arguments = [];
+
+		            if($this->settings['confirmationRedirectIncludeInfo'] != 0) {
+			            $arguments['uid'] = $id;
+			            $arguments['hash'] = $this->hashService->generateRedirectHash($id);
+		            }
+
+		            $redirectUrl = $this
+			            ->uriBuilder
+			            ->reset()
+			            ->setTargetPageUid($this->settings['successRedirectPid'])
+			            ->setCreateAbsoluteUri(true)
+			            ->uriFor(null, $arguments, '');
+
+		            $this->redirectToUri($redirectUrl);
+	            }
                 break;
             case self::STATUS_UNSUBSCRIBE:
                 $this->unSubscribe($hash, $id);
@@ -138,23 +157,10 @@ class NewsletterSubscriptionController extends ActionController
             list($valid, $message) = $this->processSubscription($isNewSubscription, $arguments);
         }
 
-        $redirectUrl = '';
-        if($this->settings['successRedirectPid'] != '') {
-
-	        $redirectUrl = $this
-		        ->uriBuilder
-		        ->reset()
-		        ->setArgumentPrefix('')
-		        ->setTargetPageUid($this->settings['successRedirectPid'])
-		        ->setCreateAbsoluteUri(true)
-		        ->uriFor(null, []);
-        }
-
         echo json_encode(
             [
                 'success' => $valid,
-                'message' => $message,
-	            'redirect' => $redirectUrl
+                'message' => $message
             ]
         );
         exit(0);
@@ -171,6 +177,8 @@ class NewsletterSubscriptionController extends ActionController
     {
         // Variables to store message and status
         $pid = intval($this->settings['saveFolder']);
+        // FrontendUser
+        $frontendUser = null;
 
         // Check what action to execute
         if ($isNewSubscription) {
@@ -202,6 +210,7 @@ class NewsletterSubscriptionController extends ActionController
 
             $this->frontendUserRepository->add($frontendUser);
             $this->persistenceManager->persistAll();
+            $uid = $frontendUser->getUid();
 
             // User was created
             if ($this->settings['enableEmailConfirm']) {
@@ -309,7 +318,7 @@ class NewsletterSubscriptionController extends ActionController
     {
         $status = false;
 
-        if ($this->hashService->validateHmac('pxa_newsletter_subscription-subscribe' . $id, $hash)) {
+        if ($this->hashService->validateSubscriptionHash($id, $hash)) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid($id);
             if ($frontendUser !== null && $frontendUser->getDisable()) {
@@ -343,7 +352,7 @@ class NewsletterSubscriptionController extends ActionController
     {
         $status = false;
 
-        if ($this->hashService->validateHmac('pxa_newsletter_subscription-unsubscribe' . $id, $hash)) {
+        if ($this->hashService->validateSubscriptionHash($id, $hash)) {
             $frontendUser = $this->frontendUserRepository->findByUid($id);
 
             if ($frontendUser !== null) {
@@ -381,7 +390,7 @@ class NewsletterSubscriptionController extends ActionController
         $linkParams = [
             'status' => $status,
             'hashid' => $id,
-            'hash' => $this->hashService->generateHmac('pxa_newsletter_subscription-' . $status . $id)
+            'hash' => $this->hashService->generateSubscriptionHash($id)
         ];
 
 

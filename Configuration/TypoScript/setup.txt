@@ -139,8 +139,8 @@ plugin.tx_pxanewslettersubscription {
             button.class = btn btn-primary btn-large
         }
 
-        successRedirectPid = {$plugin.tx_pxanewslettersubscription.settings.successRedirectPid}
-        successRedirectIncludeInfo = {$plugin.tx_pxanewslettersubscription.settings.successRedirectIncludeInfo}
+        confirmationRedirectPid = {$plugin.tx_pxanewslettersubscription.settings.confirmationRedirectPid}
+        confirmationRedirectIncludeInfo = {$plugin.tx_pxanewslettersubscription.settings.confirmationRedirectIncludeInfo}
     }
 
     features {
