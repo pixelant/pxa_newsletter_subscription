@@ -14,7 +14,18 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['pxanewsl
 // Add flexform
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['pxanewslettersubscription_subscription'] =
     'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    'pxanewslettersubscription_subscription',
-    'FILE:EXT:pxa_newsletter_subscription/Configuration/FlexForms/flexform_pi1.xml'
-);
+
+$extensionConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_newsletter_subscription']);
+$storageTable = $extensionConfArr['table'];
+
+if ($storageTable == 'fe_user') {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+        $extensionName . '_subscription',
+        'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FrontendUserSubscription.xml'
+    );
+} else {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+        $extensionName . '_subscription',
+        'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/AddressSubscription.xml'
+    );
+}

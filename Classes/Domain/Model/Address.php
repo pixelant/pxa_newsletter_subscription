@@ -1,13 +1,10 @@
 <?php
-
-namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
+namespace Pixelant\PxaNewsletterSubscription\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Inna Titorenko <inna@pixelant.se>, Pixelant
- *  (c) 2013 Jozef Spisiak <jozef@pixelant.se>, Pixelant
- *  (c) 2014 Mats Svensson <mats@pixelant.se>, Pixelant
+ *  (c) 2017 Daniel Lorenz <daniel.lorenz@tritum.de>, TRITUM GmbH
  *
  *  All rights reserved
  *
@@ -27,28 +24,63 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
- * Extending Frontend User Repository
+ * Extending Address
  *
  * @package pxa_newsletter_subscription
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+class Address extends \TYPO3\TtAddress\Domain\Model\Address
 {
     /**
-     * initialize default settings
+     * @var boolean
      */
-    public function initializeObject()
+    protected $hidden;
+
+    /**
+     * @var bool
+     */
+    protected $moduleSysDmailHtml = true;
+
+    /**
+     * @param boolean $hidden
+     */
+    public function setHidden($hidden)
     {
-        /** @var Typo3QuerySettings $defaultQuerySettings */
-        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $this->hidden = $hidden;
+    }
 
-        $defaultQuerySettings->setIgnoreEnableFields(true);
-        $defaultQuerySettings->setEnableFieldsToBeIgnored(['disabled']);
+    /**
+     * @return boolean $hidden
+     */
+    public function isHidden()
+    {
+        return $this->getHidden();
+    }
 
-        $this->setDefaultQuerySettings($defaultQuerySettings);
+    /**
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * @param bool $moduleSysDmailHtml
+     */
+    public function setModuleSysDmailHtml($moduleSysDmailHtml)
+    {
+        $this->moduleSysDmailHtml = $moduleSysDmailHtml;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getModuleSysDmailHtml()
+    {
+        return $this->moduleSysDmailHtml;
     }
 }
