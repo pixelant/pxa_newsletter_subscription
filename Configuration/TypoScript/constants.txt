@@ -12,4 +12,11 @@ plugin.tx_pxanewslettersubscription {
         # cat=plugin.tx_pxanewslettersubscription//a; type=string; label=Default storage PID
         storagePid =
     }
+
+    settings {
+        # cat=plugin.tx_pxanewslettersubscription//b; type=string; label=On success, redirect to PID
+        confirmationRedirectPid =
+        # cat=plugin.tx_pxanewslettersubscription//c; type=boolean; label=Include fe_user uid and security hash in redirect URL
+        confirmationRedirectIncludeInfo = 1
+    }
 }
