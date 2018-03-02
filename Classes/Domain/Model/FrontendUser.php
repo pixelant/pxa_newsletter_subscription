@@ -37,11 +37,20 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Model;
 
 class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 {
-
     /**
      * @var boolean
      */
     protected $disable;
+
+    /**
+     * @var bool
+     */
+    protected $moduleSysDmailNewsletter = true;
+
+    /**
+     * @var bool
+     */
+    protected $moduleSysDmailHtml = true;
 
     /**
      * @param boolean $disable
@@ -57,6 +66,38 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
     public function getDisable()
     {
         return $this->disable;
+    }
+
+    /**
+     * @param bool $moduleSysDmailNewsletter
+     */
+    public function setModuleSysDmailNewsletter($moduleSysDmailNewsletter)
+    {
+        $this->moduleSysDmailNewsletter = $moduleSysDmailNewsletter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getModuleSysDmailNewsletter()
+    {
+        return $this->moduleSysDmailNewsletter;
+    }
+
+    /**
+     * @param bool $moduleSysDmailHtml
+     */
+    public function setModuleSysDmailHtml($moduleSysDmailHtml)
+    {
+        $this->moduleSysDmailHtml = $moduleSysDmailHtml;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getModuleSysDmailHtml()
+    {
+        return $this->moduleSysDmailHtml;
     }
 
     /**
@@ -91,7 +132,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
         $confirm,
         \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup
     ) {
-
         $this->setPid(intval($pid));
         $this->setUsername($email);
         $this->setEmail($email);

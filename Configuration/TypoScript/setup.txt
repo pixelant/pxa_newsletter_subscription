@@ -147,6 +147,12 @@ plugin.tx_pxanewslettersubscription {
 }
 
 config.tx_extbase.persistence.classes {
+    Pixelant\PxaNewsletterSubscription\Domain\Model\Address {
+        mapping {
+            tableName = tt_address
+        }
+    }
+
     Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser {
         mapping {
             tableName = fe_users

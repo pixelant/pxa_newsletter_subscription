@@ -5,9 +5,7 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Inna Titorenko <inna@pixelant.se>, Pixelant
- *  (c) 2013 Jozef Spisiak <jozef@pixelant.se>, Pixelant
- *  (c) 2014 Mats Svensson <mats@pixelant.se>, Pixelant
+ *  (c) 2017 Daniel Lorenz <daniel.lorenz@tritum.de>, TRITUM GmbH
  *
  *  All rights reserved
  *
@@ -27,28 +25,14 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
- * Extending Frontend User Repository
+ * Extending Address Repository
  *
  * @package pxa_newsletter_subscription
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+class AddressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepository
 {
-    /**
-     * initialize default settings
-     */
-    public function initializeObject()
-    {
-        /** @var Typo3QuerySettings $defaultQuerySettings */
-        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
-
-        $defaultQuerySettings->setIgnoreEnableFields(true);
-        $defaultQuerySettings->setEnableFieldsToBeIgnored(['disabled']);
-
-        $this->setDefaultQuerySettings($defaultQuerySettings);
-    }
 }
