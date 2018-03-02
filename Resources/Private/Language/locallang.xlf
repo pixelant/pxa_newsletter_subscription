@@ -93,6 +93,9 @@
             <trans-unit id="jqhxr_error_message" xml:space="preserve">
                 <source>Technical problem, please try again later.</source>
             </trans-unit>
+            <trans-unit id="admin_notification_subject" xml:space="preserve">
+                <source>One of the subscriptions was updated</source>
+            </trans-unit>
             
         </body>
     </file>

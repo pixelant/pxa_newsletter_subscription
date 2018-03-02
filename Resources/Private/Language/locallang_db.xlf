@@ -39,6 +39,30 @@
             <trans-unit id="confirmLinkText">
                 <source>Confirmation link text. If empty full link is used.</source>
             </trans-unit>
+            <trans-unit id="enableAdminNotification">
+                <source>Enable admin email notification on subscription and unsubscription</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationSenderName">
+                <source>Sender name</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationSenderEmail">
+                <source>Sender e-mail</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationReceiverName">
+                <source>Receiver name</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationReceiverEmail">
+                <source>Receiver e-mail</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationSubject">
+                <source>Subject</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationSubscribeBody">
+                <source>Subscribe body</source>
+            </trans-unit>
+            <trans-unit id="adminNotificationUnsubscribeBody">
+                <source>Unsubscribe body</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

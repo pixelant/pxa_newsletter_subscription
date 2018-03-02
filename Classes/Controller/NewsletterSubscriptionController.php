@@ -4,6 +4,7 @@ namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUserGroup;
+use Pixelant\PxaNewsletterSubscription\Service\AdminNotificationService;
 use Pixelant\PxaNewsletterSubscription\Service\EmailNotificationService;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -208,6 +209,15 @@ class NewsletterSubscriptionController extends ActionController
             } else {
                 // Add user
                 $message = $this->translate('success.subscribe.subscribed-noconfirm');
+
+                // Send notification to admin
+                $adminNotificationService = GeneralUtility::makeInstance(
+                    AdminNotificationService::class,
+                    $this->settings['adminNotificationSettings'],
+                    'subscribe'
+                );
+
+                $adminNotificationService->sendNotification($frontendUser);
             }
 
             $success = true;
@@ -234,8 +244,18 @@ class NewsletterSubscriptionController extends ActionController
                 $this->frontendUserRepository->remove($frontendUser);
                 $this->persistenceManager->persistAll();
 
+                // Send notification to admin
+                $adminNotificationService = GeneralUtility::makeInstance(
+                    AdminNotificationService::class,
+                    $this->settings['adminNotificationSettings'],
+                    'unsubscribe'
+                );
+
+                $adminNotificationService->sendNotification($frontendUser);
+
                 $message = $this->translate('success.unsubscribe.unsubscribed-noconfirm');
             }
+
             $success = true;
         }
 
@@ -313,6 +333,17 @@ class NewsletterSubscriptionController extends ActionController
             $message = $this->translate('subscribe_error');
         }
 
+        // Send admin notification if everything went well
+        if ($status) {
+            $adminNotificationService = GeneralUtility::makeInstance(
+                AdminNotificationService::class,
+                $this->settings['adminNotificationSettings'],
+                'subscribe'
+            );
+
+            $adminNotificationService->sendNotification($frontendUser);
+        }
+
         $this->view->assignMultiple([
             'message' => $message,
             'status' => $status
@@ -343,6 +374,17 @@ class NewsletterSubscriptionController extends ActionController
 
         if (!isset($message)) {
             $message = $this->translate('unsubscribe_error');
+        }
+
+        // Send admin notification if everything went well
+        if ($status) {
+            $adminNotificationService = GeneralUtility::makeInstance(
+                AdminNotificationService::class,
+                $this->settings['adminNotificationSettings'],
+                'unsubscribe'
+            );
+
+            $adminNotificationService->sendNotification($frontendUser);
         }
 
         $this->view->assignMultiple([
