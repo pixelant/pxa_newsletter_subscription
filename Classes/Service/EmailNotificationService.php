@@ -3,6 +3,8 @@
 namespace Pixelant\PxaNewsletterSubscription\Service;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser;
+use Pixelant\PxaNewsletterSubscription\Domain\Model\Address;
+
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -43,20 +45,20 @@ class EmailNotificationService
     /**
      * Send email
      *
-     * @param FrontendUser $feUser
+     * @param FrontendUser|Address $subscriber
      * @param string $link
      * @param bool $unSubscribeMail
      * @return void
      */
-    public function sendConfirmationEmail(FrontendUser $feUser, $link, $unSubscribeMail)
+    public function sendConfirmationEmail($subscriber, $link, $unSubscribeMail)
     {
         $link = $this->generateLink($link);
 
         $this->mailMessage->setFrom($this->getSender());
-        $this->mailMessage->setTo($feUser->getEmail());
+        $this->mailMessage->setTo($subscriber->getEmail());
         $this->mailMessage->setSubject($this->getConfirmMailSubject());
         $this->mailMessage->setBody(
-            $this->getConfirmMailBody($feUser, $link, $unSubscribeMail),
+            $this->getConfirmMailBody($subscriber, $link, $unSubscribeMail),
             'text/html'
         );
 
@@ -104,12 +106,12 @@ class EmailNotificationService
     /**
      * Generates the Body string for confirmation mail
      *
-     * @param FrontendUser $feUser
+     * @param FrontendUser|Address $subscriber
      * @param $link
      * @param $unSubscribeMail
      * @return string
      */
-    protected function getConfirmMailBody(FrontendUser $feUser, $link, $unSubscribeMail)
+    protected function getConfirmMailBody($subscriber, $link, $unSubscribeMail)
     {
         // Check flex form value
         $bodyText = $unSubscribeMail ?
@@ -120,7 +122,7 @@ class EmailNotificationService
             $bodyText = LocalizationUtility::translate(
                 'confirm_mail_greeting',
                 'pxa_newsletter_subscription',
-                [$feUser->getName()]
+                [$subscriber->getName()]
             );
         }
 

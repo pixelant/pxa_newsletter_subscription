@@ -36,7 +36,6 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  */
 class FrontendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
 {
-
     /**
      * Gets a Frontend User Group by uid without respecting storage page.
      *

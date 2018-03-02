@@ -1,0 +1,2 @@
+# cat=basic/enable/010; type=string; label=Defines the table in which the newsletter registrations are stored. ( fe_user | tt_address )
+table = fe_user
