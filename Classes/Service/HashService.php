@@ -2,10 +2,7 @@
 
 namespace Pixelant\PxaNewsletterSubscription\Service;
 
-use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Generate and check newsletter specific validation hashes
