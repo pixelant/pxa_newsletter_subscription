@@ -106,11 +106,11 @@ class NewsletterSubscriptionController extends ActionController
             case self::STATUS_SUBSCRIBE:
                 $this->confirmSubscription($hash, $id);
 
-	            if($this->settings['confirmationRedirectPid'] != '') {
+	            if ($this->settings['confirmationRedirectPid'] !== '') {
 
 		            $arguments = [];
 
-		            if($this->settings['confirmationRedirectIncludeInfo'] != 0) {
+		            if ($this->settings['confirmationRedirectIncludeInfo'] !== 0) {
 			            $arguments['uid'] = $id;
 			            $arguments['hash'] = $this->hashService->generateRedirectHash($id);
 		            }
