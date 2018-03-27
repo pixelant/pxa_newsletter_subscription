@@ -158,7 +158,7 @@ class FrontendUserStorageUtility extends \Pixelant\PxaNewsletterSubscription\Uti
         $message = $this->translate('subscribe_error');
         $status = false;
 
-        if ($this->hashService->validateHmac('pxa_newsletter_subscription-subscribe' . $id, $hash)) {
+        if ($this->hashService->validateSubscriptionHash($id, $hash)) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findOneByUid($id);
             if ($frontendUser !== null && $frontendUser->getDisable()) {
@@ -190,7 +190,7 @@ class FrontendUserStorageUtility extends \Pixelant\PxaNewsletterSubscription\Uti
         $message = $this->translate('unsubscribe_error');
         $status = false;
 
-        if ($this->hashService->validateHmac('pxa_newsletter_subscription-unsubscribe' . $id, $hash)) {
+        if ($this->hashService->validateSubscriptionHash($id, $hash)) {
             $frontendUser = $this->frontendUserRepository->findByUid($id);
 
             if ($frontendUser !== null) {

@@ -144,7 +144,7 @@ class AddressStorageUtility extends \Pixelant\PxaNewsletterSubscription\Utility\
         $message = $this->translate('subscribe_error');
         $status = false;
 
-        if ($this->hashService->validateHmac('pxa_newsletter_subscription-subscribe' . $id, $hash)) {
+        if ($this->hashService->validateSubscriptionHash($id, $hash)) {
             /** @var Address $address */
             $address = $this->addressRepository->findOneByUid($id);
             if ($address !== null && $address->getHidden()) {
@@ -176,7 +176,7 @@ class AddressStorageUtility extends \Pixelant\PxaNewsletterSubscription\Utility\
         $message = $this->translate('unsubscribe_error');
         $status = false;
 
-        if ($this->hashService->validateHmac('pxa_newsletter_subscription-unsubscribe' . $id, $hash)) {
+        if ($this->hashService->validateSubscriptionHash($id, $hash)) {
             /** @var Address $address */
             $address = $this->addressRepository->findByUid($id);
             if ($address !== null) {

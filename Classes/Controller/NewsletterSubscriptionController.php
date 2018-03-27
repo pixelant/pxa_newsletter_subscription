@@ -180,7 +180,7 @@ class NewsletterSubscriptionController extends ActionController
             echo json_encode(
                 [
                     'success' => false,
-                    'message' => 'ERROR'            // TODO: add error message from translation file
+                    'message' => $this->translate('subscribeError')
                 ]
             );
             exit(0);

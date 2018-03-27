@@ -31,6 +31,7 @@ use Pixelant\PxaNewsletterSubscription\Domain\Model\Address;
 
 use Pixelant\PxaNewsletterSubscription\Service\AdminNotificationService;
 
+use Pixelant\PxaNewsletterSubscription\Service\HashService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -66,7 +67,7 @@ abstract class AbstractStorageUtility
     /**
      * Hash Service
      *
-     * @var \TYPO3\CMS\Extbase\Security\Cryptography\HashService
+     * @var HashService
      */
     protected $hashService;
 
@@ -99,10 +100,10 @@ abstract class AbstractStorageUtility
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Security\Cryptography\HashService $hashService
+     * @param HashService $hashService
      */
     public function injectHashService(
-        \TYPO3\CMS\Extbase\Security\Cryptography\HashService $hashService
+        HashService $hashService
     ) {
         $this->hashService = $hashService;
     }
@@ -216,6 +217,11 @@ abstract class AbstractStorageUtility
      */
     protected function sendAdminEmail($type, $subscriber)
     {
+        // Exit early if not configured
+        if (empty($this->settings['adminNotificationSettings']['receiverEmail'])) {
+            return;
+        }
+
         $adminNotificationService = GeneralUtility::makeInstance(
             AdminNotificationService::class,
             $this->settings['adminNotificationSettings'],
