@@ -2,7 +2,9 @@
 
 namespace Pixelant\PxaNewsletterSubscription\Service;
 
+use Pixelant\PxaNewsletterSubscription\Domain\Model\Address;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser;
+use Pixelant\PxaNewsletterSubscription\Utility\AbstractStorageUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -48,7 +50,8 @@ class AdminNotificationService
     /**
      * Send email
      *
-     * @param FrontendUser $frontendUser
+     * @param AbstractStorageUtility $storageUtility
+     * @param FrontendUser|Address|null $subscriber
      * @param string $senderEmail
      * @param string $senderName
      * @param string $receiverEmail
@@ -61,7 +64,8 @@ class AdminNotificationService
      * @internal param bool $unSubscribeMail
      */
     public function sendNotification(
-        $frontendUser,
+        $storageUtility,
+        $subscriber,
         $senderEmail = '',
         $senderName = '',
         $receiverEmail = '',
@@ -95,7 +99,7 @@ class AdminNotificationService
             }
         }
 
-        $body .= $this->getSubscriptionInfo($frontendUser);
+        $body .= $storageUtility->getEmailBody($subscriber, $subscriber);
 
         // Setup
         $this->mailService->setSender($senderEmail, $senderName);
