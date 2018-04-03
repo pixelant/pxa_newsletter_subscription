@@ -18,14 +18,16 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['pxanewslette
 $extensionConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_newsletter_subscription']);
 $storageTable = $extensionConfArr['table'];
 
+$extensionname = strtolower($extensionName);
+
 if ($storageTable == 'fe_user') {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-        $extensionName . '_subscription',
-        'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FrontendUserSubscription.xml'
+        'pxanewslettersubscription_subscription',
+        'FILE:EXT:pxa_newsletter_subscription/Configuration/FlexForms/FrontendUserSubscription.xml'
     );
 } else {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-        $extensionName . '_subscription',
-        'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/AddressSubscription.xml'
+        'pxanewslettersubscription_subscription',
+        'FILE:EXT:pxa_newsletter_subscription/Configuration/FlexForms/AddressSubscription.xml'
     );
 }
