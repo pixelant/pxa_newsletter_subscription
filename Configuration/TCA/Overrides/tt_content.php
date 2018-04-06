@@ -18,8 +18,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['pxanewslette
 $extensionConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_newsletter_subscription']);
 $storageTable = $extensionConfArr['table'];
 
-$extensionname = strtolower($extensionName);
-
 if ($storageTable == 'fe_user') {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
         'pxanewslettersubscription_subscription',
