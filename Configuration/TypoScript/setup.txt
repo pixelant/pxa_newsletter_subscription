@@ -52,7 +52,7 @@ plugin.tx_pxanewslettersubscription {
                         # if wrap should be created
                         enabled = 1
                         # class property of wrapping div
-                        class = subscribe form-actions pull-right
+                        class = col-sm-6 subscribe form-actions pull-right text-right
                     }
 
                     # class property of input
@@ -67,7 +67,7 @@ plugin.tx_pxanewslettersubscription {
                         # if wrap should be created
                         enabled = 1
                         # class property of wrapping div
-                        class = unsubscribe form-actions pull-right
+                        class = col-sm-6 unsubscribe form-actions pull-right text-right
                     }
 
                     # class property of input
