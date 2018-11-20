@@ -29,13 +29,12 @@
                                   name="email"
                                   id="email"/>
             </pxa:wrapContent>
+            <pxa:wrapContent settings="{settings.form.inputButtons}">
+                <f:render section="button.subscribe" arguments="{_all}"/>
+                <f:render section="button.unsubscribe" arguments="{_all}"/>
+            </pxa:wrapContent>
+            <div style="clear: both"></div>
         </pxa:wrapContent>
-
-        <pxa:wrapContent settings="{settings.form.inputButtons}">
-            <f:render section="button.subscribe" arguments="{_all}"/>
-            <f:render section="button.unsubscribe" arguments="{_all}"/>
-        </pxa:wrapContent>
-        <div style="clear: both"></div>
     </f:form>
 </f:section>
 
