@@ -31,7 +31,6 @@ class NewsletterSubscriptionController extends ActionController
      * persistence manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-     * @inject
      */
     protected $persistenceManager;
 
@@ -45,9 +44,22 @@ class NewsletterSubscriptionController extends ActionController
      * Hash Service
      *
      * @var \Pixelant\PxaNewsletterSubscription\Service\HashService
-     * @inject
      */
     protected $hashService;
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
+     */
+    public function injectPersistanceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager) {
+        $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
+     * @param \Pixelant\PxaNewsletterSubscription\Service\HashService $hashService
+     */
+    public function injectHashService(\Pixelant\PxaNewsletterSubscription\Service\HashService $hashService) {
+        $this->hashService = $hashService;
+    }
 
     /**
      * Prepare confirmation emails for ajax action
