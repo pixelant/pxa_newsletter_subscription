@@ -35,12 +35,6 @@ class NewsletterSubscriptionController extends ActionController
     protected $persistenceManager;
 
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
-
-    /**
      * Hash Service
      *
      * @var \Pixelant\PxaNewsletterSubscription\Service\HashService
