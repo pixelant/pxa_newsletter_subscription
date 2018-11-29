@@ -60,7 +60,6 @@ abstract class AbstractStorageUtility
 
     /**
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
      */
     protected $signalSlotDispatcher;
 
@@ -97,6 +96,13 @@ abstract class AbstractStorageUtility
         \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
     ) {
         $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher
+     */
+    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher) {
+        $this->signalSlotDispatcher = $dispatcher;
     }
 
     /**

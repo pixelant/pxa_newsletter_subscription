@@ -11,6 +11,10 @@
             "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
         }
     },
+    "require": {
+        "typo3/cms-core": ">=9.5.0,<10.0.0",
+        "php": ">=7.2.0,<7.3.0"
+    },
     "replace": {
         "pxa_newsletter_subscription": "self.version",
         "typo3-ter/pxa-newsletter-subscription": "self.version"

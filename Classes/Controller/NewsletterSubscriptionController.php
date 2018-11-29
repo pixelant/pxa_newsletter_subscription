@@ -7,6 +7,7 @@ use Pixelant\PxaNewsletterSubscription\Service\EmailNotificationService;
 use Pixelant\PxaNewsletterSubscription\Utility\FrontendUserStorageUtility;
 use Pixelant\PxaNewsletterSubscription\Utility\AddressStorageUtility;
 
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -30,23 +31,29 @@ class NewsletterSubscriptionController extends ActionController
      * persistence manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-     * @inject
      */
     protected $persistenceManager;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
 
     /**
      * Hash Service
      *
      * @var \Pixelant\PxaNewsletterSubscription\Service\HashService
-     * @inject
      */
     protected $hashService;
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
+     */
+    public function injectPersistanceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager) {
+        $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
+     * @param \Pixelant\PxaNewsletterSubscription\Service\HashService $hashService
+     */
+    public function injectHashService(\Pixelant\PxaNewsletterSubscription\Service\HashService $hashService) {
+        $this->hashService = $hashService;
+    }
 
     /**
      * Prepare confirmation emails for ajax action
@@ -86,8 +93,7 @@ class NewsletterSubscriptionController extends ActionController
      */
     public function confirmAction($status, $hashid, $hash)
     {
-        $extensionConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_newsletter_subscription']);
-        $storageTable = $extensionConfArr['table'];
+        $storageTable = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('pxa_newsletter_subscription', 'table');
 
         if ($storageTable === 'fe_user') {
             $storageUtilityClass = $this->objectManager->get(
@@ -163,8 +169,7 @@ class NewsletterSubscriptionController extends ActionController
      */
     public function ajaxAction()
     {
-        $extensionConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_newsletter_subscription']);
-        $storageTable = $extensionConfArr['table'];
+        $storageTable = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('pxa_newsletter_subscription', 'table');
 
         if ($storageTable === 'fe_user') {
             $storageUtilityClass = $this->objectManager->get(

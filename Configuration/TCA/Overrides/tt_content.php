@@ -15,8 +15,7 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['pxanewsl
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['pxanewslettersubscription_subscription'] =
     'pi_flexform';
 
-$extensionConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_newsletter_subscription']);
-$storageTable = $extensionConfArr['table'];
+$storageTable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('pxa_newsletter_subscription', 'table');
 
 if ($storageTable == 'fe_user') {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(

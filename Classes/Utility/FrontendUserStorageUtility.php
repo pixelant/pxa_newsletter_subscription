@@ -42,7 +42,6 @@ class FrontendUserStorageUtility extends \Pixelant\PxaNewsletterSubscription\Uti
      * frontendUserRepository
      *
      * @var \Pixelant\PxaNewsletterSubscription\Domain\Repository\FrontendUserRepository
-     * @inject
      */
     protected $frontendUserRepository;
 
@@ -50,7 +49,6 @@ class FrontendUserStorageUtility extends \Pixelant\PxaNewsletterSubscription\Uti
      * frontendUserGroupRepository
      *
      * @var \Pixelant\PxaNewsletterSubscription\Domain\Repository\FrontendUserGroupRepository
-     * @inject
      */
     protected $frontendUserGroupRepository;
 
@@ -69,6 +67,13 @@ class FrontendUserStorageUtility extends \Pixelant\PxaNewsletterSubscription\Uti
             $querySettings->setStoragePageIds([$pid]);
             $this->frontendUserRepository->setDefaultQuerySettings($querySettings);
         }
+    }
+
+    /**
+     * @param \Pixelant\PxaNewsletterSubscription\Domain\Repository\FrontendUserGroupRepository $frontendUserGroupRepository
+     */
+    public function injectFrontendUserGroupRepository(\Pixelant\PxaNewsletterSubscription\Domain\Repository\FrontendUserGroupRepository $frontendUserGroupRepository) {
+        $this->frontendUserGroupRepository = $frontendUserGroupRepository;
     }
 
     /**
