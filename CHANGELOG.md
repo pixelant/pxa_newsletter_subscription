@@ -1,4 +1,9 @@
 
+#### v9.0.1 `December 4, 2018`
+- **[TASK]** change version in ext_emconf.php ([17ef8a7](https://github.com/pixelant/pxa_newsletter_subscription/commit/17ef8a7))
+
+***
+
 #### v9.0.0 `December 4, 2018`
 - **[TASK]** raise contraints for typo3 9 ([5f3054d](https://github.com/pixelant/pxa_newsletter_subscription/commit/5f3054d))
 - **[BUGFIX]** Change package name ([ea183bc](https://github.com/pixelant/pxa_newsletter_subscription/commit/ea183bc))
