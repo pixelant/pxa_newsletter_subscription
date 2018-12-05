@@ -1,8 +1,7 @@
-# Pixelant
+# Newsletter subscription
 
-[![pxa_newsletter_subscription](https://img.shields.io/badge/pxa_newsletter_subscription-4.0.2-green.svg?style=flat-square)](https://bitbucket.org/pixelant/pxa_newsletter_subscription) [![TYPO3](https://img.shields.io/badge/TYPO3-7.6.0-orange.svg?style=flat-square)](https://typo3.org/)
+## Pixelant Newsletter subscription `pxa_newsletter_subscription`
 
-## Newsletter subscription [pxa_newsletter_subscription](https://bitbucket.org/pixelant/pxa_newsletter_subscription)
 This is an extension that makes it possible for a user to subscribe to a newsletter and being created as a frontend user or tt_address dataset.
 
 ## Signal slot
