@@ -1,4 +1,9 @@
 
+#### v9.0.2 `December 5, 2018`
+- **[DOC]** update README ([be3d371](https://github.com/pixelant/pxa_newsletter_subscription/commit/be3d371))
+
+***
+
 #### v9.0.1 `December 4, 2018`
 - **[TASK]** change version in ext_emconf.php ([17ef8a7](https://github.com/pixelant/pxa_newsletter_subscription/commit/17ef8a7))
 
