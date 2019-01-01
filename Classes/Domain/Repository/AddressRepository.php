@@ -33,6 +33,6 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AddressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepository
+class AddressRepository extends \FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository
 {
 }
