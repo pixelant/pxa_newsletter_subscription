@@ -32,7 +32,7 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Address extends \TYPO3\TtAddress\Domain\Model\Address
+class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
 {
     /**
      * @var boolean
