@@ -2,7 +2,14 @@
     "name": "pixelant/pxa-newsletter-subscription",
     "description": "Newsletter Subscription",
     "type": "typo3-cms-extension",
-    "homepage": "http://www.pixelant.net/",
+    "authors": [
+        {
+            "name": "Pixelant",
+            "email": "info@pixelant.net",
+            "homepage": "https://www.pixelant.net",
+            "role": "Developer"
+        }
+    ],
     "license": "GPL-2.0+",
     "support": {
     },
