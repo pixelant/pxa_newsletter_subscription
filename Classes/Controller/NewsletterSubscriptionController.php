@@ -286,7 +286,7 @@ class NewsletterSubscriptionController extends ActionController
      */
     protected function translate($key = '')
     {
-        return LocalizationUtility::translate($key, 'pxa_newsletter_subscription');
+        return LocalizationUtility::translate($key, 'PxaNewsletterSubscription');
     }
 
     /**
