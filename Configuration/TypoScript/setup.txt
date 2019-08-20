@@ -15,6 +15,19 @@ plugin.tx_pxanewslettersubscription {
 
     persistence {
         storagePid = {$plugin.tx_pxanewslettersubscription.persistence.storagePid}
+
+        classes {
+            # By default map to fe_users
+            Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription {
+                mapping {
+                    tableName = fe_users
+
+                    columns {
+                        disabled.mapOnProperty = hidden
+                    }
+                }
+            }
+        }
     }
 
     settings {

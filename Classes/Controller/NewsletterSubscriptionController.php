@@ -76,10 +76,10 @@ class NewsletterSubscriptionController extends ActionController
      */
     public function formAction()
     {
-        $this->view->assign(
+/*        $this->view->assign(
             'ceuid',
             $this->configurationManager->getContentObject()->getFieldVal('uid')
-        );
+        );*/
     }
 
     /**
