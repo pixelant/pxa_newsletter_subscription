@@ -1,29 +1,29 @@
 {
-    "name": "pixelant/pxa-newsletter-subscription",
-    "description": "Newsletter Subscription",
-    "type": "typo3-cms-extension",
-    "authors": [
-        {
-            "name": "Pixelant",
-            "email": "info@pixelant.net",
-            "homepage": "https://www.pixelant.net",
-            "role": "Developer"
-        }
-    ],
-    "license": "GPL-2.0+",
-    "support": {
-    },
-    "autoload": {
-        "psr-4": {
-            "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
-        }
-    },
-    "require": {
-        "typo3/cms-core": ">=9.5.0,<10.0.0",
-        "php": ">=7.2.0,<7.3.0"
-    },
-    "replace": {
-        "pxa_newsletter_subscription": "self.version",
-        "typo3-ter/pxa-newsletter-subscription": "self.version"
+  "name": "pixelant/pxa-newsletter-subscription",
+  "description": "Newsletter Subscription",
+  "type": "typo3-cms-extension",
+  "authors": [
+    {
+      "name": "Pixelant",
+      "email": "info@pixelant.net",
+      "homepage": "https://www.pixelant.net",
+      "role": "Developer"
     }
+  ],
+  "license": "GPL-2.0+",
+  "support": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
+    }
+  },
+  "require": {
+    "typo3/cms-core": "^9.5",
+    "php": ">=7.2.0"
+  },
+  "replace": {
+    "pxa_newsletter_subscription": "self.version",
+    "typo3-ter/pxa-newsletter-subscription": "self.version"
+  }
 }
