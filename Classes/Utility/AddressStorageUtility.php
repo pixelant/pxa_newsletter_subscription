@@ -102,7 +102,7 @@ class AddressStorageUtility extends \Pixelant\PxaNewsletterSubscription\Utility\
 
         // Signal slot for after fe_user creation
         $this->signalSlotDispatcher->dispatch(
-            \Pixelant\PxaNewsletterSubscription\Controller\NewsletterSubscriptionController::class,
+            \Pixelant\PxaNewsletterSubscription\Controller\NewsletterSubscriptionControllerOld::class,
             'afterAddressCreation',
             [$address, $this]
         );
