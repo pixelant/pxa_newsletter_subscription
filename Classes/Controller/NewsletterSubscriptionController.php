@@ -4,15 +4,15 @@ declare(strict_types=1);
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Class NewsletterSubscriptionController
  * @package Pixelant\PxaNewsletterSubscription\Controller
  */
-class NewsletterSubscriptionController extends ActionController
+class NewsletterSubscriptionController extends AbstractController
 {
+    use TranslateTrait;
+
     /**
      * Show form
      */
@@ -31,7 +31,7 @@ class NewsletterSubscriptionController extends ActionController
     {
         if (empty($this->settings['ajaxPageType'])) {
             $this->addFlashMessage(
-                LocalizationUtility::translate('error.missing_page_type', $this->extensionName),
+                $this->translate('error.missing_page_type'),
                 '',
                 FlashMessage::ERROR
             );

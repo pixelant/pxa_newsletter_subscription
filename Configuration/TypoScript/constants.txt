@@ -8,6 +8,10 @@ plugin.tx_pxanewslettersubscription {
         layoutRootPath = EXT:pxa_newsletter_subscription/Resources/Private/Layouts/
     }
 
+    settings {
+        ajaxPageType = 6171240
+    }
+
     persistence {
         # cat=plugin.tx_pxanewslettersubscription//a; type=string; label=Default storage PID
         storagePid =

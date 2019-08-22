@@ -23,7 +23,7 @@ plugin.tx_pxanewslettersubscription {
                     tableName = fe_users
 
                     columns {
-                        disabled.mapOnProperty = hidden
+                        disable.mapOnProperty = hidden
                     }
                 }
             }
@@ -31,7 +31,7 @@ plugin.tx_pxanewslettersubscription {
     }
 
     settings {
-
+        ajaxPageType = {$plugin.tx_pxanewslettersubscription.settings.ajaxPageType}
     }
 }
 
@@ -40,22 +40,32 @@ plugin.tx_pxanewslettersubscription {
 #
 PXA_NEWSLETTER_AJAX = PAGE
 PXA_NEWSLETTER_AJAX {
-    typeNum = 6171240
+    typeNum = {$plugin.tx_pxanewslettersubscription.settings.ajaxPageType}
 
     config {
         disableAllHeaderCode = 1
         admPanel = 0
         debug = 0
         no_cache = 1
-        additionalHeaders = Content-type:application/json
+        additionalHeaders {
+            10 {
+                header = Content-Type: application/json
+                replace = 1
+            }
+        }
     }
 
-    10 = RECORDS
+    10 = USER
     10 {
-        tables = tt_content
-        source {
-            data = GP:tx_pxanewslettersubscription_subscription|ceuid
-            intval = 1
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = PxaNewsletterSubscription
+        pluginName = Subscription
+        vendorName = Pixelant
+
+        switchableControllerAction {
+            Ajax {
+                1 = subscribe
+            }
         }
     }
 }

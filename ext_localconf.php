@@ -6,11 +6,13 @@ defined('TYPO3_MODE') || die('Access denied.');
         'Pixelant.pxa_newsletter_subscription',
         'Subscription',
         [
-            'NewsletterSubscription' => 'form,ajax,confirm',
+            'NewsletterSubscription' => 'form, confirm',
+            'Ajax' => 'subscribe',
         ],
         // non-cacheable actions
         [
-            'NewsletterSubscription' => 'ajax,confirm'
+            'NewsletterSubscription' => 'ajax, confirm',
+            'Ajax' => 'subscribe',
         ]
     );
 })();
