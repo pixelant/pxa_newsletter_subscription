@@ -5,10 +5,14 @@
         <body>
             <trans-unit id="name" xml:space="preserve">
                 <source>Name</source>
-            <target></target></trans-unit>
+            </trans-unit>
             <trans-unit id="email" xml:space="preserve">
                 <source>E-mail</source>
             </trans-unit>
+            <trans-unit id="error.missing_page_type">
+                <source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
+            </trans-unit>
+
             <trans-unit id="error.invalid.email" xml:space="preserve">
                 <source>Invalid email-address.</source>
             </trans-unit>
