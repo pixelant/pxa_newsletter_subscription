@@ -6,6 +6,7 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Validator;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Domain\Repository\SubscriptionRepository;
 use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
+use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
@@ -16,6 +17,8 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  */
 class SubscriptionValidator extends AbstractValidator
 {
+    use EmitSignal;
+
     /**
      * @var SubscriptionRepository
      */
@@ -52,6 +55,8 @@ class SubscriptionValidator extends AbstractValidator
     {
         $settings = $this->getPluginFlexFormSettings();
         $isNameRequired = boolval($settings['nameIsMandatory'] ?? false);
+
+        $this->emitSignal('beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
 
         if (empty($settings['storagePid'])) {
             $this->addError(
