@@ -1,6 +1,9 @@
 "use strict";
 
 const PxaNewsLetterSubscription = function (formSelector, callbackOnAjaxResponse) {
+	this.alertWrapper = '.alert';
+	this.hiddenClass = 'hidden';
+
 	this.formSelector = formSelector;
 	this.callbackOnAjaxResponse = callbackOnAjaxResponse || false;
 };
@@ -21,9 +24,9 @@ PxaNewsLetterSubscription.prototype = {
 		// If forms were found
 		if (this.form.length > 0) {
 			this.form.addEventListener('submit', function (e) {
-				/*e.preventDefault();
+				e.preventDefault();
 
-				self._ajaxRequest(this);*/
+				self._ajaxRequest(this);
 			}, true);
 		}
 	},
@@ -38,30 +41,52 @@ PxaNewsLetterSubscription.prototype = {
 		let formData = new FormData(form),
 			url = form.action;
 
+		// Disable submit button
+		let submit = form.querySelector('[type="submit"]');
+		submit.disabled = true;
+
+		// Reset errors
+		this._resetError(form);
+
 		let xmlHttpRequest = new XMLHttpRequest();
+		xmlHttpRequest.responseType = 'json';
 
 		// Define what happens on successful data submission
-		xmlHttpRequest.addEventListener('load', (response) => {
+		xmlHttpRequest.addEventListener('load', () => {
 			if (!this._isFunction(this.callbackOnAjaxResponse)) {
-				console.log(response);
+				// If success
+				if (xmlHttpRequest.status === 200 && xmlHttpRequest.response.success) {
+					let successElement = document.createElement('div');
+
+					successElement.className = 'alert alert-success';
+					successElement.innerHTML = xmlHttpRequest.response.message;
+
+					form.parentNode.replaceChild(successElement, form);
+				} else {
+					this._processRequestValidationErrors(form, xmlHttpRequest.response.errors || {})
+				}
+
+				submit.disabled = false;
 
 				return;
 			}
 
 			// Custom function
-			this._customResponseProcessing(response, form);
+			this._customResponseProcessing(xmlHttpRequest.response, form);
 		});
 
 		// Define what happens in case of error
-		xmlHttpRequest.addEventListener('error', (response) => {
+		xmlHttpRequest.addEventListener('error', () => {
+			let error = 'Error occurred while receiving the document.';
+
 			if (!this._isFunction(this.callbackOnAjaxResponse)) {
-				console.log(response);
+				this._addError(form, error);
 
 				return;
 			}
 
 			// Custom function
-			this._customResponseProcessing(response, form);
+			this._customResponseProcessing(error, form);
 		});
 
 		// Set up our request
@@ -72,13 +97,64 @@ PxaNewsLetterSubscription.prototype = {
 	},
 
 	/**
+	 * Go through all errors and show
+	 *
+	 * @param form
+	 * @param errors
+	 * @private
+	 */
+	_processRequestValidationErrors: function (form, errors) {
+		for (let propertyName in errors) {
+			if (!errors.hasOwnProperty(propertyName)) {
+				continue;
+			}
+
+			let error = errors[propertyName];
+
+			if (typeof error === 'object') {
+				this._processRequestValidationErrors(form, error)
+			} else {
+				this._addError(form, error);
+			}
+		}
+	},
+
+	/**
+	 * Reset errors
+	 *
+	 * @param form
+	 * @private
+	 */
+	_resetError: function (form) {
+		let alertWrapper = form.querySelector(this.alertWrapper);
+
+		alertWrapper.innerHTML = '';
+		alertWrapper.classList.add(this.hiddenClass);
+	},
+
+	/**
+	 * Add error message to container
+	 *
+	 * @param form
+	 * @param error
+	 * @private
+	 */
+	_addError: function (form, error) {
+		let alertWrapper = form.querySelector(this.alertWrapper);
+
+		alertWrapper.innerHTML += error;
+
+		alertWrapper.classList.remove(this.hiddenClass);
+	},
+
+	/**
 	 * Process response with given callback
 	 *
 	 * @param response
 	 * @param form
 	 * @private
 	 */
-	_customResponseProcessing: function(response, form) {
+	_customResponseProcessing: function (response, form) {
 		this.callbackOnAjaxResponse({
 			response: response,
 			form: form
@@ -95,5 +171,3 @@ PxaNewsLetterSubscription.prototype = {
 		return typeof func === 'function';
 	}
 };
-
-(new PxaNewsLetterSubscription('[data-form="pxa-newsletter-subscription-form"]')).init();

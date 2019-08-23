@@ -74,4 +74,7 @@ PXA_NEWSLETTER_AJAX {
 }
 
 # Include JS
-page.includeJSFooter.pxa_newsletter_subscription = EXT:pxa_newsletter_subscription/Resources/Public/Js/Form.js
+page {
+    includeJSFooterlibs.pxa_newsletter_subscription_form = EXT:pxa_newsletter_subscription/Resources/Public/Js/Form.js
+    includeJSFooter.pxa_newsletter_subscription = EXT:pxa_newsletter_subscription/Resources/Public/Js/pxa_newsletter_subscription.js
+}

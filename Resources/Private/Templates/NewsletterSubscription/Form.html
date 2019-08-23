@@ -13,6 +13,8 @@
             data="{form: 'pxa-newsletter-subscription-form'}">
         <f:variable name="colClass" value="{f:if(condition: settings.nameIsMandatory, then: 'col-sm-6', else: 'col-sm-12')}" />
 
+        <div class="alert alert-danger hidden"></div>
+
         <div class="row">
             <div class="form-group">
                 <f:if condition="{settings.nameIsMandatory}">

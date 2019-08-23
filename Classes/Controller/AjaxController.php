@@ -107,9 +107,11 @@ class AjaxController extends AbstractController
                 }
             }
 
-            $success = false;
+            if (count($errors) > 0) {
+                $success = false;
 
-            $this->throwStatus(401, null, json_encode(compact('success', 'errors')));
+                $this->throwStatus(400, null, json_encode(compact('success', 'errors')));
+            }
         }
 
         return parent::errorAction();
