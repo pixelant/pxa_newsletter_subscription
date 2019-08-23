@@ -10,6 +10,12 @@ plugin.tx_pxanewslettersubscription {
 
     settings {
         ajaxPageType = 6171240
+
+        # cat=plugin.tx_pxanewslettersubscription/settings; type=string; label=Default sender email
+        senderEmail =
+
+        # cat=plugin.tx_pxanewslettersubscription/settings; type=string; label=Default sender name
+        senderName =
     }
 
     persistence {

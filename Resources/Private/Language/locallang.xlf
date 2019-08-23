@@ -18,6 +18,19 @@
                 <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
             </trans-unit>
 
+			<trans-unit id="confirm_mail_subject" xml:space="preserve">
+                <source>Newsletter confirmation</source>
+            </trans-unit>
+			<trans-unit id="confirm_mail_greeting" xml:space="preserve">
+                <source>Hi</source>
+            </trans-unit>
+			<trans-unit id="confirm_mail_line1" xml:space="preserve">
+                <source>Please confirm your email address by clicking on the following link:</source>
+            </trans-unit>
+			<trans-unit id="confirm_mail_line2" xml:space="preserve">
+                <source>If you wish to unsubscribe in the future, follow this link:</source>
+            </trans-unit>
+
 
 			<trans-unit id="error.missing_page_type">
 				<source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
@@ -35,6 +48,7 @@
                 <source>Invalid or missing name.</source>
             </trans-unit>
 
+			<!--END NEW -->
 
 			<trans-unit id="error.unsubscribe.not-subscribed" xml:space="preserve">
                 <source>No subscription exists for this email-address.</source>
@@ -76,18 +90,6 @@
                 <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
             </trans-unit>
 
-			<trans-unit id="confirm_mail_subject" xml:space="preserve">
-                <source>Newsletter confirmation</source>
-            </trans-unit>
-			<trans-unit id="confirm_mail_greeting" xml:space="preserve">
-                <source>Hi %s,</source>
-            </trans-unit>
-			<trans-unit id="confirm_mail_line1" xml:space="preserve">
-                <source>Please confirm your email address by clicking on the following link: %s</source>
-            </trans-unit>
-			<trans-unit id="confirm_mail_line2" xml:space="preserve">
-                <source>If you wish to unsubscribe in the future, follow this link: %s Thank you.</source>
-            </trans-unit>
 
 			<trans-unit id="subscribe_ok" xml:space="preserve">
                 <source>You have been successfully subscribed to newsletter.</source>

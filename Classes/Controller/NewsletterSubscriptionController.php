@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
+use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
@@ -14,6 +15,16 @@ class NewsletterSubscriptionController extends AbstractController
     use TranslateTrait;
 
     /**
+     * Read flexform settings of subsription content element on confirmation action
+     */
+    protected function initializeConfirmAction()
+    {
+        if ($this->arguments->hasArgument('ceUid')) {
+            $this->mergeSettingsWithFlexFormSettings();
+        }
+    }
+
+    /**
      * Show form
      */
     public function formAction()
@@ -21,6 +32,25 @@ class NewsletterSubscriptionController extends AbstractController
         $this->checkPageTypeSettings();
 
         $this->view->assign('ceUid', $this->configurationManager->getContentObject()->getFieldVal('uid'));
+    }
+
+    /**
+     * Confirm user subscription
+     * @param Subscription $subscription
+     * @param string $hash
+     */
+    public function confirmAction(Subscription $subscription, string $hash)
+    {
+        if ($this->hashService->isValidSubscriptionHash($subscription, $hash)) {
+            $subscription->setHidden(false);
+            $this->subscriptionRepository->update($subscription);
+
+            $this->notifyAdmin($subscription);
+
+            $this->view->assign('success', true);
+        }
+
+        $this->view->assign('success', false);
     }
 
     /**

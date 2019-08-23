@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
-use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
+use Pixelant\PxaNewsletterSubscription\Service\Notification\SubscriberNotification;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Error;
 
 /**
@@ -27,33 +29,11 @@ class AjaxController extends AbstractController
     protected $defaultViewObjectName = JsonView::class;
 
     /**
-     * @var FlexFormSettingsService
-     */
-    protected $flexFormSettingsService = null;
-
-    /**
-     * @param FlexFormSettingsService $flexFormSettingsService
-     */
-    public function injectFlexFormSettingsService(FlexFormSettingsService $flexFormSettingsService)
-    {
-        $this->flexFormSettingsService = $flexFormSettingsService;
-    }
-
-    /**
      * Prepare settings
      */
     protected function initializeSubscribeAction()
     {
-        if ($this->request->hasArgument('ceUid')) {
-            $flexFormSettings = $this->flexFormSettingsService->getFlexFormArray((int)$this->request->getArgument('ceUid'));
-
-            if ($flexFormSettings !== null) {
-                $this->settings = array_merge(
-                    $this->settings,
-                    $flexFormSettings['settings']
-                );
-            }
-        }
+        $this->mergeSettingsWithFlexFormSettings();
     }
 
     /**
@@ -65,20 +45,24 @@ class AjaxController extends AbstractController
     public function subscribeAction(Subscription $subscription): void
     {
         $enableEmailConfirmation = !empty($this->settings['enableEmailConfirmation']);
+
+        // Set properties
+        $subscription->setPid((int)$this->settings['storagePid']);
+        $subscription->setHidden($enableEmailConfirmation);
+        // Save
+        $this->subscriptionRepository->add($subscription);
+        // Persist so we can use Uid later
+        $this->objectManager->get(PersistenceManagerInterface::class)->persistAll();
+
+
         if ($enableEmailConfirmation) {
-            // Hide until confirm
-            $subscription->setHidden(true);
-            // @TODO send email
+            // Send user confirmation email
+            $this->sendSubscriberNotification($subscription);
         } else {
             // Notify admin if no confirmation required,
             // otherwise it'll be send after confirmation
             $this->notifyAdmin($subscription);
         }
-
-        // PID is required
-        $subscription->setPid((int)$this->settings['storagePid']);
-        // Save
-        $this->subscriptionRepository->add($subscription);
 
         $response = [
             'success' => true,
@@ -129,5 +113,38 @@ class AjaxController extends AbstractController
         }
 
         return parent::errorAction();
+    }
+
+    /**
+     * Send confirmation email
+     *
+     * @param Subscription $subscription
+     */
+    protected function sendSubscriberNotification(Subscription $subscription): void
+    {
+        $subscriberNotification = $this->getSubscriberNotification();
+
+        $subscriberNotification
+            ->setSubject($this->translate('confirm_mail_subject'))
+            ->setSenderEmail($this->settings['senderEmail'] ?? '')
+            ->setSenderName($this->settings['senderName'] ?? '')
+            ->setReceivers([$subscription->getEmail()]);
+
+        $confirmationLink = $this->generateConfirmationLink(
+            $subscription,
+            intval($this->settings['confirmationPage']) ?: null
+        );
+
+        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink'));
+
+        $subscriberNotification->send();
+    }
+
+    /**
+     * @return SubscriberNotification
+     */
+    protected function getSubscriberNotification(): SubscriberNotification
+    {
+        return GeneralUtility::makeInstance(SubscriberNotification::class);
     }
 }
