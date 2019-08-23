@@ -77,7 +77,7 @@ PxaNewsLetterSubscription.prototype = {
 
 		// Define what happens in case of error
 		xmlHttpRequest.addEventListener('error', () => {
-			let error = 'Error occurred while receiving the document.';
+			let error = {error: 'Error occurred while receiving the document.'};
 
 			if (!this._isFunction(this.callbackOnAjaxResponse)) {
 				this._addError(form, error);
