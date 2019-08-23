@@ -72,7 +72,7 @@ PxaNewsLetterSubscription.prototype = {
 			}
 
 			// Custom function
-			this._customResponseProcessing(xmlHttpRequest.response, form);
+			this._customResponseProcessing(xmlHttpRequest, form);
 		});
 
 		// Define what happens in case of error
@@ -86,7 +86,7 @@ PxaNewsLetterSubscription.prototype = {
 			}
 
 			// Custom function
-			this._customResponseProcessing(error, form);
+			this._customResponseProcessing(xmlHttpRequest, form);
 		});
 
 		// Set up our request
