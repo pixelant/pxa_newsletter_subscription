@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
+use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Service\Notification\SubscriberNotification;
+use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
@@ -17,6 +19,7 @@ use TYPO3\CMS\Extbase\Validation\Error;
 class AjaxController extends AbstractController
 {
     use TranslateTrait;
+    use EmitSignal;
 
     /**
      * @var JsonView
@@ -49,11 +52,17 @@ class AjaxController extends AbstractController
         // Set properties
         $subscription->setPid((int)$this->settings['storagePid']);
         $subscription->setHidden($enableEmailConfirmation);
+
+        // Hook before persist
+        $this->emitSignal('beforePersistSubscription' . __METHOD__, $subscription, $this->settings);
+
         // Save
         $this->subscriptionRepository->add($subscription);
         // Persist so we can use Uid later
         $this->objectManager->get(PersistenceManagerInterface::class)->persistAll();
 
+        // Hook after persist
+        $this->emitSignal('afterPersistSubscription' . __METHOD__, $subscription, $this->settings);
 
         if ($enableEmailConfirmation) {
             // Send user confirmation email

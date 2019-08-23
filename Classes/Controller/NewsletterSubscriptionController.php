@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
+use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
+use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
@@ -12,6 +14,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 class NewsletterSubscriptionController extends AbstractController
 {
     use TranslateTrait;
+    use EmitSignal;
 
     /**
      * Read flexform settings of subsription content element on confirmation action
@@ -47,6 +50,9 @@ class NewsletterSubscriptionController extends AbstractController
         }
 
         if (is_object($subscription) && $this->hashService->isValidSubscriptionHash($subscription, $hash)) {
+            // Emit signal
+            $this->emitSignal('beforeConfirmSubscription' . __METHOD__, $subscription, $hash, $this->settings);
+
             if ($subscription->isHidden()) {
                 $subscription->setHidden(false);
                 $this->subscriptionRepository->update($subscription);
