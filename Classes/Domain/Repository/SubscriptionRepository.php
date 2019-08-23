@@ -27,6 +27,29 @@ class SubscriptionRepository extends Repository
     }
 
     /**
+     * Find hidden subscription
+     *
+     * @param int $uid
+     * @return Subscription|null
+     */
+    public function findByUidHidden(int $uid): ?Subscription
+    {
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()
+            ->setRespectStoragePage(false)
+            ->setRespectSysLanguage(false)
+            ->setIgnoreEnableFields(true)
+            ->setEnableFieldsToBeIgnored(['disabled']);
+
+        $query->matching(
+            $query->equals('uid', $uid)
+        );
+
+        return $query->execute()->getFirst();
+    }
+
+    /**
      * Find by email in storage
      *
      * @param string $email

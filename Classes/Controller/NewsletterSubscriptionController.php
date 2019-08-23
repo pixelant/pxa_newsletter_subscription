@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
-use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
@@ -19,7 +18,7 @@ class NewsletterSubscriptionController extends AbstractController
      */
     protected function initializeConfirmAction()
     {
-        if ($this->arguments->hasArgument('ceUid')) {
+        if ($this->request->hasArgument('ceUid')) {
             $this->mergeSettingsWithFlexFormSettings();
         }
     }
@@ -36,21 +35,29 @@ class NewsletterSubscriptionController extends AbstractController
 
     /**
      * Confirm user subscription
-     * @param Subscription $subscription
+     *
+     * @param int $subscription
      * @param string $hash
      */
-    public function confirmAction(Subscription $subscription, string $hash)
+    public function confirmAction(int $subscription = null, string $hash = '')
     {
-        if ($this->hashService->isValidSubscriptionHash($subscription, $hash)) {
-            $subscription->setHidden(false);
-            $this->subscriptionRepository->update($subscription);
-
-            $this->notifyAdmin($subscription);
-
-            $this->view->assign('success', true);
+        $success = false;
+        if ($subscription !== null) {
+            $subscription = $this->subscriptionRepository->findByUidHidden($subscription);
         }
 
-        $this->view->assign('success', false);
+        if (is_object($subscription) && $this->hashService->isValidSubscriptionHash($subscription, $hash)) {
+            if ($subscription->isHidden()) {
+                $subscription->setHidden(false);
+                $this->subscriptionRepository->update($subscription);
+
+                $this->notifyAdmin($subscription);
+            }
+
+            $success = true;
+        }
+
+        $this->view->assignMultiple(compact('success', 'subscription'));
     }
 
     /**

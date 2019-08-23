@@ -5,6 +5,7 @@ namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Domain\Repository\SubscriptionRepository;
+use Pixelant\PxaNewsletterSubscription\Service\Notification\AdminNotificationService;
 use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
 use Pixelant\PxaNewsletterSubscription\Service\HashService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,6 +17,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 abstract class AbstractController extends ActionController
 {
+    use TranslateTrait;
+
     /**
      * @var SubscriptionRepository
      */
@@ -70,7 +73,17 @@ abstract class AbstractController extends ActionController
                 }
             );
 
-            // TODO notify admins
+            $adminNotification = $this->getAdminNotification();
+
+            $adminNotification
+                ->setSubject($this->translate('confirm_mail_admin_subject'))
+                ->setReceivers($receivers)
+                ->setSenderEmail($this->settings['senderEmail'] ?? '')
+                ->setSenderName($this->settings['senderName'] ?? '');
+
+            $adminNotification->assignVariables(compact('subscription'));
+
+            $adminNotification->send();
         }
     }
 
@@ -112,5 +125,13 @@ abstract class AbstractController extends ActionController
                 $flexFormSettings['settings']
             );
         }
+    }
+
+    /**
+     * @return AdminNotificationService
+     */
+    protected function getAdminNotification(): AdminNotificationService
+    {
+        return GeneralUtility::makeInstance(AdminNotificationService::class);
     }
 }

@@ -3,19 +3,19 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
-    <f:if condition="{settings.confirm.outerWrap.enabled} == 1">
+    <f:if condition="{success}">
         <f:then>
-            <div class="{settings.confirm.outerWrap.class} {f:if(condition: status, then: '{settings.confirm.outerWrap.classSuccess}', else: '{settings.confirm.outerWrap.classFailure}')}">
-                <f:render section="message" arguments="{_all}"/>
+            <div class="alert alert-success">
+                <f:translate key="subscribe_ok" />
             </div>
-        </f:then>
-        <f:else><f:render section="message" arguments="{_all}"/></f:else>
-    </f:if>
-</f:section>
 
-<f:section name="message">
-    <p class="{settings.confirm.class} {f:if(condition: status, then: '{settings.confirm.classSuccess}', else: '{settings.confirm.classFailure}')}">
-        {message}
-    </p>
+            <a href="{f:cObject(typoscriptObjectPath: 'lib.pxaNewsLetterMainPageUrl')}" class="btn btn-default"><f:translate key="back_to_website" /></a>
+        </f:then>
+        <f:else>
+            <div class="alert alert-danger">
+                <f:translate key="error.subscribe_error" />
+            </div>
+        </f:else>
+    </f:if>
 </f:section>
 </html>

@@ -10,6 +10,9 @@
 			<trans-unit id="email" xml:space="preserve">
                 <source>E-mail</source>
             </trans-unit>
+			<trans-unit id="storage">
+			    <source>Storage (PID)</source>
+			</trans-unit>
 
 			<trans-unit id="success.subscribe.subscribed-noconfirm" xml:space="preserve">
                 <source>You have been successfully subscribed to newsletter.</source>
@@ -17,6 +20,22 @@
 			<trans-unit id="success.subscribe.subscribed-confirm" xml:space="preserve">
                 <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
             </trans-unit>
+			<trans-unit id="subscribe_ok" xml:space="preserve">
+                <source>You have been successfully subscribed to newsletter.</source>
+            </trans-unit>
+			<trans-unit id="back_to_website" xml:space="preserve">
+                <source>Back to website</source>
+            </trans-unit>
+
+			<trans-unit id="confirm_mail_admin_subject">
+			    <source>New newsletter subscription</source>
+			</trans-unit>
+			<trans-unit id="confirm_mail_admin_line1">
+			    <source>New subscription on a site.</source>
+			</trans-unit>
+			<trans-unit id="confirm_mail_admin_line2">
+				<source>Subscription information</source>
+			</trans-unit>
 
 			<trans-unit id="confirm_mail_subject" xml:space="preserve">
                 <source>Newsletter confirmation</source>
@@ -31,7 +50,9 @@
                 <source>If you wish to unsubscribe in the future, follow this link:</source>
             </trans-unit>
 
-
+			<trans-unit id="error.subscribe_error" xml:space="preserve">
+                <source>Sorry, something went wrong. Please contact us regarding your subscription.</source>
+            </trans-unit>
 			<trans-unit id="error.missing_page_type">
 				<source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
 			</trans-unit>
@@ -91,21 +112,14 @@
             </trans-unit>
 
 
-			<trans-unit id="subscribe_ok" xml:space="preserve">
-                <source>You have been successfully subscribed to newsletter.</source>
-            </trans-unit>
-			<trans-unit id="subscribe_error" xml:space="preserve">
-                <source>Sorry, something went wrong. Please contact us regarding your subscription.</source>
-            </trans-unit>
+
 			<trans-unit id="unsubscribe_ok" xml:space="preserve">
                 <source>Your will no longer receive emails from this newsletter. We will miss you.</source>
             </trans-unit>
 			<trans-unit id="unsubscribe_error" xml:space="preserve">
                 <source>Sorry, something went wrong. Please contact us regarding your unsubscription.</source>
             </trans-unit>
-			<trans-unit id="back_to_website" xml:space="preserve">
-                <source>Back to website</source>
-            </trans-unit>
+
 			<trans-unit id="jqhxr_error_message" xml:space="preserve">
                 <source>Technical problem, please try again later.</source>
             </trans-unit>

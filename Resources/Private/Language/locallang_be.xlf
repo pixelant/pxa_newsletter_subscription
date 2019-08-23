@@ -4,6 +4,18 @@
         <header/>
         <body>
             <!--FlexForm:START-->
+            <trans-unit id="flexform.mode">
+                <source>Plugin mode</source>
+            </trans-unit>
+            <trans-unit id="flexform.mode.select_mode">
+                <source>Select plugin mode</source>
+            </trans-unit>
+            <trans-unit id="flexform.mode.form">
+                <source>Subscription form</source>
+            </trans-unit>
+            <trans-unit id="flexform.mode.confirm">
+                <source>Confirmation subscription</source>
+            </trans-unit>
             <trans-unit id="flexform.sheet_title">
                 <source>Settings</source>
             </trans-unit>
