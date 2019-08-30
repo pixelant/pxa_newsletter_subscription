@@ -69,6 +69,9 @@ class AjaxController extends AbstractController
             // Notify admin if no confirmation required,
             // otherwise it'll be send after confirmation
             $this->notifyAdmin($subscription);
+
+            // Notify subscriber
+            $this->notifySubscriber($subscription);
         }
 
         $response = [

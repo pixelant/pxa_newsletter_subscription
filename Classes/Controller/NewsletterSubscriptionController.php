@@ -57,7 +57,9 @@ class NewsletterSubscriptionController extends AbstractController
                 $subscription->setHidden(false);
                 $this->subscriptionRepository->update($subscription);
 
+                // Send notifications
                 $this->notifyAdmin($subscription);
+                $this->notifySubscriber($subscription);
             }
 
             $success = true;

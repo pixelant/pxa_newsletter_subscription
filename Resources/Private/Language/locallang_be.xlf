@@ -1,43 +1,47 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01">
-        <header/>
-        <body>
-            <!--FlexForm:START-->
-            <trans-unit id="flexform.mode">
-                <source>Plugin mode</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode.select_mode">
-                <source>Select plugin mode</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode.form">
-                <source>Subscription form</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode.confirm">
-                <source>Confirmation subscription</source>
-            </trans-unit>
-            <trans-unit id="flexform.sheet_title">
-                <source>Settings</source>
-            </trans-unit>
-            <trans-unit id="flexform.admin_notification_title">
-                <source>Admin notification settings</source>
-            </trans-unit>
-            <trans-unit id="flexform.enable_email_confirmation">
-                <source>Subscription email must be confirmed</source>
-            </trans-unit>
-            <trans-unit id="flexform.name_is_mandatory">
-                <source>Name is mandatory for subscription</source>
-            </trans-unit>
-            <trans-unit id="flexform.storage_pid">
-                <source>Storage</source>
-            </trans-unit>
-            <trans-unit id="flexform.confirmation_page">
-                <source>Confirmation page (Empty = current page)</source>
-            </trans-unit>
-            <trans-unit id="flexform.notify_admin">
-                <source>Notify admin on subscription (add one or more emails, each in new line)</source>
-            </trans-unit>
-            <!--FlexForm:END-->
-        </body>
-    </file>
+	<file source-language="en" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription"
+		  date="2014-09-24T01:00:11+01:01">
+		<header/>
+		<body>
+			<!--FlexForm:START-->
+			<trans-unit id="flexform.mode">
+				<source>Plugin mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.select_mode">
+				<source>Select plugin mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.form">
+				<source>Subscription form</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.confirm">
+				<source>Confirmation subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.sheet_title">
+				<source>Settings</source>
+			</trans-unit>
+			<trans-unit id="flexform.admin_notification_title">
+				<source>Admin notification settings</source>
+			</trans-unit>
+			<trans-unit id="flexform.notify_subscriber">
+				<source>Notify subscriber about successful subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.enable_email_confirmation">
+				<source>Subscription email must be confirmed</source>
+			</trans-unit>
+			<trans-unit id="flexform.name_is_mandatory">
+				<source>Name is mandatory for subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.storage_pid">
+				<source>Storage</source>
+			</trans-unit>
+			<trans-unit id="flexform.confirmation_page">
+				<source>Confirmation page (Empty = current page)</source>
+			</trans-unit>
+			<trans-unit id="flexform.notify_admin">
+				<source>Notify admin on subscription (add one or more emails, each in new line)</source>
+			</trans-unit>
+			<!--FlexForm:END-->
+		</body>
+	</file>
 </xliff>

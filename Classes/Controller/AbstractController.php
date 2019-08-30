@@ -61,6 +61,26 @@ abstract class AbstractController extends ActionController
     }
 
     /**
+     * Send notification to subscriber about successful subscription
+     *
+     * @param Subscription $subscription
+     */
+    protected function notifySubscriber(Subscription $subscription): void
+    {
+        if (!empty($this->settings['notifySubscriber'])) {
+            $subscriberNotification = $this->getEmailNotification('SubscriberSuccessSubscriptionNotification');
+
+            $subscriberNotification
+                ->setSubject($this->translate('mail.subscriber.success_subject'))
+                ->setReceivers([$subscription->getEmail()]);
+
+            $subscriberNotification->assignVariables(compact('subscription'));
+
+            $subscriberNotification->send();
+        }
+    }
+
+    /**
      * Send email notification to admin
      *
      * @param Subscription $subscription
@@ -75,13 +95,11 @@ abstract class AbstractController extends ActionController
                 }
             );
 
-            $adminNotification = $this->getAdminNotification();
+            $adminNotification = $this->getEmailNotification('AdminNotification');
 
             $adminNotification
                 ->setSubject($this->translate('mail.admin.subject'))
-                ->setReceivers($receivers)
-                ->setSenderEmail($this->settings['senderEmail'] ?? '')
-                ->setSenderName($this->settings['senderName'] ?? '');
+                ->setReceivers($receivers);
 
             $adminNotification->assignVariables(compact('subscription'));
 
@@ -96,12 +114,10 @@ abstract class AbstractController extends ActionController
      */
     protected function sendSubscriberConfirmationEmail(Subscription $subscription): void
     {
-        $subscriberNotification = $this->getSubscriberConfirmationNotification();
+        $subscriberNotification = $this->getEmailNotification('SubscriberConfirmationNotification');
 
         $subscriberNotification
             ->setSubject($this->translate('mail.subscriber.confirmation_subject'))
-            ->setSenderEmail($this->settings['senderEmail'] ?? '')
-            ->setSenderName($this->settings['senderName'] ?? '')
             ->setReceivers([$subscription->getEmail()]);
 
         $confirmationLink = $this->generateConfirmationLink(
@@ -155,18 +171,18 @@ abstract class AbstractController extends ActionController
     }
 
     /**
+     * Prepare email notification, set sender name and email if set
+     *
+     * @param string $template
      * @return EmailNotification
      */
-    protected function getAdminNotification(): EmailNotification
+    protected function getEmailNotification(string $template): EmailNotification
     {
-        return EmailNotificationFactory::getEmailNotification('AdminNotification');
-    }
+        $emailNotification = EmailNotificationFactory::getEmailNotification($template);
+        $emailNotification
+            ->setSenderEmail($this->settings['senderEmail'] ?? '')
+            ->setSenderName($this->settings['senderName'] ?? '');
 
-    /**
-     * @return EmailNotification
-     */
-    protected function getSubscriberConfirmationNotification(): EmailNotification
-    {
-        return EmailNotificationFactory::getEmailNotification('SubscriberConfirmationNotification');
+        return $emailNotification;
     }
 }
