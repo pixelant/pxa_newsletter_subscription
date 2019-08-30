@@ -7,7 +7,6 @@ use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Service\Notification\SubscriberNotification;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Error;
@@ -66,7 +65,7 @@ class AjaxController extends AbstractController
 
         if ($enableEmailConfirmation) {
             // Send user confirmation email
-            $this->sendSubscriberNotification($subscription);
+            $this->sendSubscriberConfirmationEmail($subscription);
         } else {
             // Notify admin if no confirmation required,
             // otherwise it'll be send after confirmation
@@ -124,38 +123,5 @@ class AjaxController extends AbstractController
         }
 
         return parent::errorAction();
-    }
-
-    /**
-     * Send confirmation email
-     *
-     * @param Subscription $subscription
-     */
-    protected function sendSubscriberNotification(Subscription $subscription): void
-    {
-        $subscriberNotification = $this->getSubscriberNotification();
-
-        $subscriberNotification
-            ->setSubject($this->translate('confirm_mail_subject'))
-            ->setSenderEmail($this->settings['senderEmail'] ?? '')
-            ->setSenderName($this->settings['senderName'] ?? '')
-            ->setReceivers([$subscription->getEmail()]);
-
-        $confirmationLink = $this->generateConfirmationLink(
-            $subscription,
-            intval($this->settings['confirmationPage']) ?: null
-        );
-
-        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink'));
-
-        $subscriberNotification->send();
-    }
-
-    /**
-     * @return SubscriberNotification
-     */
-    protected function getSubscriberNotification(): SubscriberNotification
-    {
-        return GeneralUtility::makeInstance(SubscriberNotification::class);
     }
 }

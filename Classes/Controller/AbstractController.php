@@ -6,9 +6,10 @@ namespace Pixelant\PxaNewsletterSubscription\Controller;
 use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Domain\Repository\SubscriptionRepository;
-use Pixelant\PxaNewsletterSubscription\Service\Notification\AdminNotificationService;
 use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
 use Pixelant\PxaNewsletterSubscription\Service\HashService;
+use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotification;
+use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotificationFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -89,6 +90,31 @@ abstract class AbstractController extends ActionController
     }
 
     /**
+     * Send confirmation email
+     *
+     * @param Subscription $subscription
+     */
+    protected function sendSubscriberConfirmationEmail(Subscription $subscription): void
+    {
+        $subscriberNotification = $this->getSubscriberConfirmationNotification();
+
+        $subscriberNotification
+            ->setSubject($this->translate('confirm_mail_subject'))
+            ->setSenderEmail($this->settings['senderEmail'] ?? '')
+            ->setSenderName($this->settings['senderName'] ?? '')
+            ->setReceivers([$subscription->getEmail()]);
+
+        $confirmationLink = $this->generateConfirmationLink(
+            $subscription,
+            intval($this->settings['confirmationPage']) ?: null
+        );
+
+        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink'));
+
+        $subscriberNotification->send();
+    }
+
+    /**
      * Generate confirmation link
      *
      * @param Subscription $subscription
@@ -129,10 +155,18 @@ abstract class AbstractController extends ActionController
     }
 
     /**
-     * @return AdminNotificationService
+     * @return EmailNotification
      */
-    protected function getAdminNotification(): AdminNotificationService
+    protected function getAdminNotification(): EmailNotification
     {
-        return GeneralUtility::makeInstance(AdminNotificationService::class);
+        return EmailNotificationFactory::getEmailNotification('AdminNotification');
+    }
+
+    /**
+     * @return EmailNotification
+     */
+    protected function getSubscriberConfirmationNotification(): EmailNotification
+    {
+        return EmailNotificationFactory::getEmailNotification('SubscriberConfirmationNotification');
     }
 }

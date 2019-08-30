@@ -13,7 +13,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  * Class AbstractEmailNotification
  * @package Pixelant\PxaNewsletterSubscription\Service\Notification
  */
-abstract class AbstractEmailNotification
+class EmailNotification
 {
     /**
      * Email formats
@@ -25,6 +25,13 @@ abstract class AbstractEmailNotification
      * @var MailMessage
      */
     protected $mailMessage = null;
+
+    /**
+     * Notification template name in EXT:pxa_newsletter_subscription/Resources/Private/Templates/Notification/
+     *
+     * @return string
+     */
+    protected $notificationTemplateName = null;
 
     /**
      * @var ObjectManager
@@ -39,7 +46,7 @@ abstract class AbstractEmailNotification
     /**
      * @var string
      */
-    protected $notificationSimulatedControllerName = 'Notification';
+    protected $notificationControllerName = 'Notification';
 
     /**
      * @var string
@@ -109,9 +116,9 @@ abstract class AbstractEmailNotification
 
     /**
      * @param string $senderName
-     * @return AbstractEmailNotification
+     * @return EmailNotification
      */
-    public function setSenderName(string $senderName): AbstractEmailNotification
+    public function setSenderName(string $senderName): EmailNotification
     {
         $this->senderName = $senderName;
         return $this;
@@ -119,9 +126,9 @@ abstract class AbstractEmailNotification
 
     /**
      * @param string $senderEmail
-     * @return AbstractEmailNotification
+     * @return EmailNotification
      */
-    public function setSenderEmail(string $senderEmail): AbstractEmailNotification
+    public function setSenderEmail(string $senderEmail): EmailNotification
     {
         $this->senderEmail = $senderEmail;
         return $this;
@@ -129,9 +136,9 @@ abstract class AbstractEmailNotification
 
     /**
      * @param array $receivers
-     * @return AbstractEmailNotification
+     * @return EmailNotification
      */
-    public function setReceivers(array $receivers): AbstractEmailNotification
+    public function setReceivers(array $receivers): EmailNotification
     {
         $this->receivers = $receivers;
         return $this;
@@ -139,11 +146,47 @@ abstract class AbstractEmailNotification
 
     /**
      * @param string $subject
-     * @return AbstractEmailNotification
+     * @return EmailNotification
      */
-    public function setSubject(string $subject): AbstractEmailNotification
+    public function setSubject(string $subject): EmailNotification
     {
         $this->subject = $subject;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotificationTemplateName()
+    {
+        return $this->notificationTemplateName;
+    }
+
+    /**
+     * @param mixed $notificationTemplateName
+     * @return EmailNotification
+     */
+    public function setNotificationTemplateName($notificationTemplateName): EmailNotification
+    {
+        $this->notificationTemplateName = $notificationTemplateName;
+        return  $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationControllerName(): string
+    {
+        return $this->notificationControllerName;
+    }
+
+    /**
+     * @param string $notificationControllerName
+     * @return EmailNotification
+     */
+    public function setNotificationControllerName(string $notificationControllerName): EmailNotification
+    {
+        $this->notificationControllerName = $notificationControllerName;
         return $this;
     }
 
@@ -213,25 +256,20 @@ abstract class AbstractEmailNotification
     /**
      * Initialize view
      *
-     * @param string $templatePathAndFilename
-     * @param string $templateName
-     * @return StandaloneView
+     * @return void
      */
-    protected function initializeStandaloneView(
-        string $templatePathAndFilename = '',
-        string $templateName = ''
-    ): void {
-        $extbaseSettings = $this->objectManager->get(ConfigurationManagerInterface::class)
+    protected function initializeStandaloneView(): void
+    {
+        if (empty($this->notificationTemplateName)) {
+            throw new \UnexpectedValueException('"notificationTemplateName" could not be empty value', 1567144351831);
+        }
+
+        $extbaseSettings = $this->objectManager
+            ->get(ConfigurationManagerInterface::class)
             ->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         /** @var StandaloneView $standaloneView */
         $standaloneView = $this->objectManager->get(StandaloneView::class);
-
-        if (!empty($templatePathAndFilename)) {
-            $standaloneView->setTemplatePathAndFilename($templatePathAndFilename);
-        } else {
-            $standaloneView->setTemplate($templateName);
-        }
 
         $view = $extbaseSettings['view'];
         if (isset($view['templateRootPaths']) && is_array($view['templateRootPaths'])) {
@@ -246,18 +284,11 @@ abstract class AbstractEmailNotification
             $standaloneView->setLayoutRootPaths($view['layoutRootPaths']);
         }
 
-        $standaloneView->getRenderingContext()->setControllerName($this->notificationSimulatedControllerName);
-        $standaloneView->getRenderingContext()->setControllerAction($this->getNotificationTemplateName());
+        $standaloneView->getRenderingContext()->setControllerName($this->notificationControllerName);
+        $standaloneView->getRenderingContext()->setControllerAction($this->notificationTemplateName);
 
         $standaloneView->assign('settings', $extbaseSettings['settings']);
 
         $this->view = $standaloneView;
     }
-
-    /**
-     * Notification template name in EXT:pxa_newsletter_subscription/Resources/Private/Templates/Notification/
-     *
-     * @return string
-     */
-    abstract public function getNotificationTemplateName(): string;
 }
