@@ -78,7 +78,7 @@ abstract class AbstractController extends ActionController
             $adminNotification = $this->getAdminNotification();
 
             $adminNotification
-                ->setSubject($this->translate('confirm_mail_admin_subject'))
+                ->setSubject($this->translate('mail.admin.subject'))
                 ->setReceivers($receivers)
                 ->setSenderEmail($this->settings['senderEmail'] ?? '')
                 ->setSenderName($this->settings['senderName'] ?? '');
@@ -99,7 +99,7 @@ abstract class AbstractController extends ActionController
         $subscriberNotification = $this->getSubscriberConfirmationNotification();
 
         $subscriberNotification
-            ->setSubject($this->translate('confirm_mail_subject'))
+            ->setSubject($this->translate('mail.subscriber.confirmation_subject'))
             ->setSenderEmail($this->settings['senderEmail'] ?? '')
             ->setSenderName($this->settings['senderName'] ?? '')
             ->setReceivers([$subscription->getEmail()]);

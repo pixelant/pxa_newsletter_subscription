@@ -5,7 +5,6 @@ namespace Pixelant\PxaNewsletterSubscription\Controller;
 
 use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
-use Pixelant\PxaNewsletterSubscription\Service\Notification\SubscriberNotification;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
@@ -76,8 +75,8 @@ class AjaxController extends AbstractController
             'success' => true,
             'message' => $this->translate(
                 $enableEmailConfirmation
-                    ? 'success.subscribe.subscribed-confirm'
-                    : 'success.subscribe.subscribed-noconfirm'
+                    ? 'subscription.subscribed_confirm'
+                    : 'subscription.subscribed_noconfirm'
             )
         ];
 

@@ -4,70 +4,81 @@
 		  date="2014-09-24T01:00:11+01:01">
 		<header/>
 		<body>
+			<!--Frontend labels:START-->
 			<trans-unit id="name" xml:space="preserve">
                 <source>Name</source>
             </trans-unit>
 			<trans-unit id="email" xml:space="preserve">
                 <source>E-mail</source>
             </trans-unit>
-			<trans-unit id="storage">
-			    <source>Storage (PID)</source>
-			</trans-unit>
-
-			<trans-unit id="success.subscribe.subscribed-noconfirm" xml:space="preserve">
-                <source>You have been successfully subscribed to newsletter.</source>
-            </trans-unit>
-			<trans-unit id="success.subscribe.subscribed-confirm" xml:space="preserve">
-                <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
-            </trans-unit>
-			<trans-unit id="subscribe_ok" xml:space="preserve">
-                <source>You have been successfully subscribed to newsletter.</source>
-            </trans-unit>
 			<trans-unit id="back_to_website" xml:space="preserve">
                 <source>Back to website</source>
             </trans-unit>
-
-			<trans-unit id="confirm_mail_admin_subject">
-			    <source>New newsletter subscription</source>
+			<trans-unit id="storage">
+				<source>Storage (PID)</source>
 			</trans-unit>
-			<trans-unit id="confirm_mail_admin_line1">
-			    <source>New subscription on a site.</source>
-			</trans-unit>
-			<trans-unit id="confirm_mail_admin_line2">
-				<source>Subscription information</source>
-			</trans-unit>
-
-			<trans-unit id="confirm_mail_subject" xml:space="preserve">
-                <source>Newsletter confirmation</source>
+			<trans-unit id="subscription.subscribed_noconfirm" xml:space="preserve">
+                <source>You have been successfully subscribed to newsletter.</source>
             </trans-unit>
-			<trans-unit id="confirm_mail_greeting" xml:space="preserve">
+			<trans-unit id="subscription.subscribed_confirm" xml:space="preserve">
+                <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
+            </trans-unit>
+			<trans-unit id="subscription.subscribe_ok" xml:space="preserve">
+                <source>You have been successfully subscribed to newsletter.</source>
+            </trans-unit>
+			<!--Frontend labels:END-->
+
+			<!--Email notification labels:START-->
+			<trans-unit id="mail.greeting" xml:space="preserve">
                 <source>Hi</source>
             </trans-unit>
-			<trans-unit id="confirm_mail_line1" xml:space="preserve">
+			<!--Admin-->
+			<trans-unit id="mail.admin.subject">
+				<source>New newsletter subscription</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.line1">
+				<source>New subscription on a site.</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.line2">
+				<source>Subscription information</source>
+			</trans-unit>
+			<!--Subscriber-->
+			<trans-unit id="mail.subscriber.confirmation_subject" xml:space="preserve">
+                <source>Newsletter subscription confirmation</source>
+            </trans-unit>
+			<trans-unit id="mail.subscriber.confirmation_line1" xml:space="preserve">
                 <source>Please confirm your email address by clicking on the following link:</source>
             </trans-unit>
-			<trans-unit id="confirm_mail_line2" xml:space="preserve">
+			<trans-unit id="mail.subscriber.confirmation_line2" xml:space="preserve">
                 <source>If you wish to unsubscribe in the future, follow this link:</source>
             </trans-unit>
+			<!--Email notification labels:END-->
 
-			<trans-unit id="error.subscribe_error" xml:space="preserve">
-                <source>Sorry, something went wrong. Please contact us regarding your subscription.</source>
-            </trans-unit>
+			<!--Error messages:START-->
 			<trans-unit id="error.missing_page_type">
 				<source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
 			</trans-unit>
+			<trans-unit id="error.already_subscribed" xml:space="preserve">
+                <source>A subscription with this email-address already exists.</source>
+            </trans-unit>
+			<trans-unit id="error.subscribe_error" xml:space="preserve">
+                <source>Sorry, something went wrong. Please contact us regarding your subscription.</source>
+            </trans-unit>
 			<trans-unit id="error.invalid.email" xml:space="preserve">
                 <source>Invalid email-address.</source>
             </trans-unit>
-			<trans-unit id="error.invalid.storagePid">
+			<trans-unit id="error.invalid.storage_pid">
 				<source>Storage PID is not set</source>
 			</trans-unit>
-			<trans-unit id="error.subscribe.already-subscribed" xml:space="preserve">
-                <source>A subscription with this email-address already exists.</source>
-            </trans-unit>
 			<trans-unit id="error.invalid.name" xml:space="preserve">
                 <source>Invalid or missing name.</source>
             </trans-unit>
+			<!--Error messages:END-->
+
+
+
+
+
 
 			<!--END NEW -->
 

@@ -60,7 +60,7 @@ class SubscriptionValidator extends AbstractValidator
 
         if (empty($settings['storagePid'])) {
             $this->addError(
-                $this->translateErrorMessage('error.invalid.storagePid', 'PxaNewsletterSubscription'),
+                $this->translateErrorMessage('error.invalid.storage_pid', 'PxaNewsletterSubscription'),
                 1566478535950
             );
         } elseif (!GeneralUtility::validEmail($subscription->getEmail())) {
@@ -73,7 +73,7 @@ class SubscriptionValidator extends AbstractValidator
         } elseif ($this->alreadyExistInPid($subscription->getEmail(), (int)$settings['storagePid'])) {
             $this->result->forProperty('email')->addError(
                 new Error(
-                    $this->translateErrorMessage('error.subscribe.already-subscribed', 'PxaNewsletterSubscription'),
+                    $this->translateErrorMessage('error.already_subscribed', 'PxaNewsletterSubscription'),
                     1566478593787
                 )
             );

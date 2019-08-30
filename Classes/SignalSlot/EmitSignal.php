@@ -13,11 +13,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 trait EmitSignal
 {
     /**
-     * @var Dispatcher
-     */
-    private $signalSlotDispatcher = null;
-
-    /**
      * Emit signal
      *
      * @param string $name
@@ -40,10 +35,10 @@ trait EmitSignal
      */
     protected function getSignalSlotDispatcher(): Dispatcher
     {
-        if ($this->signalSlotDispatcher === null) {
-            $this->signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
+        if (property_exists($this, 'signalSlotDispatcher') && $this->signalSlotDispatcher !== null) {
+            return $this->signalSlotDispatcher;
         }
 
-        return $this->signalSlotDispatcher;
+        return GeneralUtility::makeInstance(Dispatcher::class);
     }
 }
