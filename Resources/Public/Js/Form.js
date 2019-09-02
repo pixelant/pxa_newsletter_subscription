@@ -12,23 +12,49 @@ PxaNewsLetterSubscription.prototype = {
 	/**
 	 * Form DOM
 	 */
-	form: null,
+	forms: null,
 
 	/**
 	 * Init everything
 	 */
 	init: function () {
 		let self = this;
-		this.form = document.querySelector(this.formSelector);
+		this.forms = document.querySelectorAll(this.formSelector);
 
 		// If forms were found
-		if (this.form.length > 0) {
-			this.form.addEventListener('submit', function (e) {
-				e.preventDefault();
+		if (this.forms.length > 0) {
+			[].forEach.call(this.forms, function (form) {
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
 
-				self._ajaxRequest(this);
-			}, true);
+					self._ajaxRequest(this);
+				}, true);
+
+				// Accept terms?
+				let requireAcceptTerms = form.dataset['requireAcceptTerms'] || false;
+				if (requireAcceptTerms) {
+					self._acceptTermsActions(form);
+				}
+			});
 		}
+	},
+
+	/**
+	 * Actions related to accept terms
+	 *
+	 * @param form
+	 * @private
+	 */
+	_acceptTermsActions: function (form) {
+		let submit = form.querySelector('[type="submit"]'),
+			checkbox = form.querySelector('[type="checkbox"][name="tx_pxanewslettersubscription_subscription[subscription][acceptTerms]"]');
+
+		checkbox.addEventListener('change', function (e) {
+			submit.disabled = !checkbox.checked;
+		});
+
+		submit.disabled = true;
+
 	},
 
 	/**
