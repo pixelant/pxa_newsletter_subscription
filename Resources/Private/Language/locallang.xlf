@@ -71,7 +71,10 @@
 			<trans-unit id="error.already_subscribed">
                 <source>A subscription with this email-address already exists.</source>
             </trans-unit>
-			<trans-unit id="error.subscribe_error">
+			<trans-unit id="error.subscribe_error.already_confirmed">
+			    <source>Subscription was already confirmed.</source>
+			</trans-unit>
+			<trans-unit id="error.subscribe_error.unknown">
                 <source>Sorry, something went wrong. Please contact us regarding your subscription.</source>
             </trans-unit>
 			<trans-unit id="error.invalid.email">

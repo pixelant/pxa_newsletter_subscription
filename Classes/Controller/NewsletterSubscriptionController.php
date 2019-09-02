@@ -43,6 +43,7 @@ class NewsletterSubscriptionController extends AbstractController
     public function confirmAction(int $subscription = null, string $hash = '')
     {
         $success = false;
+
         if ($subscription !== null) {
             $subscription = $this->subscriptionRepository->findByUidHidden($subscription);
         }
@@ -55,12 +56,15 @@ class NewsletterSubscriptionController extends AbstractController
                 $subscription->setHidden(false);
                 $this->subscriptionRepository->update($subscription);
 
+                $success = true;
+
                 // Send notifications
                 $this->notifyAdmin($subscription);
                 $this->notifySubscriber($subscription);
-            }
 
-            $success = true;
+            } else {
+                $this->view->assign('errorReason', 'already_confirmed');
+            }
         }
 
         $this->view->assignMultiple(compact('success', 'subscription'));
