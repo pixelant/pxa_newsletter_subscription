@@ -162,12 +162,10 @@ abstract class AbstractController extends ActionController
     {
         $flexFormSettings = $this->flexFormSettingsService->getFlexFormArray((int)$this->request->getArgument('ceUid'));
 
-        if ($flexFormSettings !== null) {
-            $this->settings = array_merge(
-                $this->settings,
-                $flexFormSettings['settings']
-            );
-        }
+        $this->settings = array_merge(
+            $this->settings,
+            $flexFormSettings['settings']
+        );
     }
 
     /**

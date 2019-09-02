@@ -24,9 +24,9 @@ class FlexFormSettingsService implements SingletonInterface
      * Get flexform as array by content uid
      *
      * @param int $ceUid
-     * @return array|null
+     * @return array
      */
-    public function getFlexFormArray(int $ceUid): ?array
+    public function getFlexFormArray(int $ceUid): array
     {
         if (isset($this->settings[$ceUid])) {
             return $this->settings[$ceUid];
@@ -34,23 +34,19 @@ class FlexFormSettingsService implements SingletonInterface
 
         $flexFormContent = $this->getFlexFormContent($ceUid);
 
-        if (!empty($flexFormContent)) {
-            $result = $this->getFlexFormService()->convertFlexFormContentToArray($flexFormContent);
-            $this->settings[$ceUid] = $result;
+        $result = $this->getFlexFormService()->convertFlexFormContentToArray($flexFormContent);
+        $this->settings[$ceUid] = $result;
 
-            return $result;
-        }
-
-        return null;
+        return $result;
     }
 
     /**
      * Get flexform content from DB by content UID
      *
      * @param int $ceUid
-     * @return string|null
+     * @return string
      */
-    protected function getFlexFormContent(int $ceUid): ?string
+    protected function getFlexFormContent(int $ceUid): string
     {
         $flexFormContent = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tt_content')
@@ -61,7 +57,11 @@ class FlexFormSettingsService implements SingletonInterface
             )
             ->fetchColumn(0);
 
-        return $flexFormContent !== false ? $flexFormContent : null;
+        if ($flexFormContent === false) {
+            throw new \RuntimeException("Could not fetch flexform for content element with UID '$ceUid'", 1567422271160);
+        }
+
+        return $flexFormContent;
     }
 
     /**

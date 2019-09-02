@@ -21,9 +21,7 @@ class NewsletterSubscriptionController extends AbstractController
      */
     protected function initializeConfirmAction()
     {
-        if ($this->request->hasArgument('ceUid')) {
-            $this->mergeSettingsWithFlexFormSettings();
-        }
+        $this->mergeSettingsWithFlexFormSettings();
     }
 
     /**
