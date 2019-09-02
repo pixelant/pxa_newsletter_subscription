@@ -10,7 +10,7 @@
             object="{subscription}"
             controller="Ajax"
             pageType="{settings.ajaxPageType}"
-            data="{form: 'pxa-newsletter-subscription-form'}">
+            data="{form: 'pxa-newsletter-subscription-form', require-accept-terms: '{f:if(condition: settings.acceptTermsLink, then: \'1\', else: \'0\')}'}">
         <f:variable name="colClass" value="{f:if(condition: settings.nameIsMandatory, then: 'col-sm-6', else: 'col-sm-12')}" />
 
         <div class="alert alert-danger hidden"></div>
@@ -38,6 +38,15 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="pull-right">
+                    <f:if condition="{settings.acceptTermsLink}">
+                        <div class="checkbox">
+                            <label>
+                                <f:form.checkbox value="1" property="acceptTerms" /> <f:translate key="accept_terms" />.
+                                <f:link.typolink parameter="{settings.acceptTermsLink}" />
+                            </label>
+                        </div>
+                    </f:if>
+
                     <f:form.submit name="subscribe" value="{f:translate(key: 'subscribe')}" class="btn btn-default" />
                 </div>
             </div>

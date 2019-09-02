@@ -17,6 +17,9 @@
 			<trans-unit id="storage">
 				<source>Storage (PID)</source>
 			</trans-unit>
+			<trans-unit id="accept_terms">
+			    <source>Accept term</source>
+			</trans-unit>
 			<trans-unit id="subscription.subscribed_noconfirm">
                 <source>You have been successfully subscribed to newsletter.</source>
             </trans-unit>
@@ -80,6 +83,9 @@
 			<trans-unit id="error.invalid.name">
                 <source>Invalid or missing name.</source>
             </trans-unit>
+			<trans-unit id="error.invalid.accept_terms">
+			    <source>Accept terms is required</source>
+			</trans-unit>
 			<!--Error messages:END-->
 
 

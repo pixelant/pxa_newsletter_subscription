@@ -27,6 +27,14 @@ class Subscription extends AbstractEntity
     protected $email = '';
 
     /**
+     * Field is not persisted in DB
+     * Just for validation
+     *
+     * @var bool
+     */
+    protected $acceptTerms = false;
+
+    /**
      * @return bool
      */
     public function isHidden(): bool
@@ -72,5 +80,21 @@ class Subscription extends AbstractEntity
     public function setEmail(string $email): void
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAcceptTerms(): bool
+    {
+        return $this->acceptTerms;
+    }
+
+    /**
+     * @param bool $acceptTerms
+     */
+    public function setAcceptTerms(bool $acceptTerms): void
+    {
+        $this->acceptTerms = $acceptTerms;
     }
 }

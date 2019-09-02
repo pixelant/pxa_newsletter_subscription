@@ -54,7 +54,6 @@ class SubscriptionValidator extends AbstractValidator
     protected function isValid($subscription)
     {
         $settings = $this->getPluginFlexFormSettings();
-        $isNameRequired = boolval($settings['nameIsMandatory'] ?? false);
 
         $this->emitSignal('beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
 
@@ -77,10 +76,17 @@ class SubscriptionValidator extends AbstractValidator
                     1566478593787
                 )
             );
-        } elseif ($isNameRequired && empty($subscription->getName())) {
+        } elseif (!empty($settings['nameIsMandatory']) && empty($subscription->getName())) {
             $this->result->forProperty('name')->addError(
                 new Error(
                     $this->translateErrorMessage('error.invalid.name', 'PxaNewsletterSubscription'),
+                    1566478593787
+                )
+            );
+        } elseif (!empty($settings['acceptTermsLink']) && $subscription->isAcceptTerms() === false) {
+            $this->result->forProperty('acceptTerms')->addError(
+                new Error(
+                    $this->translateErrorMessage('error.invalid.accept_terms', 'PxaNewsletterSubscription'),
                     1566478593787
                 )
             );
