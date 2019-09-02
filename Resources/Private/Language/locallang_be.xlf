@@ -38,11 +38,26 @@
 			<trans-unit id="flexform.confirmation_page">
 				<source>Confirmation page (Empty = current page)</source>
 			</trans-unit>
+			<trans-unit id="flexform.confirmation_page_title">
+				<source>Confirmation page</source>
+			</trans-unit>
 			<trans-unit id="flexform.notify_admin">
 				<source>Notify admin on subscription (add one or more emails, each in new line)</source>
 			</trans-unit>
+			<trans-unit id="flexform.notify_admin_title">
+			    <source>Notify admin on subscription</source>
+			</trans-unit>
 			<trans-unit id="flexform.accept_terms_link">
 			    <source>Accept term link. If empty user don't need to accept terms.</source>
+			</trans-unit>
+			<trans-unit id="flexform.yes">
+			    <source>Yes</source>
+			</trans-unit>
+			<trans-unit id="flexform.no">
+			    <source>No</source>
+			</trans-unit>
+			<trans-unit id="flexform.no_value">
+			    <source>Not set</source>
 			</trans-unit>
 			<!--FlexForm:END-->
 		</body>

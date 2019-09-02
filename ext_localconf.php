@@ -15,4 +15,8 @@ defined('TYPO3_MODE') || die('Access denied.');
             'Ajax' => 'subscribe',
         ]
     );
+
+    // Register BE page layout hook
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['pxanewslettersubscription_subscription'][] =
+        \Pixelant\PxaNewsletterSubscription\Hooks\BackendLayoutView::class . '->getExtensionSummary';
 })();
