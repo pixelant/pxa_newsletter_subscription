@@ -10,6 +10,7 @@ use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
 use Pixelant\PxaNewsletterSubscription\Service\HashService;
 use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotification;
 use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotificationFactory;
+use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -19,7 +20,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 abstract class AbstractController extends ActionController
 {
-    use TranslateTrait;
+    use TranslateTrait, EmitSignal;
 
     /**
      * @var SubscriptionRepository
@@ -76,6 +77,8 @@ abstract class AbstractController extends ActionController
 
             $subscriberNotification->assignVariables(compact('subscription'));
 
+            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+
             $subscriberNotification->send();
         }
     }
@@ -103,6 +106,8 @@ abstract class AbstractController extends ActionController
 
             $adminNotification->assignVariables(compact('subscription'));
 
+            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+
             $adminNotification->send();
         }
     }
@@ -126,6 +131,8 @@ abstract class AbstractController extends ActionController
         );
 
         $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink'));
+
+        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
 
         $subscriberNotification->send();
     }

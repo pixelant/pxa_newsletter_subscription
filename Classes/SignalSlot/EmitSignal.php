@@ -15,14 +15,15 @@ trait EmitSignal
     /**
      * Emit signal
      *
+     * @param string $class
      * @param string $name
      * @param array $variables
      * @return array
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    protected function emitSignal(string $name, ...$variables): array
+    protected function emitSignal(string $class, string $name, ...$variables): array
     {
-        $class = get_class($this);
-
         return $this->getSignalSlotDispatcher()->dispatch(
             $class,
             $name,

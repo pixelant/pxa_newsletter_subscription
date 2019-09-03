@@ -50,7 +50,7 @@ class NewsletterSubscriptionController extends AbstractController
 
         if (is_object($subscription) && $this->hashService->isValidSubscriptionHash($subscription, $hash)) {
             // Emit signal
-            $this->emitSignal('beforeConfirmSubscription' . __METHOD__, $subscription, $hash, $this->settings);
+            $this->emitSignal(__CLASS__, 'beforeConfirmSubscription' . __METHOD__, $subscription, $hash, $this->settings);
 
             if ($subscription->isHidden()) {
                 $subscription->setHidden(false);
@@ -61,7 +61,6 @@ class NewsletterSubscriptionController extends AbstractController
                 // Send notifications
                 $this->notifyAdmin($subscription);
                 $this->notifySubscriber($subscription);
-
             } else {
                 $this->view->assign('errorReason', 'already_confirmed');
             }

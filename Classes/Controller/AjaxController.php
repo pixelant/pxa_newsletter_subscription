@@ -52,7 +52,7 @@ class AjaxController extends AbstractController
         $subscription->setHidden($enableEmailConfirmation);
 
         // Hook before persist
-        $this->emitSignal('beforePersistSubscription' . __METHOD__, $subscription, $this->settings);
+        $this->emitSignal(__CLASS__, 'beforePersistSubscription' . __METHOD__, $subscription, $this->settings);
 
         // Save
         $this->subscriptionRepository->add($subscription);
@@ -60,7 +60,7 @@ class AjaxController extends AbstractController
         $this->objectManager->get(PersistenceManagerInterface::class)->persistAll();
 
         // Hook after persist
-        $this->emitSignal('afterPersistSubscription' . __METHOD__, $subscription, $this->settings);
+        $this->emitSignal(__CLASS__, 'afterPersistSubscription' . __METHOD__, $subscription, $this->settings);
 
         if ($enableEmailConfirmation) {
             // Send user confirmation email

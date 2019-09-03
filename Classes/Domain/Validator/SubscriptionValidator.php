@@ -55,7 +55,7 @@ class SubscriptionValidator extends AbstractValidator
     {
         $settings = $this->getPluginFlexFormSettings();
 
-        $this->emitSignal('beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
+        $this->emitSignal(__CLASS__, 'beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
 
         if (empty($settings['storagePid'])) {
             $this->addError(
