@@ -70,6 +70,16 @@ class NewsletterSubscriptionController extends AbstractController
     }
 
     /**
+     * Unsubscribe form
+     *
+     * @param string $email
+     */
+    public function unsubscribeAction(string $email = '', bool $sendConfirmation = false)
+    {
+        $this->view->assign('email', $email);
+    }
+
+    /**
      * Check if ajax page type is set in settings
      * Add flash message if setting is missing
      */

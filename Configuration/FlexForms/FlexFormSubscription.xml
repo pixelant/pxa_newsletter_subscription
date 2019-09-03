@@ -29,6 +29,10 @@
                                         <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.confirm</numIndex>
                                         <numIndex index="1">NewsletterSubscription->confirm</numIndex>
                                     </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.unsubscribe</numIndex>
+                                        <numIndex index="1">NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm</numIndex>
+                                    </numIndex>
                                 </items>
                             </config>
                         </TCEforms>
@@ -72,7 +76,12 @@
                     <settings.storagePid>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.storage_pid</label>
-                            <displayCond>FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm</numIndex>
+                                </OR>
+                            </displayCond>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -149,7 +158,12 @@
                     <settings.notifyAdmin>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notify_admin</label>
-                            <displayCond>FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                    <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm</numIndex>
+                                </OR>
+                            </displayCond>
                             <config>
                                 <type>text</type>
                                 <cols>35</cols>

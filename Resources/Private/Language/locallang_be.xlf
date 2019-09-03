@@ -13,6 +13,9 @@
 			<trans-unit id="action_confirm">
 			    <source>Confirm email view</source>
 			</trans-unit>
+			<trans-unit id="action_unsubscribe">
+				<source>Unsubscribe form view</source>
+			</trans-unit>
 
 			<!--FlexForm:START-->
 			<trans-unit id="flexform.mode">
@@ -26,6 +29,9 @@
 			</trans-unit>
 			<trans-unit id="flexform.mode.confirm">
 				<source>Confirmation subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.unsubscribe">
+			    <source>Unsubscribe form</source>
 			</trans-unit>
 			<trans-unit id="flexform.sheet_title">
 				<source>Settings</source>
