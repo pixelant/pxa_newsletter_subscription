@@ -85,7 +85,7 @@ class BackendLayoutView
      */
     protected function getValueOfField(string $field, $value)
     {
-        if (empty($value)) {
+        if (empty($value) && $value !== '0') {
             return $this->translate('flexform.no_value');
         }
 
