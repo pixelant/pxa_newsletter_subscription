@@ -11,6 +11,7 @@ use Pixelant\PxaNewsletterSubscription\Service\HashService;
 use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotification;
 use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotificationFactory;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
+use Pixelant\PxaNewsletterSubscription\Url\SubscriptionUrlGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -146,20 +147,14 @@ abstract class AbstractController extends ActionController
      */
     protected function generateConfirmationLink(Subscription $subscription, int $pageUid = null): string
     {
-        $uriBuilder = $this->uriBuilder->reset();
+        // Use own URL generator. This will make it possible to generate subscriptions related links from outside
+        $urlGenerator = GeneralUtility::makeInstance(SubscriptionUrlGenerator::class, $this->hashService);
 
-        $arguments = [
-            'subscription' => $subscription->getUid(),
-            'hash' => $this->hashService->generateSubscriptionHash($subscription),
-            'ceUid' => $this->request->getArgument('ceUid')
-        ];
-
-        $url = $uriBuilder
-            ->setTargetPageUid($pageUid ?? $GLOBALS['TSFE']->id)
-            ->setCreateAbsoluteUri(true)
-            ->uriFor('confirm', $arguments, 'NewsletterSubscription');
-
-        return $url;
+        return $urlGenerator->generateConfirmationUrl(
+            $subscription,
+            (int)$this->request->getArgument('ceUid'),
+            $pageUid ?? $GLOBALS['TSFE']->id
+        );
     }
 
     /**

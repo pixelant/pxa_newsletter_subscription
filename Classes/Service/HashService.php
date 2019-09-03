@@ -15,6 +15,7 @@ use TYPO3\CMS\Extbase\Security\Cryptography\HashService as HmacHashService;
 class HashService
 {
     const HASH_PREFIX_SUBSCRIPTION = 'pxa_newsletter_subscription-subscribe-';
+    const HASH_PREFIX_UNSUBSCRIPTION = 'pxa_newsletter_subscription-unsubscribe-';
 
     /**
      * @var HmacHashService
@@ -38,7 +39,7 @@ class HashService
      */
     public function isValidSubscriptionHash(Subscription $subscription, string $hash): bool
     {
-        return $this->hmacHashService->validateHmac(static::HASH_PREFIX_SUBSCRIPTION . $subscription->getUid(), $hash);
+        return $this->hmacHashService->validateHmac(self::HASH_PREFIX_SUBSCRIPTION . $subscription->getUid(), $hash);
     }
 
     /**
@@ -50,5 +51,28 @@ class HashService
     public function generateSubscriptionHash(Subscription $subscription)
     {
         return $this->hmacHashService->generateHmac(self::HASH_PREFIX_SUBSCRIPTION . $subscription->getUid());
+    }
+
+    /**
+     * Validate a unsubscription hash
+     *
+     * @param Subscription $subscription
+     * @param string $hash The hash to validate
+     * @return bool True if hash is valid
+     */
+    public function isValidUnsubscriptionHash(Subscription $subscription, string $hash): bool
+    {
+        return $this->hmacHashService->validateHmac(self::HASH_PREFIX_UNSUBSCRIPTION . $subscription->getUid(), $hash);
+    }
+
+    /**
+     * Generate a unsubscription hash
+     *
+     * @param Subscription $subscription
+     * @return string The generated hash
+     */
+    public function generateUnsubscriptionHash(Subscription $subscription)
+    {
+        return $this->hmacHashService->generateHmac(self::HASH_PREFIX_UNSUBSCRIPTION . $subscription->getUid());
     }
 }

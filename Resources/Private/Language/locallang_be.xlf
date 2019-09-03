@@ -52,10 +52,10 @@
 				<source>Confirmation page</source>
 			</trans-unit>
 			<trans-unit id="flexform.notify_admin">
-				<source>Notify admin on subscription (add one or more emails, each in new line)</source>
+				<source>Notify admin (add one or more emails, each in new line)</source>
 			</trans-unit>
 			<trans-unit id="flexform.notify_admin_title">
-			    <source>Notify admin on subscription</source>
+			    <source>Notify admin</source>
 			</trans-unit>
 			<trans-unit id="flexform.accept_terms_link">
 			    <source>Accept terms link. If empty user don't need to accept terms.</source>
