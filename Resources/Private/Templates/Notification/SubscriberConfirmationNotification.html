@@ -5,7 +5,11 @@
 
 <p><a href="{confirmationLink}">{confirmationLink}</a></p>
 
-<p><f:translate key="mail.subscriber.confirmation_line2"  extensionName="PxaNewsletterSubscription" /></p>
+<f:if condition="{unsubscribeLink}">
+    <p><f:translate key="mail.subscriber.confirmation_line2"  extensionName="PxaNewsletterSubscription" /></p>
 
-<p>CANCEL LINK</p>
+    <p>
+        <a href="{unsubscribeLink}">{unsubscribeLink}</a>
+    </p>
+</f:if>
 </html>

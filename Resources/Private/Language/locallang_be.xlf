@@ -72,6 +72,12 @@
 			<trans-unit id="flexform.no_value">
 			    <source>Not set</source>
 			</trans-unit>
+			<trans-unit id="flexform.unsubscribe_page_title">
+			    <source>Unsubscribe page</source>
+			</trans-unit>
+			<trans-unit id="flexform.unsubscribe_page">
+			    <source>Unsubscribe page. If set user will get link to it in email</source>
+			</trans-unit>
 			<!--FlexForm:END-->
 		</body>
 	</file>

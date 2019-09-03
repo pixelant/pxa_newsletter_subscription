@@ -76,7 +76,7 @@ abstract class AbstractController extends ActionController
                 ->setSubject($this->translate('mail.subscriber.success_subject'))
                 ->setReceivers([$subscription->getEmail()]);
 
-            $subscriberNotification->assignVariables(compact('subscription'));
+            $subscriberNotification->assignVariables(compact('subscription') + ['settings' => $this->settings]);
 
             $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
 
@@ -105,7 +105,7 @@ abstract class AbstractController extends ActionController
                 ->setSubject($this->translate('mail.admin.subject'))
                 ->setReceivers($receivers);
 
-            $adminNotification->assignVariables(compact('subscription'));
+            $adminNotification->assignVariables(compact('subscription') + ['settings' => $this->settings]);
 
             $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
 
@@ -126,35 +126,25 @@ abstract class AbstractController extends ActionController
             ->setSubject($this->translate('mail.subscriber.confirmation_subject'))
             ->setReceivers([$subscription->getEmail()]);
 
-        $confirmationLink = $this->generateConfirmationLink(
+        $subscriptionUrlGenerator = $this->getSubscriptionUrlGenerator();
+
+        // Subscription confirmation email
+        $confirmationLink = $subscriptionUrlGenerator->generateConfirmationSubscriptionUrl(
             $subscription,
-            intval($this->settings['confirmationPage']) ?: null
+            (int)$this->request->getArgument('ceUid'),
+            intval($this->settings['confirmationPage']) ?: $GLOBALS['TSFE']->id
         );
 
-        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink'));
+        // Unsubscribe link
+        $unsubscribeLink = !empty($this->settings['unsubscribePage'])
+            ? $subscriptionUrlGenerator->generateUnsubscribePageUrl($subscription, $this->settings['unsubscribePage'])
+            : '';
+
+        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink', 'unsubscribeLink') + ['settings' => $this->settings]);
 
         $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
 
         $subscriberNotification->send();
-    }
-
-    /**
-     * Generate confirmation link
-     *
-     * @param Subscription $subscription
-     * @param int|null $pageUid
-     * @return string
-     */
-    protected function generateConfirmationLink(Subscription $subscription, int $pageUid = null): string
-    {
-        // Use own URL generator. This will make it possible to generate subscriptions related links from outside
-        $urlGenerator = GeneralUtility::makeInstance(SubscriptionUrlGenerator::class, $this->hashService);
-
-        return $urlGenerator->generateConfirmationUrl(
-            $subscription,
-            (int)$this->request->getArgument('ceUid'),
-            $pageUid ?? $GLOBALS['TSFE']->id
-        );
     }
 
     /**
@@ -184,5 +174,15 @@ abstract class AbstractController extends ActionController
             ->setSenderName($this->settings['senderName'] ?? '');
 
         return $emailNotification;
+    }
+
+    /**
+     * Use own URL generator. This will make it possible to generate subscriptions related links from outside
+     *
+     * @return SubscriptionUrlGenerator
+     */
+    protected function getSubscriptionUrlGenerator(): SubscriptionUrlGenerator
+    {
+        return GeneralUtility::makeInstance(SubscriptionUrlGenerator::class, $this->hashService);
     }
 }

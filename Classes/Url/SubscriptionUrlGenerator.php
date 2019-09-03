@@ -47,7 +47,7 @@ class SubscriptionUrlGenerator
      * @param $targetPage
      * @return string
      */
-    public function generateConfirmationUrl(Subscription $subscription, int $pluginUid, $targetPage): string
+    public function generateConfirmationSubscriptionUrl(Subscription $subscription, int $pluginUid, $targetPage): string
     {
         return $this->generateUrlForActionAndHash(
             'confirm',
@@ -64,15 +64,45 @@ class SubscriptionUrlGenerator
      * @param $targetPage
      * @return string
      */
-    public function generateUnsubscribeUrl(Subscription $subscription, int $pluginUid, $targetPage): string
+    public function generateConfirmationUnsubscribeUrl(Subscription $subscription, int $pluginUid, $targetPage): string
     {
         return $this->generateUrlForActionAndHash(
-            'unsubscribe',
+            'unsubscribeConfirm',
             $subscription->getUid(),
             $this->hashService->generateUnsubscriptionHash($subscription),
             $pluginUid,
             $targetPage
         );
+    }
+
+    /**
+     * URL to unsubscribe page
+     *
+     * @param Subscription $subscription
+     * @param $targetPage
+     * @return string
+     */
+    public function generateUnsubscribePageUrl(Subscription $subscription, $targetPage): string
+    {
+        $arguments = [
+            'email' => $subscription->getEmail(),
+            'action' => 'unsubscribe',
+            'controller' => 'NewsletterSubscription',
+        ];
+
+        $conf = [
+            'parameter' => $targetPage,
+            'useCacheHash' => true,
+            'additionalParams' => GeneralUtility::implodeArrayForUrl($this->namespace, $arguments),
+            'forceAbsoluteUrl' => true
+        ];
+
+        $signalArguments = [
+            'conf' => &$conf
+        ];
+        $this->emitSignal(__CLASS__, 'beforeBuildUrlUnsubscribe', $signalArguments);
+
+        return $this->getContentObjectRenderer()->typolink_URL($conf);
     }
 
     /**
