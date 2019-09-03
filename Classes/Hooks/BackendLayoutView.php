@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
@@ -101,6 +102,7 @@ class BackendLayoutView
             case 'acceptTermsLink':
             case 'confirmationPage':
             case 'storagePid':
+            case 'unsubscribePage':
                 $value = sprintf('%s (%s)', $this->getPageTitle($value), $value);
                 break;
         }
@@ -116,8 +118,12 @@ class BackendLayoutView
      */
     protected function getPageTitle(string $pageLink): string
     {
-        if (StringUtility::beginsWith($pageLink, 't3://')) {
+        if (StringUtility::beginsWith($pageLink, 't3://page?uid')) {
             list(, $pageLink) = GeneralUtility::trimExplode('=', $pageLink, true);
+        }
+
+        if (!MathUtility::canBeInterpretedAsInteger($pageLink)) {
+            return $pageLink;
         }
 
         $title = GeneralUtility::makeInstance(ConnectionPool::class)
