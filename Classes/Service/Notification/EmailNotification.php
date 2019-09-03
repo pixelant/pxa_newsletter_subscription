@@ -46,7 +46,7 @@ class EmailNotification
     /**
      * @var string
      */
-    protected $notificationControllerName = 'Notification';
+    protected $notificationControllerName = 'EmailNotification';
 
     /**
      * @var string

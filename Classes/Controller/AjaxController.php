@@ -64,14 +64,14 @@ class AjaxController extends AbstractController
 
         if ($enableEmailConfirmation) {
             // Send user confirmation email
-            $this->sendSubscriberConfirmationEmail($subscription);
+            $this->sendSubscribeConfirmationEmail($subscription);
         } else {
             // Notify admin if no confirmation required,
             // otherwise it'll be send after confirmation
-            $this->notifyAdmin($subscription);
+            $this->sendAdminNewSubscriptionEmail($subscription);
 
             // Notify subscriber
-            $this->notifySubscriber($subscription);
+            $this->sendSubscriberSuccessSubscriptionEmail($subscription);
         }
 
         $response = [

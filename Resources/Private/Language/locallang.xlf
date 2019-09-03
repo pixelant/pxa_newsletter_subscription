@@ -29,6 +29,9 @@
 			<trans-unit id="subscription.subscribe_ok">
                 <source>You have been successfully subscribed to newsletter.</source>
             </trans-unit>
+			<trans-unit id="subscription.unsubscribe_confirm">
+			    <source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
+			</trans-unit>
 			<!--Frontend labels:END-->
 
 			<!--Email notification labels:START-->
@@ -62,9 +65,16 @@
 			<trans-unit id="mail.subscriber.success_line1">
 				<source>You have been successfully subscribed to newsletter.</source>
 			</trans-unit>
+			<!--Unsubscribe confirmation-->
+			<trans-unit id="mail.unsubscribe.confirmation_subject">
+			    <source>Newsletter unsubscription confirmation</source>
+			</trans-unit>
 			<!--Email notification labels:END-->
 
 			<!--Error messages:START-->
+			<trans-unit id="error.unsubscribe.not_found">
+			    <source>Subscription with given email address not found</source>
+			</trans-unit>
 			<trans-unit id="error.missing_page_type">
 				<source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
 			</trans-unit>

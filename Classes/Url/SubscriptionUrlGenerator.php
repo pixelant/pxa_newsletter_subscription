@@ -53,24 +53,22 @@ class SubscriptionUrlGenerator
             'confirm',
             $subscription->getUid(),
             $this->hashService->generateSubscriptionHash($subscription),
-            $pluginUid,
-            $targetPage
+            $targetPage,
+            $pluginUid
         );
     }
 
     /**
      * @param Subscription $subscription
-     * @param int $pluginUid
      * @param $targetPage
      * @return string
      */
-    public function generateConfirmationUnsubscribeUrl(Subscription $subscription, int $pluginUid, $targetPage): string
+    public function generateConfirmationUnsubscribeUrl(Subscription $subscription, $targetPage): string
     {
         return $this->generateUrlForActionAndHash(
             'unsubscribeConfirm',
             $subscription->getUid(),
             $this->hashService->generateUnsubscriptionHash($subscription),
-            $pluginUid,
             $targetPage
         );
     }
@@ -111,19 +109,21 @@ class SubscriptionUrlGenerator
      * @param string $action
      * @param int $subscriptionUid
      * @param string $hash
-     * @param int $pluginUid
      * @param $targetPage
+     * @param int|null $pluginUid
      * @return string
      */
-    protected function generateUrlForActionAndHash(string $action, int $subscriptionUid, string $hash, int $pluginUid, $targetPage): string
+    protected function generateUrlForActionAndHash(string $action, int $subscriptionUid, string $hash, $targetPage, int $pluginUid = null): string
     {
         $arguments = [
             'subscription' => $subscriptionUid,
             'hash' => $hash,
-            'ceUid' => $pluginUid,
             'action' => $action,
             'controller' => 'NewsletterSubscription',
         ];
+        if ($pluginUid !== null) {
+            $arguments['ceUid'] = $pluginUid;
+        }
 
         $conf = [
             'parameter' => $targetPage,

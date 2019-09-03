@@ -67,10 +67,10 @@ abstract class AbstractController extends ActionController
      *
      * @param Subscription $subscription
      */
-    protected function notifySubscriber(Subscription $subscription): void
+    protected function sendSubscriberSuccessSubscriptionEmail(Subscription $subscription): void
     {
         if (!empty($this->settings['notifySubscriber'])) {
-            $subscriberNotification = $this->getEmailNotification('SubscriberSuccessSubscriptionNotification');
+            $subscriberNotification = $this->getEmailNotification('SubscriberSuccessSubscription');
 
             $subscriberNotification
                 ->setSubject($this->translate('mail.subscriber.success_subject'))
@@ -89,7 +89,7 @@ abstract class AbstractController extends ActionController
      *
      * @param Subscription $subscription
      */
-    protected function notifyAdmin(Subscription $subscription): void
+    protected function sendAdminNewSubscriptionEmail(Subscription $subscription): void
     {
         if (!empty($this->settings['notifyAdmin'])) {
             $receivers = array_filter(
@@ -99,7 +99,7 @@ abstract class AbstractController extends ActionController
                 }
             );
 
-            $adminNotification = $this->getEmailNotification('AdminNotification');
+            $adminNotification = $this->getEmailNotification('AdminNewSubscription');
 
             $adminNotification
                 ->setSubject($this->translate('mail.admin.subject'))
@@ -118,9 +118,9 @@ abstract class AbstractController extends ActionController
      *
      * @param Subscription $subscription
      */
-    protected function sendSubscriberConfirmationEmail(Subscription $subscription): void
+    protected function sendSubscribeConfirmationEmail(Subscription $subscription): void
     {
-        $subscriberNotification = $this->getEmailNotification('SubscriberConfirmationNotification');
+        $subscriberNotification = $this->getEmailNotification('SubscribeConfirmation');
 
         $subscriberNotification
             ->setSubject($this->translate('mail.subscriber.confirmation_subject'))
@@ -141,6 +141,34 @@ abstract class AbstractController extends ActionController
             : '';
 
         $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink', 'unsubscribeLink') + ['settings' => $this->settings]);
+
+        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+
+        $subscriberNotification->send();
+    }
+
+    /**
+     * Send confirmation email in order to unsubscribe
+     *
+     * @param Subscription $subscription
+     */
+    protected function sendUnsubscribeConfirmationEmail(Subscription $subscription): void
+    {
+        $subscriberNotification = $this->getEmailNotification('UnsubscribeConfirmation');
+
+        $subscriberNotification
+            ->setSubject($this->translate('mail.unsubscribe.confirmation_subject'))
+            ->setReceivers([$subscription->getEmail()]);
+
+        $subscriptionUrlGenerator = $this->getSubscriptionUrlGenerator();
+
+        // Unsubscription confirmation email
+        $confirmationLink = $subscriptionUrlGenerator->generateConfirmationUnsubscribeUrl(
+            $subscription,
+            $GLOBALS['TSFE']->id
+        );
+
+        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink') + ['settings' => $this->settings]);
 
         $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
 

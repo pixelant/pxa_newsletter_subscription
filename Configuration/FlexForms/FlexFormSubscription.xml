@@ -31,7 +31,7 @@
                                     </numIndex>
                                     <numIndex index="2">
                                         <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.unsubscribe</numIndex>
-                                        <numIndex index="1">NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm</numIndex>
+                                        <numIndex index="1">NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
                                     </numIndex>
                                 </items>
                             </config>
@@ -79,7 +79,7 @@
                             <displayCond>
                                 <OR>
                                     <numIndex index="0">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
-                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
                                 </OR>
                             </displayCond>
                             <config>
@@ -161,7 +161,7 @@
                             <displayCond>
                                 <OR>
                                     <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
-                                    <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm</numIndex>
+                                    <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
                                 </OR>
                             </displayCond>
                             <config>
