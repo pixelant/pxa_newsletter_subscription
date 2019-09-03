@@ -4,6 +4,16 @@
 		  date="2014-09-24T01:00:11+01:01">
 		<header/>
 		<body>
+			<trans-unit id="plugin_name">
+			    <source>Newsletter subscription</source>
+			</trans-unit>
+			<trans-unit id="action_form">
+			    <source>Subscribe form view</source>
+			</trans-unit>
+			<trans-unit id="action_confirm">
+			    <source>Confirm email view</source>
+			</trans-unit>
+
 			<!--FlexForm:START-->
 			<trans-unit id="flexform.mode">
 				<source>Plugin mode</source>
@@ -48,7 +58,10 @@
 			    <source>Notify admin on subscription</source>
 			</trans-unit>
 			<trans-unit id="flexform.accept_terms_link">
-			    <source>Accept term link. If empty user don't need to accept terms.</source>
+			    <source>Accept terms link. If empty user don't need to accept terms.</source>
+			</trans-unit>
+			<trans-unit id="flexform.accept_terms_link_title">
+				<source>Accept terms link</source>
 			</trans-unit>
 			<trans-unit id="flexform.yes">
 			    <source>Yes</source>

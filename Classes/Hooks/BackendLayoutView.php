@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Hooks;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
  * Class BackendLayoutView
@@ -30,10 +32,22 @@ class BackendLayoutView
         if (!empty($params['row']['pi_flexform'])) {
             $settings = $this->parseFlexFormSettings($params['row']['pi_flexform']);
 
-            $output = $this->generateOutput($settings);
+            if (!empty($settings['switchableControllerActions'])) {
+                list($mainControllerAction) = explode(';', $settings['switchableControllerActions']);
+                list(, $action) = explode('->', $mainControllerAction);
 
-            if (!empty($output)) {
-                return '<hr><pre>' . $output . '</pre>';
+                $output = sprintf(
+                    '<b>%s</b><br><b>%s</b>',
+                    $this->translate('plugin_name'),
+                    $this->translate('action_' . $action)
+                );
+
+                $settingsOutput = $this->generateSettingsOutput($settings);
+                if (!empty($settingsOutput)) {
+                    $output .= '<br><br><pre>' . $settingsOutput . '</pre>';
+                }
+
+                return $output;
             }
         }
 
@@ -46,7 +60,7 @@ class BackendLayoutView
      * @param array $settings
      * @return string
      */
-    protected function generateOutput(array $settings): string
+    protected function generateSettingsOutput(array $settings): string
     {
         $output = '';
 
@@ -76,14 +90,46 @@ class BackendLayoutView
         }
 
         switch ($field) {
+            case 'notifyAdmin':
+                $value = implode(', ', explode("\n", $value));
+                break;
             case 'notifySubscriber':
             case 'enableEmailConfirmation':
             case 'nameIsMandatory':
                 $value = $this->translate($value ? 'flexform.yes' : 'flexform.no');
                 break;
+            case 'acceptTermsLink':
+            case 'confirmationPage':
+            case 'storagePid':
+                $value = sprintf('%s (%s)', $this->getPageTitle($value), $value);
+                break;
         }
 
         return $value;
+    }
+
+    /**
+     * Get page title from link target or just uid
+     *
+     * @param string $pageLink
+     * @return string
+     */
+    protected function getPageTitle(string $pageLink): string
+    {
+        if (StringUtility::beginsWith($pageLink, 't3://')) {
+            list(, $pageLink) = GeneralUtility::trimExplode('=', $pageLink, true);
+        }
+
+        $title = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('pages')
+            ->select(
+                ['title'],
+                'pages',
+                ['uid' => (int)$pageLink]
+            )
+            ->fetchColumn(0);
+
+        return $title !== false ? $title : '';
     }
 
     /**
