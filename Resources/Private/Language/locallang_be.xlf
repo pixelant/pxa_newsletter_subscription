@@ -25,7 +25,7 @@
 				<source>Select plugin mode</source>
 			</trans-unit>
 			<trans-unit id="flexform.mode.form">
-				<source>Subscription form</source>
+				<source>Subscription form and confirmation.</source>
 			</trans-unit>
 			<trans-unit id="flexform.mode.confirm">
 				<source>Confirmation subscription</source>

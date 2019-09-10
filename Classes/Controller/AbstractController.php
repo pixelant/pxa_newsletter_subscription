@@ -131,10 +131,8 @@ abstract class AbstractController extends ActionController
             ->setSubject($this->translate('mail.subscriber.confirmation_subject'))
             ->setReceivers([$subscription->getEmail()]);
 
-        $subscriptionUrlGenerator = $this->getSubscriptionUrlGenerator();
-
         // Subscription confirmation email
-        $confirmationUrl = $subscriptionUrlGenerator->generateConfirmationSubscriptionUrl(
+        $confirmationUrl = $this->getSubscriptionUrlGenerator()->generateConfirmationSubscriptionUrl(
             $subscription,
             (int)$this->request->getArgument('ceUid'),
             intval($this->settings['confirmationPage']) ?: $GLOBALS['TSFE']->id
