@@ -7,6 +7,7 @@ use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class NewsletterSubscriptionController
@@ -31,6 +32,7 @@ class NewsletterSubscriptionController extends AbstractController
     public function formAction()
     {
         $this->checkPageTypeSettings();
+        $this->checkSenderEmail();
 
         $this->view->assign('ceUid', $this->configurationManager->getContentObject()->getFieldVal('uid'));
     }
@@ -81,6 +83,8 @@ class NewsletterSubscriptionController extends AbstractController
             $subscription = $this->subscriptionRepository->findByEmailAndPid($email, (int)$this->settings['storagePid']);
 
             if ($subscription !== null) {
+                $this->emitSignal(__CLASS__, 'unsubscribeRequest' . __METHOD__, $subscription);
+
                 $this->sendUnsubscribeConfirmationEmail($subscription);
 
                 $this->redirect('unsubscribeMessage', null, null, compact('subscription'));
@@ -109,6 +113,8 @@ class NewsletterSubscriptionController extends AbstractController
         $success = false;
 
         if ($subscription !== null && $this->hashService->isValidUnsubscriptionHash($subscription, $hash)) {
+            $this->emitSignal(__CLASS__, 'unsubscribe' . __METHOD__, $subscription);
+
             $this->subscriptionRepository->remove($subscription);
             $success = true;
         }
@@ -125,6 +131,25 @@ class NewsletterSubscriptionController extends AbstractController
         if (empty($this->settings['ajaxPageType'])) {
             $this->addFlashMessage(
                 $this->translate('error.missing_page_type'),
+                '',
+                FlashMessage::ERROR
+            );
+        }
+    }
+
+    /**
+     * Check if sender name is valid in case emails enabled
+     */
+    protected function checkSenderEmail()
+    {
+        if ((!empty($this->settings['notifyAdmin'])
+                || !empty($this->settings['notifySubscriber'])
+                || !empty($this->settings['enableEmailConfirmation'])
+            )
+            && !GeneralUtility::validEmail($this->settings['senderEmail'])
+        ) {
+            $this->addFlashMessage(
+                $this->translate('error.sender_email_invalid'),
                 '',
                 FlashMessage::ERROR
             );

@@ -32,6 +32,9 @@
 			<trans-unit id="subscription.unsubscribe_confirm">
 			    <source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
 			</trans-unit>
+			<trans-unit id="subscription.unsubscribe_success">
+				<source>You have been successfully unsubscribed from newsletter.</source>
+			</trans-unit>
 			<!--Frontend labels:END-->
 
 			<!--Email notification labels:START-->
@@ -99,6 +102,9 @@
 			<trans-unit id="error.invalid.accept_terms">
 			    <source>Accept terms is required</source>
 			</trans-unit>
+			<trans-unit id="error.sender_email_invalid">
+			    <source>Invalid sender email. Check your typoscript settings</source>
+			</trans-unit>
 			<!--Error messages:END-->
 
 
@@ -141,12 +147,7 @@
                 <source>Unsubscribe</source>
             </trans-unit>
 
-			<trans-unit id="success.unsubscribe.unsubscribed-noconfirm">
-                <source>You have been successfully unsubscribed from newsletter.</source>
-            </trans-unit>
-			<trans-unit id="success.unsubscribe.unsubscribed-confirm">
-                <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
-            </trans-unit>
+
 
 
 

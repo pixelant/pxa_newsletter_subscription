@@ -76,9 +76,14 @@ abstract class AbstractController extends ActionController
                 ->setSubject($this->translate('mail.subscriber.success_subject'))
                 ->setReceivers([$subscription->getEmail()]);
 
-            $subscriberNotification->assignVariables(compact('subscription') + ['settings' => $this->settings]);
+            // Unsubscribe link
+            $unsubscribeUrl = !empty($this->settings['unsubscribePage'])
+                ? $this->getSubscriptionUrlGenerator()->generateUnsubscribePageUrl($subscription, $this->settings['unsubscribePage'])
+                : '';
 
-            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+            $subscriberNotification->assignVariables(compact('subscription', 'unsubscribeUrl') + ['settings' => $this->settings]);
+
+            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $subscriberNotification);
 
             $subscriberNotification->send();
         }
@@ -107,7 +112,7 @@ abstract class AbstractController extends ActionController
 
             $adminNotification->assignVariables(compact('subscription') + ['settings' => $this->settings]);
 
-            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $adminNotification);
 
             $adminNotification->send();
         }
@@ -129,20 +134,15 @@ abstract class AbstractController extends ActionController
         $subscriptionUrlGenerator = $this->getSubscriptionUrlGenerator();
 
         // Subscription confirmation email
-        $confirmationLink = $subscriptionUrlGenerator->generateConfirmationSubscriptionUrl(
+        $confirmationUrl = $subscriptionUrlGenerator->generateConfirmationSubscriptionUrl(
             $subscription,
             (int)$this->request->getArgument('ceUid'),
             intval($this->settings['confirmationPage']) ?: $GLOBALS['TSFE']->id
         );
 
-        // Unsubscribe link
-        $unsubscribeLink = !empty($this->settings['unsubscribePage'])
-            ? $subscriptionUrlGenerator->generateUnsubscribePageUrl($subscription, $this->settings['unsubscribePage'])
-            : '';
+        $subscriberNotification->assignVariables(compact('subscription', 'confirmationUrl') + ['settings' => $this->settings]);
 
-        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink', 'unsubscribeLink') + ['settings' => $this->settings]);
-
-        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $subscriberNotification);
 
         $subscriberNotification->send();
     }
@@ -170,7 +170,7 @@ abstract class AbstractController extends ActionController
 
         $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink') + ['settings' => $this->settings]);
 
-        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription);
+        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $subscriberNotification);
 
         $subscriberNotification->send();
     }

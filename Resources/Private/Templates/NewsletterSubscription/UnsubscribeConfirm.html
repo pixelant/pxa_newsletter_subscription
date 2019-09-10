@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <f:if condition="{success}">
+        <f:then>
+            <div class="alert alert-success">
+                <f:translate key="subscription.unsubscribe_success" />
+            </div>
+        </f:then>
+        <f:else>
+            <div class="alert alert-danger">
+                <f:translate key="error.unsubscribe.not_found" />
+            </div>
+        </f:else>
+    </f:if>
+</f:section>
+</html>

@@ -2,4 +2,12 @@
 <p><f:translate key="mail.greeting" extensionName="PxaNewsletterSubscription" /><f:if condition="{subscription.name}">, {subscription.name}</f:if>.</p>
 
 <p><f:translate key="mail.subscriber.success_line1" extensionName="PxaNewsletterSubscription" /></p>
+
+<f:if condition="{unsubscribeUrl}">
+    <p><f:translate key="mail.subscriber.confirmation_line2"  extensionName="PxaNewsletterSubscription" /></p>
+
+    <p>
+        <a href="{unsubscribeUrl}">{unsubscribeUrl}</a>
+    </p>
+</f:if>
 </html>
