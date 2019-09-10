@@ -25,7 +25,7 @@
 				<source>Select plugin mode</source>
 			</trans-unit>
 			<trans-unit id="flexform.mode.form">
-				<source>Subscription form and confirmation.</source>
+				<source>Subscription form</source>
 			</trans-unit>
 			<trans-unit id="flexform.mode.confirm">
 				<source>Confirmation subscription</source>
@@ -36,8 +36,8 @@
 			<trans-unit id="flexform.sheet_title">
 				<source>Settings</source>
 			</trans-unit>
-			<trans-unit id="flexform.admin_notification_title">
-				<source>Admin notification settings</source>
+			<trans-unit id="flexform.notification_sheet_title">
+				<source>Notification settings</source>
 			</trans-unit>
 			<trans-unit id="flexform.notify_subscriber">
 				<source>Notify subscriber about successful subscription</source>

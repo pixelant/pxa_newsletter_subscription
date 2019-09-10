@@ -29,7 +29,7 @@
                                         <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.confirm</numIndex>
                                         <numIndex index="1">NewsletterSubscription->confirm</numIndex>
                                     </numIndex>
-                                    <numIndex index="2">
+                                    <numIndex index="3">
                                         <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.unsubscribe</numIndex>
                                         <numIndex index="1">NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
                                     </numIndex>
@@ -37,18 +37,6 @@
                             </config>
                         </TCEforms>
                     </switchableControllerActions>
-
-                    <settings.notifySubscriber>
-                        <TCEforms>
-                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notify_subscriber</label>
-                            <displayCond>FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
-                            <config>
-                                <type>check</type>
-                                <renderType>checkboxToggle</renderType>
-                                <default>1</default>
-                            </config>
-                        </TCEforms>
-                    </settings.notifySubscriber>
 
                     <settings.enableEmailConfirmation>
                         <TCEforms>
@@ -148,13 +136,25 @@
             </ROOT>
         </sDEF>
 
-        <adminNotificationSettings>
+        <notificationSettings>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.admin_notification_title</sheetTitle>
+                    <sheetTitle>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notification_sheet_title</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
+                    <settings.notifySubscriber>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notify_subscriber</label>
+                            <displayCond>FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <config>
+                                <type>check</type>
+                                <renderType>checkboxToggle</renderType>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </settings.notifySubscriber>
+
                     <settings.notifyAdmin>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notify_admin</label>
@@ -173,6 +173,6 @@
                     </settings.notifyAdmin>
                 </el>
             </ROOT>
-        </adminNotificationSettings>
+        </notificationSettings>
     </sheets>
 </T3DataStructure>

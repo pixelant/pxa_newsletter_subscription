@@ -3,18 +3,20 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
-    <f:if condition="{success}">
-        <f:then>
-            <div class="alert alert-success">
-                <f:translate key="subscription.subscribe_ok" />
-            </div>
-        </f:then>
-        <f:else>
-            <div class="alert alert-danger">
-                <f:translate key="error.subscribe_error.{f:if(condition: errorReason, then: errorReason, else: 'unknown')}" />
-            </div>
-        </f:else>
+    <f:if condition="{noAction} == false">
+        <f:if condition="{success}">
+            <f:then>
+                <div class="alert alert-success">
+                    <f:translate key="subscription.subscribe_ok" />
+                </div>
+            </f:then>
+            <f:else>
+                <div class="alert alert-danger">
+                    <f:translate key="error.subscribe_error.{f:if(condition: errorReason, then: errorReason, else: 'unknown')}" />
+                </div>
+            </f:else>
+        </f:if>
+        <a href="{f:cObject(typoscriptObjectPath: 'lib.pxaNewsLetterMainPageUrl')}" class="btn btn-default"><f:translate key="back_to_website" /></a>
     </f:if>
-    <a href="{f:cObject(typoscriptObjectPath: 'lib.pxaNewsLetterMainPageUrl')}" class="btn btn-default"><f:translate key="back_to_website" /></a>
 </f:section>
 </html>

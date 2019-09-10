@@ -19,14 +19,6 @@ class NewsletterSubscriptionController extends AbstractController
     use EmitSignal;
 
     /**
-     * Read flexform settings of subsription content element on confirmation action
-     */
-    protected function initializeConfirmAction()
-    {
-        $this->mergeSettingsWithFlexFormSettings();
-    }
-
-    /**
      * Show form
      */
     public function formAction()
@@ -45,6 +37,16 @@ class NewsletterSubscriptionController extends AbstractController
      */
     public function confirmAction(int $subscription = null, string $hash = '')
     {
+        // If no parameters passed means that page was just visited as regular page
+        // No action to perform
+        if ($subscription === null && $hash === '') {
+            $this->view->assign('noAction', true);
+            return;
+        }
+
+        // Read flexform settings of subscription content element on confirmation action
+        $this->mergeSettingsWithFlexFormSettings();
+
         $success = false;
 
         if ($subscription !== null) {
