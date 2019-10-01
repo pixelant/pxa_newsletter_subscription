@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Pixelant\PxaNewsletterSubscription\Controller\Traits;
+namespace Pixelant\PxaNewsletterSubscription;
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 

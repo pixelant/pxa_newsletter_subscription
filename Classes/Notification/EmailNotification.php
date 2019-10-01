@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Pixelant\PxaNewsletterSubscription\Service\Notification;
+namespace Pixelant\PxaNewsletterSubscription\Notification;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -13,12 +13,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  * Class AbstractEmailNotification
  * @package Pixelant\PxaNewsletterSubscription\Service\Notification
  */
-class EmailNotification
+class EmailNotification implements NotificationInterface
 {
-    /**
-     * Email formats
-     */
-    const FORMAT_PLAINTEXT = 'text/plain';
     const FORMAT_HTML = 'text/html';
 
     /**
@@ -75,6 +71,16 @@ class EmailNotification
     {
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->mailMessage = GeneralUtility::makeInstance(MailMessage::class);
+    }
+
+    /**
+     * Notify
+     *
+     * @return bool
+     */
+    public function notify(): bool
+    {
+        return $this->send();
     }
 
     /**
@@ -169,7 +175,7 @@ class EmailNotification
     public function setNotificationTemplateName($notificationTemplateName): EmailNotification
     {
         $this->notificationTemplateName = $notificationTemplateName;
-        return  $this;
+        return $this;
     }
 
     /**

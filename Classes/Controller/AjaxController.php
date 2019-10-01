@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
-use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\UserConfirmationNotification;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
+use Pixelant\PxaNewsletterSubscription\TranslateTrait;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Error;
@@ -64,7 +65,7 @@ class AjaxController extends AbstractController
 
         if ($enableEmailConfirmation) {
             // Send user confirmation email
-            $this->sendSubscribeConfirmationEmail($subscription);
+            $this->sendNotification(UserConfirmationNotification::class, $subscription);
         } else {
             // Notify admin if no confirmation required,
             // otherwise it'll be send after confirmation

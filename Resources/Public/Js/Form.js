@@ -31,8 +31,8 @@ PxaNewsLetterSubscription.prototype = {
 				}, true);
 
 				// Accept terms?
-				let requireAcceptTerms = form.dataset['requireAcceptTerms'] || false;
-				if (requireAcceptTerms) {
+				let requireAcceptTerms = parseInt(form.dataset['requireAcceptTerms'] || 0);
+				if (requireAcceptTerms === 1) {
 					self._acceptTermsActions(form);
 				}
 			});

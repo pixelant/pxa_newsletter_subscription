@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
-use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\AdminUnsubscribeNotification;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\UserUnsubscribeConfirmationNotification;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
+use Pixelant\PxaNewsletterSubscription\TranslateTrait;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -87,7 +89,7 @@ class NewsletterSubscriptionController extends AbstractController
             if ($subscription !== null) {
                 $this->emitSignal(__CLASS__, 'unsubscribeRequest' . __METHOD__, $subscription);
 
-                $this->sendUnsubscribeConfirmationEmail($subscription);
+                $this->sendNotification(UserUnsubscribeConfirmationNotification::class, $subscription);
 
                 $this->redirect('unsubscribeMessage', null, null, compact('subscription'));
             }
@@ -116,6 +118,10 @@ class NewsletterSubscriptionController extends AbstractController
 
         if ($subscription !== null && $this->hashService->isValidUnsubscriptionHash($subscription, $hash)) {
             $this->emitSignal(__CLASS__, 'unsubscribe' . __METHOD__, $subscription);
+
+            if (!empty($this->settings['notifyAdmin'])) {
+                $this->sendNotification(AdminUnsubscribeNotification::class, $subscription);
+            }
 
             $this->subscriptionRepository->remove($subscription);
             $success = true;

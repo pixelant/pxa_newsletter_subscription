@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
-use Pixelant\PxaNewsletterSubscription\Controller\Traits\TranslateTrait;
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Domain\Repository\SubscriptionRepository;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\AdminNewSubscriptionNotification;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\BuilderInterface;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\UserSuccessSubscriptionNotification;
+use Pixelant\PxaNewsletterSubscription\Notification\Notificator;
 use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
 use Pixelant\PxaNewsletterSubscription\Service\HashService;
-use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotification;
-use Pixelant\PxaNewsletterSubscription\Service\Notification\EmailNotificationFactory;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
-use Pixelant\PxaNewsletterSubscription\Url\SubscriptionUrlGenerator;
+use Pixelant\PxaNewsletterSubscription\TranslateTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -70,22 +71,7 @@ abstract class AbstractController extends ActionController
     protected function sendSubscriberSuccessSubscriptionEmail(Subscription $subscription): void
     {
         if (!empty($this->settings['notifySubscriber'])) {
-            $subscriberNotification = $this->getEmailNotification('SubscriberSuccessSubscription');
-
-            $subscriberNotification
-                ->setSubject($this->translate('mail.subscriber.success_subject'))
-                ->setReceivers([$subscription->getEmail()]);
-
-            // Unsubscribe link
-            $unsubscribeUrl = !empty($this->settings['unsubscribePage'])
-                ? $this->getSubscriptionUrlGenerator()->generateUnsubscribePageUrl($subscription, $this->settings['unsubscribePage'])
-                : '';
-
-            $subscriberNotification->assignVariables(compact('subscription', 'unsubscribeUrl') + ['settings' => $this->settings]);
-
-            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $subscriberNotification);
-
-            $subscriberNotification->send();
+            $this->sendNotification(UserSuccessSubscriptionNotification::class, $subscription);
         }
     }
 
@@ -97,80 +83,8 @@ abstract class AbstractController extends ActionController
     protected function sendAdminNewSubscriptionEmail(Subscription $subscription): void
     {
         if (!empty($this->settings['notifyAdmin'])) {
-            $receivers = array_filter(
-                GeneralUtility::trimExplode("\n", $this->settings['notifyAdmin'], true),
-                function ($email) {
-                    return GeneralUtility::validEmail($email);
-                }
-            );
-
-            $adminNotification = $this->getEmailNotification('AdminNewSubscription');
-
-            $adminNotification
-                ->setSubject($this->translate('mail.admin.subject'))
-                ->setReceivers($receivers);
-
-            $adminNotification->assignVariables(compact('subscription') + ['settings' => $this->settings]);
-
-            $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $adminNotification);
-
-            $adminNotification->send();
+            $this->sendNotification(AdminNewSubscriptionNotification::class, $subscription);
         }
-    }
-
-    /**
-     * Send confirmation email
-     *
-     * @param Subscription $subscription
-     */
-    protected function sendSubscribeConfirmationEmail(Subscription $subscription): void
-    {
-        $subscriberNotification = $this->getEmailNotification('SubscribeConfirmation');
-
-        $subscriberNotification
-            ->setSubject($this->translate('mail.subscriber.confirmation_subject'))
-            ->setReceivers([$subscription->getEmail()]);
-
-        // Subscription confirmation email
-        $confirmationUrl = $this->getSubscriptionUrlGenerator()->generateConfirmationSubscriptionUrl(
-            $subscription,
-            (int)$this->request->getArgument('ceUid'),
-            intval($this->settings['confirmationPage']) ?: $GLOBALS['TSFE']->id
-        );
-
-        $subscriberNotification->assignVariables(compact('subscription', 'confirmationUrl') + ['settings' => $this->settings]);
-
-        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $subscriberNotification);
-
-        $subscriberNotification->send();
-    }
-
-    /**
-     * Send confirmation email in order to unsubscribe
-     *
-     * @param Subscription $subscription
-     */
-    protected function sendUnsubscribeConfirmationEmail(Subscription $subscription): void
-    {
-        $subscriberNotification = $this->getEmailNotification('UnsubscribeConfirmation');
-
-        $subscriberNotification
-            ->setSubject($this->translate('mail.unsubscribe.confirmation_subject'))
-            ->setReceivers([$subscription->getEmail()]);
-
-        $subscriptionUrlGenerator = $this->getSubscriptionUrlGenerator();
-
-        // Unsubscription confirmation email
-        $confirmationLink = $subscriptionUrlGenerator->generateConfirmationUnsubscribeUrl(
-            $subscription,
-            $GLOBALS['TSFE']->id
-        );
-
-        $subscriberNotification->assignVariables(compact('subscription', 'confirmationLink') + ['settings' => $this->settings]);
-
-        $this->emitSignal(__CLASS__, 'beforeSendEmail' . __METHOD__, $subscription, $subscriberNotification);
-
-        $subscriberNotification->send();
     }
 
     /**
@@ -187,28 +101,16 @@ abstract class AbstractController extends ActionController
     }
 
     /**
-     * Prepare email notification, set sender name and email if set
+     * Send notification using builder
      *
-     * @param string $template
-     * @return EmailNotification
+     * @param string $notificationBuilder
+     * @param Subscription $subscription
+     * @return bool
      */
-    protected function getEmailNotification(string $template): EmailNotification
+    protected function sendNotification(string $notificationBuilder, Subscription $subscription): bool
     {
-        $emailNotification = EmailNotificationFactory::getEmailNotification($template);
-        $emailNotification
-            ->setSenderEmail($this->settings['senderEmail'] ?? '')
-            ->setSenderName($this->settings['senderName'] ?? '');
-
-        return $emailNotification;
-    }
-
-    /**
-     * Use own URL generator. This will make it possible to generate subscriptions related links from outside
-     *
-     * @return SubscriptionUrlGenerator
-     */
-    protected function getSubscriptionUrlGenerator(): SubscriptionUrlGenerator
-    {
-        return GeneralUtility::makeInstance(SubscriptionUrlGenerator::class, $this->hashService);
+        /** @var BuilderInterface $builder */
+        $builder = GeneralUtility::makeInstance($notificationBuilder, $subscription, $this->settings);
+        return GeneralUtility::makeInstance(Notificator::class)->build($builder)->notify();
     }
 }

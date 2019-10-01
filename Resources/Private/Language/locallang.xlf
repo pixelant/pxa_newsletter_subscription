@@ -41,16 +41,29 @@
 			<trans-unit id="mail.greeting">
                 <source>Hi</source>
             </trans-unit>
-			<!--Admin-->
-			<trans-unit id="mail.admin.subject">
+
+			<!--Admin subscribe notification-->
+			<trans-unit id="mail.admin.subscribe.subject">
 				<source>New newsletter subscription</source>
 			</trans-unit>
-			<trans-unit id="mail.admin.line1">
+			<trans-unit id="mail.admin.subscribe.line1">
 				<source>New subscription on a site.</source>
 			</trans-unit>
-			<trans-unit id="mail.admin.line2">
+			<trans-unit id="mail.admin.subscribe.line2">
 				<source>Subscription information</source>
 			</trans-unit>
+
+			<!--Admin unsubscribe notification-->
+			<trans-unit id="mail.admin.unsubscribe.subject">
+				<source>Newsletter unsubscription</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.unsubscribe.line1">
+				<source>User has unsubscribed.</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.unsubscribe.line2">
+				<source>Subscription information</source>
+			</trans-unit>
+
 			<!--Subscriber confirmation-->
 			<trans-unit id="mail.subscriber.confirmation_subject">
                 <source>Newsletter subscription confirmation</source>
@@ -61,6 +74,7 @@
 			<trans-unit id="mail.subscriber.confirmation_line2">
                 <source>If you wish to unsubscribe in the future, follow this link:</source>
             </trans-unit>
+
 			<!--Subscriber success-->
 			<trans-unit id="mail.subscriber.success_subject">
 				<source>Successfully subscribed to newsletter</source>
@@ -68,9 +82,13 @@
 			<trans-unit id="mail.subscriber.success_line1">
 				<source>You have been successfully subscribed to newsletter.</source>
 			</trans-unit>
+
 			<!--Unsubscribe confirmation-->
 			<trans-unit id="mail.unsubscribe.confirmation_subject">
 			    <source>Newsletter unsubscription confirmation</source>
+			</trans-unit>
+			<trans-unit id="mail.unsubscribe.confirmation_line1">
+				<source>In order to unsubscribe please click the following link:</source>
 			</trans-unit>
 			<!--Email notification labels:END-->
 
