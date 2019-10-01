@@ -127,65 +127,6 @@
 			    <source>Invalid sender email. Check your typoscript settings</source>
 			</trans-unit>
 			<!--Error messages:END-->
-
-
-
-
-
-
-			<!--END NEW -->
-
-			<trans-unit id="error.unsubscribe.not-subscribed">
-                <source>No subscription exists for this email-address.</source>
-            </trans-unit>
-
-			<trans-unit id="error.subscribe.4101">
-                <source>Sorry, something went wrong. Please try reloading the page and subscribing again. (Code:4101)</source>
-            </trans-unit>
-			<trans-unit id="error.subscribe.4102">
-                <source>Sorry, something went wrong. Please try reloading the page and subscribing again. (Code:4102)</source>
-            </trans-unit>
-			<trans-unit id="error.subscribe.4103">
-                <source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4103)</source>
-            </trans-unit>
-			<trans-unit id="error.subscribe.4104">
-                <source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4104)</source>
-            </trans-unit>
-			<trans-unit id="error.subscribe.4105">
-                <source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4105)</source>
-            </trans-unit>
-			<trans-unit id="error.invalid.configuration">
-                <source>Sorry, something went wrong. Please try reloading the page and unsubscribe again.</source>
-            </trans-unit>
-
-			<trans-unit id="error.subscribe.4106">
-                <source>The confirm mail wasn't sent. (Code:4106)</source>
-            </trans-unit>
-			<trans-unit id="subscribe">
-                <source>Subscribe</source>
-            </trans-unit>
-			<trans-unit id="unsubscribe">
-                <source>Unsubscribe</source>
-            </trans-unit>
-
-
-
-
-
-			<trans-unit id="unsubscribe_ok">
-                <source>Your will no longer receive emails from this newsletter. We will miss you.</source>
-            </trans-unit>
-			<trans-unit id="unsubscribe_error">
-                <source>Sorry, something went wrong. Please contact us regarding your unsubscription.</source>
-            </trans-unit>
-
-			<trans-unit id="jqhxr_error_message">
-                <source>Technical problem, please try again later.</source>
-            </trans-unit>
-			<trans-unit id="admin_notification_subject">
-                <source>One of the subscriptions was updated</source>
-            </trans-unit>
-
 		</body>
 	</file>
 </xliff>
