@@ -13,11 +13,6 @@
   "license": "GPL-2.0+",
   "support": {
   },
-  "autoload": {
-    "psr-4": {
-      "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
-    }
-  },
   "require": {
     "typo3/cms-core": "^9.5",
     "php": ">=7.2.0"
@@ -25,5 +20,38 @@
   "replace": {
     "pxa_newsletter_subscription": "self.version",
     "typo3-ter/pxa-newsletter-subscription": "self.version"
+  },
+  "require-dev": {
+    "nimut/testing-framework": "^4.1",
+    "squizlabs/php_codesniffer": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pixelant\\PxaNewsletterSubscription\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pixelant\\PxaNewsletterSubscription\\Tests\\": "Tests"
+    }
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "mkdir -p .Build/Web/typo3conf/ext/",
+      "[ -L .Build/Web/typo3conf/ext/pxa_newsletter_subscription ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/pxa_newsletter_subscription"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "9.x-dev"
+    },
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
+    }
   }
 }
