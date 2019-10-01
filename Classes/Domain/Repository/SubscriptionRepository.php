@@ -50,6 +50,29 @@ class SubscriptionRepository extends Repository
     }
 
     /**
+     * Find hidden by email and pid
+     *
+     * @param string $email
+     * @param int $pid
+     * @return Subscription|null
+     */
+    public function findByEmailAndPidHidden(string $email, int $pid): ?Subscription
+    {
+        $query = $this->createQuery();
+        $query
+            ->getQuerySettings()
+            ->setIgnoreEnableFields(true)
+            ->setEnableFieldsToBeIgnored(['disabled']);
+
+        $query->matching($query->logicalAnd([
+            $query->equals('email', $email),
+            $query->equals('pid', $pid)
+        ]));
+
+        return $query->execute()->getFirst();
+    }
+
+    /**
      * Find by email in storage
      *
      * @param string $email

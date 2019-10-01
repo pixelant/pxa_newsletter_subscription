@@ -5,9 +5,13 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Validator;
 
 use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Domain\Repository\SubscriptionRepository;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\UserConfirmationNotification;
+use Pixelant\PxaNewsletterSubscription\Notification\Notificator;
 use Pixelant\PxaNewsletterSubscription\Service\FlexFormSettingsService;
 use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
@@ -53,26 +57,43 @@ class SubscriptionValidator extends AbstractValidator
      */
     protected function isValid($subscription)
     {
-        $settings = $this->getPluginFlexFormSettings();
+        $settings = array_merge($this->getPluginSettings(), $this->getPluginFlexFormSettings());
 
         $this->emitSignal(__CLASS__, 'beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
+
+        $isEmailValid = GeneralUtility::validEmail($subscription->getEmail());
+        $existingSubscription = $isEmailValid
+            ? $this->subscriptionRepository->findByEmailAndPidHidden($subscription->getEmail(), (int)$settings['storagePid'])
+            : null;
 
         if (empty($settings['storagePid'])) {
             $this->addError(
                 $this->translateErrorMessage('error.invalid.storage_pid', 'PxaNewsletterSubscription'),
                 1566478535950
             );
-        } elseif (!GeneralUtility::validEmail($subscription->getEmail())) {
+        } elseif (!$isEmailValid) {
             $this->result->forProperty('email')->addError(
                 new Error(
                     $this->translateErrorMessage('error.invalid.email', 'PxaNewsletterSubscription'),
                     1566476320803
                 )
             );
-        } elseif ($this->alreadyExistInPid($subscription->getEmail(), (int)$settings['storagePid'])) {
+        } elseif ($this->alreadyExistInPid($existingSubscription)) {
             $this->result->forProperty('email')->addError(
                 new Error(
                     $this->translateErrorMessage('error.already_subscribed', 'PxaNewsletterSubscription'),
+                    1566478593787
+                )
+            );
+        } elseif ($this->alreadyExistButNotConfirmed($existingSubscription)) {
+            if ($settings['resendConfirmationEmail']) {
+                $builder = GeneralUtility::makeInstance(UserConfirmationNotification::class, $existingSubscription, $settings);
+                GeneralUtility::makeInstance(Notificator::class)->build($builder)->notify();
+            }
+
+            $this->result->forProperty('email')->addError(
+                new Error(
+                    $this->translateErrorMessage('error.waiting_for_confirmation', 'PxaNewsletterSubscription'),
                     1566478593787
                 )
             );
@@ -94,15 +115,25 @@ class SubscriptionValidator extends AbstractValidator
     }
 
     /**
-     * Check if subscription for such email exist
+     * Check if given subscription exist, but not confirmed yet
      *
-     * @param string $email
-     * @param int $pid
+     * @param Subscription|null $subscription
      * @return bool
      */
-    protected function alreadyExistInPid(string $email, int $pid): bool
+    protected function alreadyExistButNotConfirmed(?Subscription $subscription): bool
     {
-        return $this->subscriptionRepository->findByEmailAndPid($email, $pid) !== null;
+        return $subscription !== null && $subscription->isHidden();
+    }
+
+    /**
+     * Check if subscription was confirmed
+     *
+     * @param Subscription|null $subscription
+     * @return bool
+     */
+    protected function alreadyExistInPid(?Subscription $subscription): bool
+    {
+        return $subscription !== null && !$subscription->isHidden();
     }
 
     /**
@@ -115,5 +146,19 @@ class SubscriptionValidator extends AbstractValidator
         $ceUid = GeneralUtility::_GP('tx_pxanewslettersubscription_subscription')['ceUid'] ?? 0;
 
         return $this->flexFormSettingsService->getFlexFormArray((int)$ceUid)['settings'] ?? [];
+    }
+
+    /**
+     * Get plugin settings
+     *
+     * @return array
+     */
+    protected function getPluginSettings(): array
+    {
+        $settings = GeneralUtility::makeInstance(ObjectManager::class)
+            ->get(ConfigurationManagerInterface::class)
+            ->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+
+        return $settings;
     }
 }

@@ -102,6 +102,9 @@
 			<trans-unit id="error.already_subscribed">
                 <source>A subscription with this email-address already exists.</source>
             </trans-unit>
+			<trans-unit id="error.waiting_for_confirmation">
+			    <source>A subscription with this email-address already exists, but waiting for confirmation. Please check your email box.</source>
+			</trans-unit>
 			<trans-unit id="error.subscribe_error.already_confirmed">
 			    <source>Subscription was already confirmed.</source>
 			</trans-unit>

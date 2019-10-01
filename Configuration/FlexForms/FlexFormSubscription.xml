@@ -50,6 +50,22 @@
                         </TCEforms>
                     </settings.enableEmailConfirmation>
 
+                    <settings.resendConfirmationEmail>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.resend_confirmation_email</label>
+                            <displayCond>
+                                <AND>
+                                    <numIndex index="0">FIELD:settings.enableEmailConfirmation:REQ:TRUE</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                </AND>
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                                <renderType>checkboxToggle</renderType>
+                            </config>
+                        </TCEforms>
+                    </settings.resendConfirmationEmail>
+
                     <settings.nameIsMandatory>
                         <TCEforms>
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.name_is_mandatory</label>

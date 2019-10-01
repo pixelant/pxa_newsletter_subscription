@@ -103,6 +103,7 @@ class BackendLayoutView
             case 'notifySubscriber':
             case 'enableEmailConfirmation':
             case 'nameIsMandatory':
+            case 'resendConfirmationEmail':
                 $value = $this->translate($value ? 'flexform.yes' : 'flexform.no');
                 break;
             case 'acceptTermsLink':

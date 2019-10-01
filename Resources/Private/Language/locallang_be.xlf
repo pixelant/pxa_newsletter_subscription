@@ -84,6 +84,12 @@
 			<trans-unit id="flexform.unsubscribe_page">
 			    <source>Unsubscribe page. If set user will get link to it in email</source>
 			</trans-unit>
+			<trans-unit id="flexform.resend_confirmation_email">
+			    <source>Resend confirmation email in case user try to subscribe again, but haven't confirmed subscription yet.</source>
+			</trans-unit>
+			<trans-unit id="flexform.resend_confirmation_email_title">
+				<source>Resend confirmation email</source>
+			</trans-unit>
 			<!--FlexForm:END-->
 		</body>
 	</file>
