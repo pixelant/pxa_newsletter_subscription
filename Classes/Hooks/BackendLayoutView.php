@@ -72,6 +72,12 @@ class BackendLayoutView
 
                 $output .= sprintf('<b>%s</b>: %s<br>', $title, $value);
             }
+        } elseif ($settings['switchableControllerActions'] === 'NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage') {
+            $output .= sprintf(
+                '<b>%s</b>: %s<br>',
+                $this->getTitleOfField('notifyAdmin'),
+                $this->getValueOfField('notifyAdmin', $settings['settings']['notifyAdmin'])
+            );
         }
 
         return $output;
