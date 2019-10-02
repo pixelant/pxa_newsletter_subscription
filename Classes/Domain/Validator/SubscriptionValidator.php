@@ -62,11 +62,13 @@ class SubscriptionValidator extends AbstractValidator
         $this->emitSignal(__CLASS__, 'beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
 
         $isEmailValid = GeneralUtility::validEmail($subscription->getEmail());
+        $storage = (int)$settings['storagePid'];
+
         $existingSubscription = $isEmailValid
-            ? $this->subscriptionRepository->findByEmailAndPidHidden($subscription->getEmail(), (int)$settings['storagePid'])
+            ? $this->subscriptionRepository->findByEmailAndPidHidden($subscription->getEmail(), $storage)
             : null;
 
-        if (empty($settings['storagePid'])) {
+        if ($storage <= 0) {
             $this->addError(
                 $this->translateErrorMessage('error.invalid.storage_pid', 'PxaNewsletterSubscription'),
                 1566478535950
@@ -87,7 +89,11 @@ class SubscriptionValidator extends AbstractValidator
             );
         } elseif ($this->alreadyExistButNotConfirmed($existingSubscription)) {
             if ($settings['resendConfirmationEmail']) {
-                $builder = GeneralUtility::makeInstance(UserConfirmationNotification::class, $existingSubscription, $settings);
+                $builder = GeneralUtility::makeInstance(
+                    UserConfirmationNotification::class,
+                    $existingSubscription,
+                    $settings
+                );
                 GeneralUtility::makeInstance(Notificator::class)->build($builder)->notify();
             }
 

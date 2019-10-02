@@ -57,7 +57,13 @@ class NewsletterSubscriptionController extends AbstractController
 
         if (is_object($subscription) && $this->hashService->isValidSubscriptionHash($subscription, $hash)) {
             // Emit signal
-            $this->emitSignal(__CLASS__, 'beforeConfirmSubscription' . __METHOD__, $subscription, $hash, $this->settings);
+            $this->emitSignal(
+                __CLASS__,
+                'beforeConfirmSubscription' . __METHOD__,
+                $subscription,
+                $hash,
+                $this->settings
+            );
 
             if ($subscription->isHidden()) {
                 $subscription->setHidden(false);
@@ -84,7 +90,10 @@ class NewsletterSubscriptionController extends AbstractController
     public function unsubscribeAction(string $email = '')
     {
         if (!empty($email)) {
-            $subscription = $this->subscriptionRepository->findByEmailAndPid($email, (int)$this->settings['storagePid']);
+            $subscription = $this->subscriptionRepository->findByEmailAndPid(
+                $email,
+                (int)$this->settings['storagePid']
+            );
 
             if ($subscription !== null) {
                 $this->emitSignal(__CLASS__, 'unsubscribeRequest' . __METHOD__, $subscription);

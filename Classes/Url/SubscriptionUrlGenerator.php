@@ -113,8 +113,13 @@ class SubscriptionUrlGenerator
      * @param int|null $pluginUid
      * @return string
      */
-    protected function generateUrlForActionAndHash(string $action, int $subscriptionUid, string $hash, $targetPage, int $pluginUid = null): string
-    {
+    protected function generateUrlForActionAndHash(
+        string $action,
+        int $subscriptionUid,
+        string $hash,
+        $targetPage,
+        int $pluginUid = null
+    ): string {
         $arguments = [
             'subscription' => $subscriptionUid,
             'hash' => $hash,

@@ -64,15 +64,16 @@ class BackendLayoutView
     protected function generateSettingsOutput(array $settings): string
     {
         $output = '';
+        $currentAction = $settings['switchableControllerActions'];
 
-        if ($settings['switchableControllerActions'] === 'NewsletterSubscription->form;NewsletterSubscription->confirm') {
+        if (StringUtility::beginsWith($currentAction, 'NewsletterSubscription->form;')) {
             foreach ($settings['settings'] as $field => $value) {
                 $title = $this->getTitleOfField($field);
                 $value = $this->getValueOfField($field, $value);
 
                 $output .= sprintf('<b>%s</b>: %s<br>', $title, $value);
             }
-        } elseif ($settings['switchableControllerActions'] === 'NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage') {
+        } elseif (StringUtility::beginsWith($currentAction, 'NewsletterSubscription->unsubscribe;')) {
             $output .= sprintf(
                 '<b>%s</b>: %s<br>',
                 $this->getTitleOfField('notifyAdmin'),

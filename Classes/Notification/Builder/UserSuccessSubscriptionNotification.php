@@ -47,7 +47,10 @@ class UserSuccessSubscriptionNotification extends AbstractBuilder
             'settings' => $this->settings
         ];
         if (!empty($this->settings['unsubscribePage'])) {
-            $variables['unsubscribeUrl'] = $this->getSubscriptionUrlGenerator()->generateUnsubscribePageUrl($this->subscription, $this->settings['unsubscribePage']);
+            $variables['unsubscribeUrl'] = $this->getSubscriptionUrlGenerator()->generateUnsubscribePageUrl(
+                $this->subscription,
+                $this->settings['unsubscribePage']
+            );
         }
 
         $this->notification->assignVariables($variables);

@@ -58,7 +58,10 @@ class FlexFormSettingsService implements SingletonInterface
             ->fetchColumn(0);
 
         if ($flexFormContent === false) {
-            throw new \RuntimeException("Could not fetch flexform for content element with UID '$ceUid'", 1567422271160);
+            throw new \RuntimeException(
+                "Could not fetch flexform for content element with UID '$ceUid'",
+                1567422271160
+            );
         }
 
         return $flexFormContent;

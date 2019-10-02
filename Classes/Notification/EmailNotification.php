@@ -95,7 +95,10 @@ class EmailNotification implements NotificationInterface
         $this->validateReceivers();
 
         if (empty($this->subject)) {
-            throw new \InvalidArgumentException('"subject" is required in order to send notification email', 1566546703887);
+            throw new \InvalidArgumentException(
+                '"subject" is required in order to send notification email',
+                1566546703887
+            );
         }
         if (empty($this->receivers)) {
             throw new \InvalidArgumentException('"receivers" require at least one valid email.', 1566546708838);
