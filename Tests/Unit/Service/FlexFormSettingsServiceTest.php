@@ -22,25 +22,30 @@ class FlexFormSettingsServiceTest extends UnitTestCase
      */
     protected function setUp()
     {
-        $this->subject = $this->getMockBuilder(FlexFormSettingsService::class)
-            ->setMethods(['getFlexFormContent', 'getFlexFormService'])
-            ->getMock();
+        $this->subject = $this->getAccessibleMock(FlexFormSettingsService::class, ['getFlexFormContent', 'getFlexFormService']);
     }
 
     /**
      * @test
      */
-    public function getFlexFormArrayTryToGenerateSettingsIfNotInCache()
+    public function getFlexFormArrayTryToGenerateSettingsIfNotInCacheAndSaveInCache()
     {
+        $testResult = ['data' => 'testdata'];
+        $ceUid = 10;
+
         $mockedFlexFormService = $this->createMock(FlexFormService::class);
-        $mockedFlexFormService->expects($this->once())->method('convertFlexFormContentToArray')->willReturn([]);
+        $mockedFlexFormService->expects($this->once())->method('convertFlexFormContentToArray')->willReturn($testResult);
 
         $this->subject
             ->expects($this->once())
             ->method('getFlexFormService')
             ->willReturn($mockedFlexFormService);
 
-        $this->subject->getFlexFormArray(10);
+        $this->subject->getFlexFormArray($ceUid);
+
+        $expectInCache = [$ceUid => $testResult];
+
+        $this->assertEquals($expectInCache, $this->subject->_get('settings'));
     }
 
     /**
