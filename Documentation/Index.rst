@@ -1,58 +1,42 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. every .rst file should include Includes.txt
+.. use correct path!
 
 .. include:: Includes.txt
 
+
+.. Every manual should have a start label for cross-referencing to
+.. start page. Do not remove this!
+
 .. _start:
 
-================================
-EXT: Pxa Newsletter Subscription
-================================
-
-.. image:: Images/logo.png
-   :height: 200
-   :width: 200
+=============================================================
+Pxa Newsletter Subscription
+=============================================================
 
 
-.. only:: html
+:Extension key:
+    pxa_newsletter_subscription
 
-   :Version:
-      |release|
+:Version:
+   |release|
 
-   :Language:
-      en
+:Language:
+   en
 
-   :Description:
-      This is an extension that makes it possible for a user to subscribe to a newsletter and being created as a frontend user or tt_address dataset.
+:Email:
+   info@pixelant.net
 
-   :Keywords:
-      direct mail, newsletter, subscription
+**Description**
 
-   :Autor:
-      Inna Titorenko (Pixelant),
-      Jozef Spisiak (Pixelant),
-      Mats Svensson (Pixelant),
-      Daniel Lorenz (TRITUM GmbH)
+This is an extension that makes it possible for a user to subscribe to a newsletter and being created as a frontend user.
 
-   :E-Mail:
-      inna@pixelant.se,
-      jozef@pixelant.se,
-      mats@pixelant.se,
-      daniel.lorenz@tritum.de
-
-   :Rendered:
-      |today|
-
-   The content of this document is related to TYPO3,
-   a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
-
-   **Table of Contents**
 
 .. toctree::
-   :maxdepth: 5
-   :titlesonly:
+   :maxdepth: 3
+   :hidden:
 
-   Introduction/Index
-   AdministratorManual/Index
+
+   Editor/Index
+   Configuration/Index
+   Developers/Index
+
