@@ -23,6 +23,9 @@
 			<trans-unit id="subscribe">
 			    <source>Subscribe</source>
 			</trans-unit>
+			<trans-unit id="unsubscribe">
+			    <source>Unsubscribe</source>
+			</trans-unit>
 			<trans-unit id="subscription.subscribed_noconfirm">
                 <source>You have been successfully subscribed to newsletter.</source>
             </trans-unit>
@@ -112,7 +115,7 @@
 			    <source>Subscription was already confirmed.</source>
 			</trans-unit>
 			<trans-unit id="error.subscribe_error.unknown">
-                <source>Sorry, something went wrong. Please contact us regarding your subscription.</source>
+                <source>Sorry, something went wrong. Please contact us.</source>
             </trans-unit>
 			<trans-unit id="error.invalid.email">
                 <source>Invalid email-address.</source>

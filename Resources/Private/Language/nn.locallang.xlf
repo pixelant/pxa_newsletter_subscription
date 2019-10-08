@@ -1,124 +1,163 @@
 <?xml version="1.0" standalone="yes"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="nb" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01" target-language="nn">
-        <header></header>
+<xliff version="1.0">
+    <file source-language="en" target-language="nn" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01">
+        <header />
         <body>
-            <trans-unit id="name" xml:space="preserve">
-                <source>Navn</source>
+            <!--Frontend labels:START-->
+            <trans-unit id="name">
+                <source>Name</source>
                 <target>Namn</target>
             </trans-unit>
-            <trans-unit id="email" xml:space="preserve">
-                <source>E-post</source>
+            <trans-unit id="email">
+                <source>E-mail</source>
                 <target>E-post</target>
             </trans-unit>
-            <trans-unit id="error.invalid.email" xml:space="preserve">
-                <source>Ugyldig epostadresse.</source>
-                <target>Ugyldig e-postadresse.</target>
+            <trans-unit id="back_to_website">
+                <source>Back to website</source>
+                <tareget>Tilbake til nettstaden</tareget>
             </trans-unit>
-            <trans-unit id="error.invalid.name" xml:space="preserve">
-                <source>Ugyldig eller manglende navn.</source>
-                <target>Ugyldig eller manglande namn.</target>
+            <trans-unit id="storage">
+                <source>Storage (PID)</source>
             </trans-unit>
-            <trans-unit id="error.unsubscribe.not-subscribed" xml:space="preserve">
-                <source>Det finnes ikke noe abonnement for denne e-postadressen.</source>
-                <target>Det finst ikkje noko abonnement for denne e-postadressa.</target>
+            <trans-unit id="accept_terms">
+                <source>Accept terms</source>
             </trans-unit>
-            <trans-unit id="error.subscribe.already-subscribed" xml:space="preserve">
-                <source>Et abonnement med denne epostadressen finnes allerede.</source>
-                <target>Eit abonnement med denne e-postadressen finst allereie.</target>
-            </trans-unit>
-            <trans-unit id="error.subscribe.4101" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4101)</source>
-                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4101)</target>
-            </trans-unit>
-            <trans-unit id="error.subscribe.4102" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4102)</source>
-                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4102)</target>
-            </trans-unit>
-            <trans-unit id="error.subscribe.4103" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4103)</source>
-                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4103)</target>
-            </trans-unit>
-            <trans-unit id="error.subscribe.4104" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen.(Kode: 4104)</source>
-                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4104)</target>
-            </trans-unit>
-            <trans-unit id="error.subscribe.4105" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen. (Kode: 4105)</source>
-                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sida på nytt og prøv igjen. (Kode: 4105)</target>
-            </trans-unit>
-            <trans-unit id="error.invalid.configuration" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Prøv å laste inn siden på nytt og prøv igjen.</source>
-                <target>Beklagar, noko gjekk gale. Prøv å lasta inn sidan på nytt og prøv igjen.</target>
-            </trans-unit>
-            <trans-unit id="error.subscribe.4106" xml:space="preserve">
-                <source>E-postbekreftelsen kunne ikke sendes. (Kode: 4106)</source>
-                <target>E-poststadfestinga kunne ikkje sendast. (Kode: 4106)</target>
-            </trans-unit>
-            <trans-unit id="subscribe" xml:space="preserve">
-                <source>Abonner</source>
+            <trans-unit id="subscribe">
+                <source>Subscribe</source>
                 <target>Abonner</target>
             </trans-unit>
-            <trans-unit id="unsubscribe" xml:space="preserve">
-                <source>Avslutt abonnementet</source>
+            <trans-unit id="unsubscribe">
+                <source>Unsubscribe</source>
                 <target>Avslutt abonnementet</target>
             </trans-unit>
-            <trans-unit id="success.subscribe.subscribed-noconfirm" xml:space="preserve">
-                <source>Du abonnerer nå på nyhetsbrevet.</source>
-                <target>Du abonnerer no på nyhendebrevet.</target>
+            <trans-unit id="subscription.subscribed_noconfirm">
+                <source>You have been successfully subscribed to newsletter.</source>
+                <tareget>Du abonnerer no på nyhendebrevet.</tareget>
             </trans-unit>
-            <trans-unit id="success.subscribe.subscribed-confirm" xml:space="preserve">
-                <source>Du er nesten ferdig. Du vil straks motta en e-postbekreftelse med informasjon om hvordan du bekrefter din e-postadresse.</source>
+            <trans-unit id="subscription.subscribed_confirm">
+                <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
                 <target>Du er nesten ferdig. Du vil straks motta ei e-poststadfesting med informasjon om korleis du stadfestar e-postadressa di.</target>
             </trans-unit>
-            <trans-unit id="success.unsubscribe.unsubscribed-noconfirm" xml:space="preserve">
-                <source>Du vil ikke lenger motta vårt nyhetsbrev.</source>
+            <trans-unit id="subscription.subscribe_ok">
+                <source>You have been successfully subscribed to newsletter.</source>
+                <tareget>Du abonnerer no på nyhendebrevet.</tareget>
+            </trans-unit>
+            <trans-unit id="subscription.unsubscribe_confirm">
+                <source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
+                <target>Du er nesten ferdig. Du vil straks motta ei e-poststadfesting med informasjon om korleis du stadfestar e-postadressa di.</target>
+            </trans-unit>
+            <trans-unit id="subscription.unsubscribe_success">
+                <source>You have been successfully unsubscribed from newsletter.</source>
                 <target>Du vil ikkje lenger motta nyhendebrevet vårt.</target>
             </trans-unit>
-            <trans-unit id="success.unsubscribe.unsubscribed-confirm" xml:space="preserve">
-                <source>Du er nesten ferdig. Du vil straks motta en e-postbekreftelse med informasjon om hvordan du bekrefter din e-postadresse.</source>
-                <target>Du er nesten ferdig. Du vil straks motta ei e-poststadfesting med informasjon om korleis du stadfestar e-postadressa di.</target>
+            <!--Frontend labels:END-->
+
+            <!--Email notification labels:START-->
+            <trans-unit id="mail.greeting">
+                <source>Hi</source>
+                <target>Hei</target>
             </trans-unit>
-            <trans-unit id="confirm_mail_subject" xml:space="preserve">
-                <source>Bekreftelse av nyhetsbrevpåmelding</source>
+
+            <!--Admin subscribe notification-->
+            <trans-unit id="mail.admin.subscribe.subject">
+                <source>New newsletter subscription</source>
+            </trans-unit>
+            <trans-unit id="mail.admin.subscribe.line1">
+                <source>New subscription on a site.</source>
+            </trans-unit>
+            <trans-unit id="mail.admin.subscribe.line2">
+                <source>Subscription information</source>
+            </trans-unit>
+
+            <!--Admin unsubscribe notification-->
+            <trans-unit id="mail.admin.unsubscribe.subject">
+                <source>Newsletter unsubscription</source>
+            </trans-unit>
+            <trans-unit id="mail.admin.unsubscribe.line1">
+                <source>User has unsubscribed.</source>
+            </trans-unit>
+            <trans-unit id="mail.admin.unsubscribe.line2">
+                <source>Subscription information</source>
+            </trans-unit>
+
+            <!--Subscriber confirmation-->
+            <trans-unit id="mail.subscriber.confirmation_subject">
+                <source>Newsletter subscription confirmation</source>
                 <target>Stadfesting av nyhendebrevpåmelding</target>
             </trans-unit>
-            <trans-unit id="confirm_mail_greeting" xml:space="preserve">
-                <source>Hei %s,</source>
-                <target>Hei %s,</target>
+            <trans-unit id="mail.subscriber.confirmation_line1">
+                <source>Please confirm your email address by clicking on the following link:</source>
+                <target>Stadfest e-postadressa di ved å klikka på følgjande link:</target>
             </trans-unit>
-            <trans-unit id="confirm_mail_line1" xml:space="preserve">
-                <source>Bekreft e-postadressen din ved å klikke på følgende link: %s</source>
-                <target>Stadfest e-postadressa di ved å klikka på følgjande link: %s</target>
+            <trans-unit id="mail.subscriber.confirmation_line2">
+                <source>If you wish to unsubscribe in the future, follow this link:</source>
+                <target>Viss du ynskjer å melda deg av nyhendebrevet ein gong i framtida kan du følgja denne lenkja:</target>
             </trans-unit>
-            <trans-unit id="confirm_mail_line2" xml:space="preserve">
-                <source>Hvis du ønsker å melde deg av nyhetsbrevet en gang i fremtiden kan du følge denne lenken: %s Tusen takk.</source>
-                <target>Viss du ynskjer å melda deg av nyhendebrevet ein gong i framtida kan du følgja denne lenkja: %s Tusen takk.</target>
+
+            <!--Subscriber success-->
+            <trans-unit id="mail.subscriber.success_subject">
+                <source>Successfully subscribed to newsletter</source>
             </trans-unit>
-            <trans-unit id="subscribe_ok" xml:space="preserve">
-                <source>Du abonnerer nå på nyhetsbrevet.</source>
+            <trans-unit id="mail.subscriber.success_line1">
+                <source>You have been successfully subscribed to newsletter.</source>
                 <target>Du abonnerer no på nyhendebrevet.</target>
             </trans-unit>
-            <trans-unit id="subscribe_error" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Kontakt oss angående abonnementet ditt.</source>
-                <target>Beklagar, noko gjekk gale. Kontakt oss angåande abonnementet ditt.</target>
+
+            <!--Unsubscribe confirmation-->
+            <trans-unit id="mail.unsubscribe.confirmation_subject">
+                <source>Newsletter unsubscription confirmation</source>
             </trans-unit>
-            <trans-unit id="unsubscribe_ok" xml:space="preserve">
-                <source>Du vil ikke lenger motta vårt nyhetsbrev.</source>
-                <target>Du vil ikkje lenger motta nyhendebrevet vårt.</target>
+            <trans-unit id="mail.unsubscribe.confirmation_line1">
+                <source>In order to unsubscribe please click the following link:</source>
             </trans-unit>
-            <trans-unit id="unsubscribe_error" xml:space="preserve">
-                <source>Beklager, noe gikk galt. Kontakt oss angående ditt ønske om å ikke lenger motta nyhetsbrevet.</source>
-                <target>Beklagar, noko gjekk gale. Kontakt oss andsynes ønsket ditt om å ikkje lenger motta nyhendebrevet.</target>
+            <!--Email notification labels:END-->
+
+            <!--Error messages:START-->
+            <trans-unit id="error.unsubscribe.not_found">
+                <source>Subscription with given email address not found</source>
+                <target>Det finst ikkje noko abonnement for denne e-postadressa.</target>
             </trans-unit>
-            <trans-unit id="back_to_website" xml:space="preserve">
-                <source>Tilbake til nettstedet</source>
-                <target>Tilbake til nettstaden</target>
+            <trans-unit id="error.missing_page_type">
+                <source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
+                <target></target>
             </trans-unit>
-            <trans-unit id="jqhxr_error_message" xml:space="preserve">
-                <source>Det oppsto et teknisk problem. Vennligst prøv igjen senere.</source>
-                <target>Det oppstod eit teknisk problem. Ver venleg og prøv igjen seinare.</target>
+            <trans-unit id="error.already_subscribed">
+                <source>A subscription with this email-address already exists.</source>
+                <target>Eit abonnement med denne e-postadressen finst allereie.</target>
             </trans-unit>
+            <trans-unit id="error.waiting_for_confirmation">
+                <source>A subscription with this email-address already exists, but waiting for confirmation. Please check your email box.</source>
+                <target>Eit abonnement med denne e-postadressen finst allereie.</target>
+            </trans-unit>
+            <trans-unit id="error.subscribe_error.already_confirmed">
+                <source>Subscription was already confirmed.</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="error.subscribe_error.unknown">
+                <source>Sorry, something went wrong. Please contact us.</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="error.invalid.email">
+                <source>Invalid email-address.</source>
+                <target>Ugyldig e-postadresse.</target>
+            </trans-unit>
+            <trans-unit id="error.invalid.storage_pid">
+                <source>Storage PID is not set</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="error.invalid.name">
+                <source>Invalid or missing name.</source>
+                <target>Ugyldig eller manglande namn.</target>
+            </trans-unit>
+            <trans-unit id="error.invalid.accept_terms">
+                <source>Accept terms is required</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="error.sender_email_invalid">
+                <source>Invalid sender email. Check your typoscript settings</source>
+                <target></target>
+            </trans-unit>
+            <!--Error messages:END-->
         </body>
     </file>
 </xliff>
