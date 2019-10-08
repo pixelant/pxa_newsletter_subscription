@@ -20,6 +20,9 @@
 			<trans-unit id="accept_terms">
 			    <source>Accept terms</source>
 			</trans-unit>
+			<trans-unit id="subscribe">
+			    <source>Subscribe</source>
+			</trans-unit>
 			<trans-unit id="subscription.subscribed_noconfirm">
                 <source>You have been successfully subscribed to newsletter.</source>
             </trans-unit>
