@@ -59,7 +59,7 @@ class NewsletterSubscriptionController extends AbstractController
             // Emit signal
             $this->emitSignal(
                 __CLASS__,
-                'beforeConfirmSubscription' . __METHOD__,
+                'beforeConfirmSubscription',
                 $subscription,
                 $hash,
                 $this->settings
@@ -96,7 +96,7 @@ class NewsletterSubscriptionController extends AbstractController
             );
 
             if ($subscription !== null) {
-                $this->emitSignal(__CLASS__, 'unsubscribeRequest' . __METHOD__, $subscription);
+                $this->emitSignal(__CLASS__, 'unsubscribeRequest', $subscription);
 
                 $this->sendNotification(UserUnsubscribeConfirmationNotification::class, $subscription);
 
@@ -126,7 +126,7 @@ class NewsletterSubscriptionController extends AbstractController
         $success = false;
 
         if ($subscription !== null && $this->hashService->isValidUnsubscriptionHash($subscription, $hash)) {
-            $this->emitSignal(__CLASS__, 'unsubscribe' . __METHOD__, $subscription);
+            $this->emitSignal(__CLASS__, 'unsubscribe', $subscription);
 
             if (!empty($this->settings['notifyAdmin'])) {
                 $this->sendNotification(AdminUnsubscribeNotification::class, $subscription);

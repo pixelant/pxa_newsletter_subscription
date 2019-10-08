@@ -59,7 +59,7 @@ class SubscriptionValidator extends AbstractValidator
     {
         $settings = array_merge($this->getPluginSettings(), $this->getPluginFlexFormSettings());
 
-        $this->emitSignal(__CLASS__, 'beforeSubscriptionValidation' . __METHOD__, $subscription, $settings);
+        $this->emitSignal(__CLASS__, 'beforeSubscriptionValidation', $subscription, $settings);
 
         $isEmailValid = GeneralUtility::validEmail($subscription->getEmail());
         $storage = (int)$settings['storagePid'];
