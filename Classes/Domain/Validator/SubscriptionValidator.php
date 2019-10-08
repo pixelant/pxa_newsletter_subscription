@@ -84,7 +84,7 @@ class SubscriptionValidator extends AbstractValidator
             $this->result->forProperty('email')->addError(
                 new Error(
                     $this->translateErrorMessage('error.already_subscribed', 'PxaNewsletterSubscription'),
-                    1566478593787
+                    1570527355420
                 )
             );
         } elseif ($this->alreadyExistButNotConfirmed($existingSubscription)) {
@@ -100,14 +100,14 @@ class SubscriptionValidator extends AbstractValidator
             $this->result->forProperty('email')->addError(
                 new Error(
                     $this->translateErrorMessage('error.waiting_for_confirmation', 'PxaNewsletterSubscription'),
-                    1566478593787
+                    1570527361341
                 )
             );
         } elseif (!empty($settings['nameIsMandatory']) && empty($subscription->getName())) {
             $this->result->forProperty('name')->addError(
                 new Error(
                     $this->translateErrorMessage('error.invalid.name', 'PxaNewsletterSubscription'),
-                    1566478593787
+                    1570527367070
                 )
             );
         } elseif (!empty($settings['acceptTermsLink']) && $subscription->isAcceptTerms() === false) {
