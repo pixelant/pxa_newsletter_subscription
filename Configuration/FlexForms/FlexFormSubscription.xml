@@ -16,6 +16,7 @@
                             <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode</label>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="0">
                                         <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.select_mode</numIndex>
