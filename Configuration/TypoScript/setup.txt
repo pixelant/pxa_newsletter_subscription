@@ -16,6 +16,7 @@ plugin.tx_pxanewslettersubscription {
     persistence {
         classes {
             # By default map to fe_users
+            # Compatibility with TYPO3 9
             Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription {
                 mapping {
                     tableName = fe_users
@@ -34,6 +35,9 @@ plugin.tx_pxanewslettersubscription {
         senderEmail = {$plugin.tx_pxanewslettersubscription.settings.senderEmail}
         senderName = {$plugin.tx_pxanewslettersubscription.settings.senderName}
     }
+
+    # Default css
+    _CSS_DEFAULT_STYLE = .hidden {display:none;}
 }
 
 #
