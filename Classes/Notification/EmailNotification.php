@@ -16,8 +16,6 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class EmailNotification implements NotificationInterface
 {
-    const FORMAT_HTML = 'text/html';
-
     /**
      * @var MailMessage
      */
@@ -82,8 +80,10 @@ class EmailNotification implements NotificationInterface
      */
     public function notify(bool $useHtmlFormat = true): bool
     {
+        $this->prepareMessage();
+
         // TYPO3 9
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch) < 10000000) {
+        if ($this->isBelow10()) {
             $this->mailMessage->setBody($this->getNotificationMessage(), $useHtmlFormat ? 'text/html' : null);
         } else {
             // In TYPO3 10 API changed
@@ -265,6 +265,16 @@ class EmailNotification implements NotificationInterface
         }
 
         return $this->view;
+    }
+
+    /**
+     * Check if TYPO3 version is below 10
+     *
+     * @return bool
+     */
+    protected function isBelow10(): bool
+    {
+        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch) < 10000000;
     }
 
     /**
