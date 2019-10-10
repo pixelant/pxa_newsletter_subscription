@@ -5,6 +5,7 @@ namespace Pixelant\PxaNewsletterSubscription\Notification;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -76,41 +77,22 @@ class EmailNotification implements NotificationInterface
     /**
      * Notify
      *
+     * @param bool $useHtmlFormat
      * @return bool
      */
-    public function notify(): bool
+    public function notify(bool $useHtmlFormat = true): bool
     {
-        return $this->send();
-    }
+        // TYPO3 9
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch) < 10000000) {
+            $this->mailMessage->setBody($this->getNotificationMessage(), $useHtmlFormat ? 'text/html' : null);
+        } else {
+            // In TYPO3 10 API changed
+            $method = $useHtmlFormat ? 'html' : 'text';
 
-    /**
-     * Send email
-     *
-     * @param string $format
-     * @return bool
-     * @throws \InvalidArgumentException
-     */
-    public function send(string $format = self::FORMAT_HTML): bool
-    {
-        $this->validateReceivers();
-
-        if (empty($this->subject)) {
-            throw new \InvalidArgumentException(
-                '"subject" is required in order to send notification email',
-                1566546703887
-            );
-        }
-        if (empty($this->receivers)) {
-            throw new \InvalidArgumentException('"receivers" require at least one valid email.', 1566546708838);
+            $this->mailMessage->{$method}($this->getNotificationMessage());
         }
 
-        $this->mailMessage
-            ->setFrom($this->getSenderNameAndEmail())
-            ->setTo($this->receivers)
-            ->setSubject($this->subject)
-            ->setBody($this->getNotificationMessage(), $format);
-
-        return $this->mailMessage->send() > 0;
+        return (bool)$this->mailMessage->send();
     }
 
     /**
@@ -197,6 +179,29 @@ class EmailNotification implements NotificationInterface
     {
         $this->notificationControllerName = $notificationControllerName;
         return $this;
+    }
+
+    /**
+     * Prepare email message for sending
+     */
+    protected function prepareMessage(): void
+    {
+        $this->validateReceivers();
+
+        if (empty($this->subject)) {
+            throw new \InvalidArgumentException(
+                '"subject" is required in order to send notification email',
+                1566546703887
+            );
+        }
+        if (empty($this->receivers)) {
+            throw new \InvalidArgumentException('"receivers" require at least one valid email.', 1566546708838);
+        }
+
+        $this->mailMessage
+            ->setFrom($this->getSenderNameAndEmail())
+            ->setTo($this->receivers)
+            ->setSubject($this->subject);
     }
 
     /**
