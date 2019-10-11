@@ -71,6 +71,10 @@ class BackendLayoutView
                 $title = $this->getTitleOfField($field);
                 $value = $this->getValueOfField($field, $value);
 
+                if (empty($title)) {
+                    continue;
+                }
+
                 $output .= sprintf('<b>%s</b>: %s<br>', $title, $value);
             }
         } elseif (StringUtility::beginsWith($currentAction, 'NewsletterSubscription->unsubscribe;')) {
