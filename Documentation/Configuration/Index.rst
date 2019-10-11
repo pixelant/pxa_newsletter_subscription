@@ -37,6 +37,10 @@ Subscription target table
 
 It's possible to change table where subscriptions are saved. Right now it's saved as frontend users in "fe_users" table.
 
+.. tip::
+
+    TYPO3 9 example
+
 .. code-block:: typoscript
 
     plugin.tx_pxanewslettersubscription {
@@ -51,4 +55,21 @@ It's possible to change table where subscriptions are saved. Right now it's save
             }
         }
     }
+
+.. tip::
+
+    TYPO3 10 example
+
+In your extension create PHP file with path "Configuration/Extbase/Persistence/Classes.php".
+
+.. code-block:: php
+
+    return [
+        Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription::class => [
+            'tableName' => 'another_table_name',
+            'properties' => [
+                // Properties settings
+            ],
+        ],
+    ];
 
