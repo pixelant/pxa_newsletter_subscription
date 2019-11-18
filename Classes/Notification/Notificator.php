@@ -6,7 +6,8 @@ namespace Pixelant\PxaNewsletterSubscription\Notification;
 use Pixelant\PxaNewsletterSubscription\Notification\Builder\BuilderInterface;
 
 /**
- * Class Notificator
+ * Notification director
+ *
  * @package Pixelant\PxaNewsletterSubscription\Notification
  */
 class Notificator
@@ -21,11 +22,11 @@ class Notificator
     {
         $builder->createNotification();
 
-        $builder->setSubject();
-        $builder->setSender();
-        $builder->setReceiver();
-        $builder->setTemplate();
-        $builder->addTemplateVariables();
+        $builder->configureSubject();
+        $builder->configureSender();
+        $builder->configureRecipient();
+        $builder->configureTemplate();
+        $builder->assignTemplateVariables();
 
         return $builder->getNotification();
     }

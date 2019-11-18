@@ -7,7 +7,8 @@ use Pixelant\PxaNewsletterSubscription\TranslateTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class AdminNewSubscriptionNotification
+ * Email notification is send to admin about new subscription
+ *
  * @package Pixelant\PxaNewsletterSubscription\Notification\Builder
  */
 class AdminNewSubscriptionNotification extends AbstractBuilder
@@ -15,26 +16,25 @@ class AdminNewSubscriptionNotification extends AbstractBuilder
     use TranslateTrait;
 
     /**
-     * Set receiver email
+     * Configure receiver of notification
      */
-    public function setReceiver(): void
+    public function configureRecipient(): void
     {
-        $receivers = $this->getAdminsReceivers();
-        $this->notification->setReceivers($receivers);
+        $this->notification->setRecipients($this->getAdminsRecipients());
     }
 
     /**
-     * Set subject of notification
+     * Configure subject of notification
      */
-    public function setSubject(): void
+    public function configureSubject(): void
     {
         $this->notification->setSubject($this->translate('mail.admin.subscribe.subject'));
     }
 
     /**
-     * Sets template name of notification
+     * Configure template name of notification
      */
-    public function setTemplate(): void
+    public function configureTemplate(): void
     {
         $this->notification->setNotificationTemplateName('AdminNewSubscription');
     }
@@ -42,7 +42,7 @@ class AdminNewSubscriptionNotification extends AbstractBuilder
     /**
      * Assign required variables to template
      */
-    public function addTemplateVariables(): void
+    public function assignTemplateVariables(): void
     {
         $this->notification->assignVariables([
             'subscription' => $this->subscription,

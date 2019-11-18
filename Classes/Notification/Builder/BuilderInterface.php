@@ -6,13 +6,14 @@ use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use Pixelant\PxaNewsletterSubscription\Notification\NotificationInterface;
 
 /**
- * Interface BuilderInterface
+ * Notification builder interface
+ *
  * @package Pixelant\PxaNewsletterSubscription\Notification
  */
 interface BuilderInterface
 {
     /**
-     * Required for every notification
+     * Initialize builder
      *
      * @param Subscription $subscription
      * @param array $settings
@@ -27,29 +28,29 @@ interface BuilderInterface
     public function createNotification(): void;
 
     /**
-     * Set sender email and name of notification
+     * Configure sender of notification
      */
-    public function setSender(): void;
+    public function configureSender(): void;
 
     /**
-     * Set receiver email
+     * Configure recipient of notification
      */
-    public function setReceiver(): void;
+    public function configureRecipient(): void;
 
     /**
-     * Set subject of notification
+     * Configure subject of notification
      */
-    public function setSubject(): void;
+    public function configureSubject(): void;
 
     /**
-     * Sets template name of notification
+     * Configure template name of notification
      */
-    public function setTemplate(): void;
+    public function configureTemplate(): void;
 
     /**
      * Assign required variables to template
      */
-    public function addTemplateVariables(): void;
+    public function assignTemplateVariables(): void;
 
     /**
      * Return notification

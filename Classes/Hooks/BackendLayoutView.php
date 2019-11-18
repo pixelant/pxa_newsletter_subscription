@@ -11,7 +11,8 @@ use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
- * Class BackendLayoutView
+ * Class BackendLayoutView renders the preview of plugin settings in BE
+ *
  * @package Pixelant\PxaNewsletterSubscription\Hooks
  */
 class BackendLayoutView
@@ -25,6 +26,7 @@ class BackendLayoutView
 
     /**
      * Load extension preview in BE
+     *
      * @param array $params
      * @return string
      */
@@ -111,7 +113,6 @@ class BackendLayoutView
             case 'resendConfirmationEmail':
                 $value = $this->translate($value ? 'flexform.yes' : 'flexform.no');
                 break;
-            case 'acceptTermsLink':
             case 'confirmationPage':
             case 'storagePid':
             case 'unsubscribePage':
@@ -125,17 +126,17 @@ class BackendLayoutView
     /**
      * Get page title from link target or just uid
      *
-     * @param string $pageLink
+     * @param string $pageUid
      * @return string
      */
-    protected function getPageTitle(string $pageLink): string
+    protected function getPageTitle(string $pageUid): string
     {
-        if (StringUtility::beginsWith($pageLink, 't3://page?uid')) {
-            list(, $pageLink) = GeneralUtility::trimExplode('=', $pageLink, true);
+        if (StringUtility::beginsWith($pageUid, 't3://page?uid')) {
+            list(, $pageUid) = GeneralUtility::trimExplode('=', $pageUid, true);
         }
 
-        if (!MathUtility::canBeInterpretedAsInteger($pageLink)) {
-            return $pageLink;
+        if (!MathUtility::canBeInterpretedAsInteger($pageUid)) {
+            return $pageUid;
         }
 
         $title = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -143,7 +144,7 @@ class BackendLayoutView
             ->select(
                 ['title'],
                 'pages',
-                ['uid' => (int)$pageLink]
+                ['uid' => (int)$pageUid]
             )
             ->fetchColumn(0);
 

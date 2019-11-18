@@ -9,7 +9,7 @@ namespace Pixelant\PxaNewsletterSubscription\Notification;
 interface NotificationInterface
 {
     /**
-     * Notify
+     * Notify recipient
      *
      * @return bool
      */

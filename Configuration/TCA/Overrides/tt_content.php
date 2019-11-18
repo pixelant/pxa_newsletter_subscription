@@ -6,7 +6,7 @@ defined('TYPO3_MODE') || die;
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'pxa_newsletter_subscription',
         'Subscription',
-        'Pxa Subscription'
+        'Newsletter Subscription Form'
     );
 
     $pluginKey = 'pxanewslettersubscription_subscription';

@@ -80,14 +80,14 @@ class SubscriptionValidator extends AbstractValidator
                     1566476320803
                 )
             );
-        } elseif ($this->alreadyExistInPid($existingSubscription)) {
+        } elseif ($this->existInPid($existingSubscription)) {
             $this->result->forProperty('email')->addError(
                 new Error(
                     $this->translateErrorMessage('error.already_subscribed', 'PxaNewsletterSubscription'),
                     1570527355420
                 )
             );
-        } elseif ($this->alreadyExistButNotConfirmed($existingSubscription)) {
+        } elseif ($this->existsUnconfirmed($existingSubscription)) {
             if ($settings['resendConfirmationEmail']) {
                 $builder = GeneralUtility::makeInstance(
                     UserConfirmationNotification::class,
@@ -121,23 +121,23 @@ class SubscriptionValidator extends AbstractValidator
     }
 
     /**
-     * Check if given subscription exist, but not confirmed yet
+     * Check if given subscription exists, but has not yet been confirmed
      *
      * @param Subscription|null $subscription
      * @return bool
      */
-    protected function alreadyExistButNotConfirmed(?Subscription $subscription): bool
+    protected function existsUnconfirmed(?Subscription $subscription): bool
     {
         return $subscription !== null && $subscription->isHidden();
     }
 
     /**
-     * Check if subscription was confirmed
+     * Check if subscription is confirmed
      *
      * @param Subscription|null $subscription
      * @return bool
      */
-    protected function alreadyExistInPid(?Subscription $subscription): bool
+    protected function existInPid(?Subscription $subscription): bool
     {
         return $subscription !== null && !$subscription->isHidden();
     }

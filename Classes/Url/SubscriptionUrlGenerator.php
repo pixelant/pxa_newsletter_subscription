@@ -10,7 +10,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * Class SubscriptionUrlGenerator
+ * Helper class to generate newsletter subscription related links
+ *
  * @package Pixelant\PxaNewsletterSubscription\Url
  */
 class SubscriptionUrlGenerator
@@ -52,13 +53,15 @@ class SubscriptionUrlGenerator
         return $this->generateUrlForActionAndHash(
             'confirm',
             $subscription->getUid(),
-            $this->hashService->generateSubscriptionHash($subscription),
+            $this->hashService->generateSubscribeHash($subscription),
             $targetPage,
             $pluginUid
         );
     }
 
     /**
+     * Create confirmation URL for unsubscribing
+     *
      * @param Subscription $subscription
      * @param $targetPage
      * @return string
@@ -68,7 +71,7 @@ class SubscriptionUrlGenerator
         return $this->generateUrlForActionAndHash(
             'unsubscribeConfirm',
             $subscription->getUid(),
-            $this->hashService->generateUnsubscriptionHash($subscription),
+            $this->hashService->generateUnsubscribeHash($subscription),
             $targetPage
         );
     }

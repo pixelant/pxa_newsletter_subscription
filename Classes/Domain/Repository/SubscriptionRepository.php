@@ -8,7 +8,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * Class SubscriptionRepository
+ * Repository for newsletter subscriptions
  * @package Pixelant\PxaNewsletterSubscription\Domain\Repository
  */
 class SubscriptionRepository extends Repository
@@ -20,7 +20,7 @@ class SubscriptionRepository extends Repository
     {
         /** @var $defaultQuerySettings Typo3QuerySettings */
         $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
-        // don't add the pid constraint
+        // Remove the pid constraint
         $defaultQuerySettings->setRespectStoragePage(false);
 
         $this->setDefaultQuerySettings($defaultQuerySettings);

@@ -10,7 +10,8 @@ use Pixelant\PxaNewsletterSubscription\Url\SubscriptionUrlGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class AbstractBuilder
+ * Abstract builder for notifications. Include common logic for all builders
+ *
  * @package Pixelant\PxaNewsletterSubscription\Notification\Builder
  */
 abstract class AbstractBuilder implements BuilderInterface
@@ -34,7 +35,7 @@ abstract class AbstractBuilder implements BuilderInterface
     protected $notification = null;
 
     /**
-     * Required for every notification
+     * Initialize builder
      *
      * @param Subscription $subscription
      * @param array $settings
@@ -46,9 +47,9 @@ abstract class AbstractBuilder implements BuilderInterface
     }
 
     /**
-     * Set email and name of sender
+     * Configure sender of notification
      */
-    public function setSender(): void
+    public function configureSender(): void
     {
         $this->notification->setSenderEmail($this->settings['senderEmail'] ?? '');
         $this->notification->setSenderName($this->settings['senderName'] ?? '');
@@ -75,7 +76,7 @@ abstract class AbstractBuilder implements BuilderInterface
     }
 
     /**
-     * Use own URL generator. This will make it possible to generate subscriptions related links from outside
+     * Use custom URL generator. This makes it possible to generate subscriptions related links from outside
      *
      * @return SubscriptionUrlGenerator
      */
@@ -85,19 +86,19 @@ abstract class AbstractBuilder implements BuilderInterface
     }
 
     /**
-     * Get admins emails from settings
+     * Get admin emails from settings
      *
      * @return array
      */
-    protected function getAdminsReceivers(): array
+    protected function getAdminsRecipients(): array
     {
-        $receivers = array_filter(
+        $recipients = array_filter(
             GeneralUtility::trimExplode("\n", $this->settings['notifyAdmin'], true),
             function ($email) {
                 return GeneralUtility::validEmail($email);
             }
         );
 
-        return $receivers;
+        return $recipients;
     }
 }

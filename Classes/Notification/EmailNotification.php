@@ -11,7 +11,8 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
- * Class AbstractEmailNotification
+ * Email notification service
+ *
  * @package Pixelant\PxaNewsletterSubscription\Service\Notification
  */
 class EmailNotification implements NotificationInterface
@@ -56,7 +57,7 @@ class EmailNotification implements NotificationInterface
     /**
      * @var array
      */
-    protected $receivers = [];
+    protected $recipients = [];
 
     /**
      * @var string
@@ -81,15 +82,18 @@ class EmailNotification implements NotificationInterface
     public function notify(bool $useHtmlFormat = true): bool
     {
         $this->prepareMessage();
+        $notificationMessage = $this->getNotificationMessage();
 
         // TYPO3 9
-        if ($this->isBelow10()) {
-            $this->mailMessage->setBody($this->getNotificationMessage(), $useHtmlFormat ? 'text/html' : null);
+        if ($this->isTypo3VersionLowerThan10()) {
+            $this->mailMessage->setBody($notificationMessage, $useHtmlFormat ? 'text/html' : null);
         } else {
-            // In TYPO3 10 API changed
-            $method = $useHtmlFormat ? 'html' : 'text';
-
-            $this->mailMessage->{$method}($this->getNotificationMessage());
+            // The API changed In TYPO3 v10
+            if ($useHtmlFormat) {
+                $this->mailMessage->html($notificationMessage);
+            } else {
+                $this->mailMessage->text($notificationMessage);
+            }
         }
 
         return (bool)$this->mailMessage->send();
@@ -126,12 +130,12 @@ class EmailNotification implements NotificationInterface
     }
 
     /**
-     * @param array $receivers
+     * @param array $recipients
      * @return EmailNotification
      */
-    public function setReceivers(array $receivers): EmailNotification
+    public function setRecipients(array $recipients): EmailNotification
     {
-        $this->receivers = $receivers;
+        $this->recipients = $recipients;
         return $this;
     }
 
@@ -186,7 +190,7 @@ class EmailNotification implements NotificationInterface
      */
     protected function prepareMessage(): void
     {
-        $this->validateReceivers();
+        $this->validateRecipients();
 
         if (empty($this->subject)) {
             throw new \InvalidArgumentException(
@@ -194,13 +198,13 @@ class EmailNotification implements NotificationInterface
                 1566546703887
             );
         }
-        if (empty($this->receivers)) {
-            throw new \InvalidArgumentException('"receivers" require at least one valid email.', 1566546708838);
+        if (empty($this->recipients)) {
+            throw new \InvalidArgumentException('"recipients" require at least one valid email.', 1566546708838);
         }
 
         $this->mailMessage
             ->setFrom($this->getSenderNameAndEmail())
-            ->setTo($this->receivers)
+            ->setTo($this->recipients)
             ->setSubject($this->subject);
     }
 
@@ -241,14 +245,14 @@ class EmailNotification implements NotificationInterface
     }
 
     /**
-     * Validate receivers of email
+     * Validate recipients of email
      */
-    protected function validateReceivers(): void
+    protected function validateRecipients(): void
     {
-        $this->receivers = array_filter(
-            $this->receivers,
-            function ($receiver) {
-                return GeneralUtility::validEmail($receiver);
+        $this->recipients = array_filter(
+            $this->recipients,
+            function ($recipient) {
+                return GeneralUtility::validEmail($recipient);
             }
         );
     }
@@ -272,7 +276,7 @@ class EmailNotification implements NotificationInterface
      *
      * @return bool
      */
-    protected function isBelow10(): bool
+    protected function isTypo3VersionLowerThan10(): bool
     {
         return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch) < 10000000;
     }

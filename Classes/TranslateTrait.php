@@ -6,7 +6,8 @@ namespace Pixelant\PxaNewsletterSubscription;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * Class TranslateTrait
+ * Translate extension labels
+ *
  * @package Pixelant\PxaNewsletterSubscription\Controller
  */
 trait TranslateTrait

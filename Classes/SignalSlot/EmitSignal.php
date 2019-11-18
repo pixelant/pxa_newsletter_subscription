@@ -7,7 +7,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
- * Trait EmitSignal
+ * Trait that helps emit TYPO3 signals
+ *
  * @package Pixelant\PxaNewsletterSubscription\Controller\Traits
  */
 trait EmitSignal

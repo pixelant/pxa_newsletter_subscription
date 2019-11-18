@@ -6,7 +6,8 @@ namespace Pixelant\PxaNewsletterSubscription\Notification\Builder;
 use Pixelant\PxaNewsletterSubscription\TranslateTrait;
 
 /**
- * Class UserSuccessSubscriptionNotification
+ * Email notification for subscriber about success subscription
+ *
  * @package Pixelant\PxaNewsletterSubscription\Notification\Builder
  */
 class UserSuccessSubscriptionNotification extends AbstractBuilder
@@ -14,25 +15,25 @@ class UserSuccessSubscriptionNotification extends AbstractBuilder
     use TranslateTrait;
 
     /**
-     * Set receiver email
+     * Configure receiver of notification
      */
-    public function setReceiver(): void
+    public function configureRecipient(): void
     {
-        $this->notification->setReceivers([$this->subscription->getEmail()]);
+        $this->notification->setRecipients([$this->subscription->getEmail()]);
     }
 
     /**
-     * Set subject of notification
+     * Configure subject of notification
      */
-    public function setSubject(): void
+    public function configureSubject(): void
     {
         $this->notification->setSubject($this->translate('mail.subscriber.success_subject'));
     }
 
     /**
-     * Sets template name of notification
+     * Configure template name of notification
      */
-    public function setTemplate(): void
+    public function configureTemplate(): void
     {
         $this->notification->setNotificationTemplateName('UserSuccessSubscription');
     }
@@ -40,7 +41,7 @@ class UserSuccessSubscriptionNotification extends AbstractBuilder
     /**
      * Assign required variables to template
      */
-    public function addTemplateVariables(): void
+    public function assignTemplateVariables(): void
     {
         $variables = [
             'subscription' => $this->subscription,

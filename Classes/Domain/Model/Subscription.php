@@ -6,7 +6,8 @@ namespace Pixelant\PxaNewsletterSubscription\Domain\Model;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * Class Subscription
+ * Class Subscription representing newsletter subscriptions
+ *
  * @package Pixelant\PxaNewsletterSubscription\Domain\Model
  */
 class Subscription extends AbstractEntity

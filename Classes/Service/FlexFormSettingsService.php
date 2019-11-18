@@ -15,7 +15,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class FlexFormSettingsService implements SingletonInterface
 {
     /**
-     * Keep content uid to it flexform settings
+     * Cache parsed flexform settings. Use content uid as array key
+     *
      * @var array
      */
     protected $settings = [];

@@ -6,9 +6,9 @@
 Email notifications templates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It's possible to use custom email templates same as regular controller templates
+It is possible to use custom email templates. They work in the same way
 
-Set new paths to templates
+Set new template paths
 
 .. code-block:: typoscript
 
@@ -29,9 +29,9 @@ Set new paths to templates
     }
 
 
-After templates path was set you can now create new templates.
+After setting the template path, you can create new templates.
 
-Email notifications templates list:
+List of Email notification templates:
 
 - AdminNewSubscription.html - Admin email after user subscription is finished
 - AdminUnsubscribe.html - Admin email after user unsubscribed

@@ -16,7 +16,7 @@ TypoScript settings
 Sender name and email
 """""""""""""""""""""
 
-It's required to set sender name and email in order to send email notifications
+Sender name and email must be configured in order to send email notifications
 
 .. figure:: ../Images/TSEditor.png
    :class: with-shadow
@@ -35,11 +35,11 @@ It's required to set sender name and email in order to send email notifications
 Subscription target table
 """""""""""""""""""""""""
 
-It's possible to change table where subscriptions are saved. Right now it's saved as frontend users in "fe_users" table.
+It is possible to change the table where subscriptions are saved. Right now it's saved as frontend users in "fe_users" table.
 
 .. tip::
 
-    TYPO3 9 example
+    Example for TYPO3 v9
 
 .. code-block:: typoscript
 
@@ -58,9 +58,9 @@ It's possible to change table where subscriptions are saved. Right now it's save
 
 .. tip::
 
-    TYPO3 10 example
+    Example for TYPO3 v10
 
-In your extension create PHP file with path "Configuration/Extbase/Persistence/Classes.php".
+Create the PHP file`Configuration/Extbase/Persistence/Classes.php` in your extension
 
 .. code-block:: php
 

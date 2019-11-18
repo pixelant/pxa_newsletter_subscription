@@ -75,7 +75,7 @@ class EmailNotificationTest extends UnitTestCase
     {
         $value = ['test@site.com'];
 
-        $this->subject->setReceivers($value);
+        $this->subject->setRecipients($value);
 
         $this->assertEquals($value, $this->subject->_get('receivers'));
     }
@@ -112,7 +112,7 @@ class EmailNotificationTest extends UnitTestCase
         $receivers = ['test@mail.com', 'invalid', 'another@mail.com'];
         $expect = [0 => 'test@mail.com', 2 => 'another@mail.com'];
 
-        $this->subject->setReceivers($receivers);
+        $this->subject->setRecipients($receivers);
         $this->subject->_call('validateReceivers');
 
         $this->assertEquals($expect, $this->subject->_get('receivers'));
@@ -210,7 +210,7 @@ class EmailNotificationTest extends UnitTestCase
         $this->expectExceptionCode(1566546708838);
 
         $this->subject->setSubject('Test');
-        $this->subject->setReceivers([]);
+        $this->subject->setRecipients([]);
 
         $this->subject->_call('prepareMessage');
     }

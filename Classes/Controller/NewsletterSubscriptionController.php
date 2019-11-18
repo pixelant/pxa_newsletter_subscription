@@ -12,7 +12,8 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class NewsletterSubscriptionController
+ * Controller handling plugin actions and in-page rendering.
+ *
  * @package Pixelant\PxaNewsletterSubscription\Controller
  */
 class NewsletterSubscriptionController extends AbstractController
@@ -39,7 +40,7 @@ class NewsletterSubscriptionController extends AbstractController
      */
     public function confirmAction(int $subscription = null, string $hash = '')
     {
-        // If no parameters passed means that page was just visited as regular page
+        // If no parameters are passed, this is just a regular page visit
         // No action to perform
         if ($subscription === null && $hash === '') {
             $this->view->assign('noAction', true);
@@ -55,7 +56,7 @@ class NewsletterSubscriptionController extends AbstractController
             $subscription = $this->subscriptionRepository->findByUidHidden($subscription);
         }
 
-        if (is_object($subscription) && $this->hashService->isValidSubscriptionHash($subscription, $hash)) {
+        if (is_object($subscription) && $this->hashService->isValidSubscribeHash($subscription, $hash)) {
             // Emit signal
             $this->emitSignal(
                 __CLASS__,
@@ -79,7 +80,10 @@ class NewsletterSubscriptionController extends AbstractController
             }
         }
 
-        $this->view->assignMultiple(compact('success', 'subscription'));
+        $this->view->assignMultiple([
+            'success' => $success,
+            'subscription' => $subscription,
+        ]);
     }
 
     /**
@@ -108,6 +112,8 @@ class NewsletterSubscriptionController extends AbstractController
     }
 
     /**
+     * Show unsubscribe instructions message after user submitted unsubscribe form
+     *
      * @param Subscription $subscription
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscription")
      */
@@ -125,7 +131,7 @@ class NewsletterSubscriptionController extends AbstractController
     {
         $success = false;
 
-        if ($subscription !== null && $this->hashService->isValidUnsubscriptionHash($subscription, $hash)) {
+        if ($subscription !== null && $this->hashService->isValidUnsubscribeHash($subscription, $hash)) {
             $this->emitSignal(__CLASS__, 'unsubscribe', $subscription);
 
             if (!empty($this->settings['notifyAdmin'])) {

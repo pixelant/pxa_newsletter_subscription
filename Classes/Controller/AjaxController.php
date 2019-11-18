@@ -12,7 +12,8 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Error;
 
 /**
- * Class AjaxController
+ * Controller for handling Ajax requests
+ *
  * @package Pixelant\PxaNewsletterSubscription\Controller
  */
 class AjaxController extends AbstractController
