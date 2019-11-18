@@ -10,7 +10,7 @@
             object="{subscription}"
             controller="Ajax"
             pageType="{settings.ajaxPageType}"
-            data="{form: 'pxa-newsletter-subscription-form', require-accept-terms: '{settings.acceptTermsLink ? 1 : 0}'}">
+            data="{form: 'pxa-newsletter-subscription-form', require-accept-terms: '{f:if(condition: settings.acceptTermsLink, then: 1, else: 0)}'}">
         <f:variable name="colClass" value="{f:if(condition: settings.nameIsMandatory, then: 'col-sm-6', else: 'col-sm-12')}" />
 
         <div class="alert alert-danger hidden"></div>
