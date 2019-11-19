@@ -2,7 +2,9 @@
 
 namespace Pixelant\PxaNewsletterSubscription\Service;
 
+use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Security\Cryptography\HashService as HmacHashService;
 
 /**
  * Generate and check newsletter specific validation hashes
@@ -10,62 +12,67 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class HashService
  * @package Pixelant\PxaNewsletterSubscription\Service
  */
-class HashService extends \TYPO3\CMS\Extbase\Security\Cryptography\HashService
+class HashService
 {
-	const HASH_PREFIX_SUBSCRIPTION = 'pxa_newsletter_subscription-subscribe-';
-	const HASH_PREFIX_REDIRECT = 'pxa_newsletter_subscription-redirect-';
+    const HASH_PREFIX_SUBSCRIBE = 'pxa_newsletter_subscription-subscribe-';
+    const HASH_PREFIX_UNSUBSCRIBE = 'pxa_newsletter_subscription-unsubscribe-';
 
-	/**
-	 * Validate a subscription hash
-	 *
-	 * @param int $id The record uid
-	 * @param string $hash The hash to validate
-	 * @return bool True if hash is valid
-	 */
-	public function validateSubscriptionHash($id, $hash) {
-		return $this->validateHmac(self::HASH_PREFIX_SUBSCRIPTION . $id, $hash);
-	}
+    /**
+     * @var HmacHashService
+     */
+    protected $hmacHashService = null;
 
-	/**
-	 * Generate a subscription hash
-	 *
-	 * @param int $id The record uid
-	 * @return string The generated hash
-	 * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
-	 */
-	public function generateSubscriptionHash($id) {
-		return $this->generateHmac(self::HASH_PREFIX_SUBSCRIPTION . $id);
-	}
+    /**
+     * HashService constructor
+     */
+    public function __construct()
+    {
+        $this->hmacHashService = GeneralUtility::makeInstance(HmacHashService::class);
+    }
 
-	/**
-	 * Validate a redirect hash
-	 *
-	 * @param int $id The record uid
-	 * @param string $hash The hash to validate
-	 * @return bool True if the hash is valid
-	 */
-	public function validateRedirectHash($id, $hash) {
-		return $this->validateHmac(self::HASH_PREFIX_REDIRECT . $id, $hash);
-	}
+    /**
+     * Validate a subscribe hash
+     *
+     * @param Subscription $subscription
+     * @param string $hash The hash to validate
+     * @return bool True if hash is valid
+     */
+    public function isValidSubscribeHash(Subscription $subscription, string $hash): bool
+    {
+        return $this->hmacHashService->validateHmac(self::HASH_PREFIX_SUBSCRIBE . $subscription->getUid(), $hash);
+    }
 
-	/**
-	 * Generate a redirect validation hash
-	 *
-	 * @param $id The record uid
-	 * @return string The generated hash
-	 * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
-	 */
-	public function generateRedirectHash($id) {
-		return $this->generateHmac(self::HASH_PREFIX_REDIRECT . $id);
-	}
+    /**
+     * Generate a subscribe hash
+     *
+     * @param Subscription $subscription
+     * @return string The generated hash
+     */
+    public function generateSubscribeHash(Subscription $subscription)
+    {
+        return $this->hmacHashService->generateHmac(self::HASH_PREFIX_SUBSCRIBE . $subscription->getUid());
+    }
 
-	/**
-	 * Picks validation data from redirect url GET parameters and performs a validation
-	 *
-	 * @return bool True if hash is valid
-	 */
-	public function validateRedirectHashInGetParameters() {
-		$parameters = GeneralUtility::_GET('tx_pxanewslettersubscription_subscription');
-		return $this->validateRedirectHash($parameters['uid'], $parameters['hash']);
-	}
+    /**
+     * Validate a unsubscribe hash
+     *
+     * @param Subscription $subscription
+     * @param string $hash The hash to validate
+     * @return bool True if hash is valid
+     */
+    public function isValidUnsubscribeHash(Subscription $subscription, string $hash): bool
+    {
+        return $this->hmacHashService->validateHmac(self::HASH_PREFIX_UNSUBSCRIBE . $subscription->getUid(), $hash);
+    }
+
+    /**
+     * Generate a unsubscribe hash
+     *
+     * @param Subscription $subscription
+     * @return string The generated hash
+     */
+    public function generateUnsubscribeHash(Subscription $subscription)
+    {
+        return $this->hmacHashService->generateHmac(self::HASH_PREFIX_UNSUBSCRIBE . $subscription->getUid());
+    }
 }

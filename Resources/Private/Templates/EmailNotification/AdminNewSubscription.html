@@ -1,0 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<b><f:translate key="mail.greeting" extensionName="PxaNewsletterSubscription" /></b>
+
+<p><f:translate key="mail.admin.subscribe.line1" extensionName="PxaNewsletterSubscription" /></p>
+<p><f:translate key="mail.admin.subscribe.line2" extensionName="PxaNewsletterSubscription" /></p>
+
+<p>
+    <f:if condition="{subscription.name}">
+        <f:translate key="name" extensionName="PxaNewsletterSubscription" />: {subscription.name}<br>
+    </f:if>
+    <f:translate key="email" extensionName="PxaNewsletterSubscription" />: {subscription.email}<br>
+    <f:translate key="storage" extensionName="PxaNewsletterSubscription" />: {subscription.pid}<br>
+</p>
+
+</html>

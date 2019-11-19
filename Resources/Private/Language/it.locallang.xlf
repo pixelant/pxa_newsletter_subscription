@@ -1,152 +1,157 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01">
+	<file source-language="en" target-language="it" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription" date="2014-09-24T01:00:11+01:01">
 		<header/>
 		<body>
-			<trans-unit id="name" xml:space="preserve" approved="yes">
+			<!--Frontend labels:START-->
+			<trans-unit id="name">
 				<source>Name</source>
-				<target state="translated">Nome</target>
+				<target>Nome</target>
 			</trans-unit>
-
-			<trans-unit id="email" xml:space="preserve" approved="yes">
-				<source>E-mail</source>
-				<target state="translated">E-Mail</target>
+			<trans-unit id="email">
+				<source>Email</source>
+				<target>Email</target>
 			</trans-unit>
-
-			<trans-unit id="error.invalid.email" xml:space="preserve" approved="yes">
-				<source>Invalid email-address.</source>
-				<target state="translated">Indirizzo E-Mail non valido.</target>
-			</trans-unit>
-
-			<trans-unit id="error.invalid.name" xml:space="preserve" approved="yes">
-				<source>Invalid or missing name.</source>
-				<target state="translated">Nome non valido o mancante.</target>
-			</trans-unit>
-
-			<trans-unit id="error.unsubscribe.not-subscribed" xml:space="preserve" approved="yes">
-				<source>No subscription exists for this email-address.</source>
-				<target state="translated">Non esiste nessun abbonamento per questo indirizzo E-Mail.</target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.already-subscribed" xml:space="preserve" approved="yes">
-				<source>A subscription with this email-address already exists.</source>
-				<target state="translated">Un abbonamento per questo indirizzo E-Mail esiste già.</target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.4101" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and subscribing again. (Code:4101)</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema. Si prega di provare a ricaricare la pagina e iscriversi nuovamente. (Codice: 4101)</target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.4102" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and subscribing again. (Code:4102)</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema.  Si prega di provare a ricaricare la pagina e iscriversi nuovamente. (Codice: 4102)</target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.4103" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4103)</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema. Si prega di provare a ricaricare la pagina e iscriversi nuovamente. (Codice: 4103)</target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.4104" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4104)</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema. Si prega di provare a ricaricare la pagina e iscriversi nuovamente. (Codice: 4104)</target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.4105" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again. (Code:4105)</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema.  Si prega di provare a ricaricare la pagina e iscriversi nuovamente. (Codice: 4105)</target>
-			</trans-unit>
-
-			<trans-unit id="error.invalid.configuration" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and unsubscribe again.</source>
-				<target state="translated">Siamo spiacenti, qualcosa è andato storto. Si prega di provare a ricaricare la pagina e disdire nuovamente. </target>
-			</trans-unit>
-
-			<trans-unit id="error.subscribe.4106" xml:space="preserve" approved="yes">
-				<source>The confirm mail wasn't sent. (Code:4106)</source>
-				<target state="translated">Non è stata inviata la mail di conferma. (Codice: 4106)</target>
-			</trans-unit>
-
-			<trans-unit id="subscribe" xml:space="preserve" approved="yes">
-				<source>Subscribe</source>
-				<target state="translated">Abbonarsi</target>
-			</trans-unit>
-
-			<trans-unit id="unsubscribe" xml:space="preserve" approved="yes">
-				<source>Unsubscribe</source>
-				<target state="translated">Disdire l'iscrizione</target>
-			</trans-unit>
-
-			<trans-unit id="success.subscribe.subscribed-noconfirm" xml:space="preserve" approved="yes">
-				<source>You have been successfully subscribed to newsletter.</source>
-				<target state="translated">Siete stati con successo abbonati alla newsletter.</target>
-			</trans-unit>
-
-			<trans-unit id="success.subscribe.subscribed-confirm" xml:space="preserve" approved="yes">
-				<source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
-				<target state="translated">Quasi finito. Riceverà una mail   entro i prossimi minuti con ulteriori informazioni e un Link per confermare il Suo abbonamento.</target>
-			</trans-unit>
-
-			<trans-unit id="success.unsubscribe.unsubscribed-noconfirm" xml:space="preserve" approved="yes">
-				<source>You have been successfully unsubscribed from newsletter.</source>
-				<target state="translated">Ha disdetto con successo la Newsletter.</target>
-			</trans-unit>
-
-			<trans-unit id="success.unsubscribe.unsubscribed-confirm" xml:space="preserve" approved="yes">
-				<source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
-				<target state="translated">Quasi finito. Riceverà una mail   entro i prossimi  minuti con ulteriori istruzioni e un Link come confermare la Sua disdetta.</target>
-			</trans-unit>
-
-			<trans-unit id="confirm_mail_subject" xml:space="preserve" approved="yes">
-				<source>Newsletter confirmation</source>
-				<target state="translated">Conferma newsletter</target>
-			</trans-unit>
-
-			<trans-unit id="confirm_mail_greeting" xml:space="preserve" approved="yes">
-				<source>Hi %s,</source>
-				<target state="translated">Buongiorno %s,</target>
-			</trans-unit>
-
-			<trans-unit id="confirm_mail_line1" xml:space="preserve" approved="yes">
-				<source>Please confirm your email address by clicking on the following link: %s</source>
-				<target state="translated">Si prega di confermare l'indirizzo E-Mail cliccando sul seguente link:  %s</target>
-			</trans-unit>
-
-			<trans-unit id="confirm_mail_line2" xml:space="preserve" approved="yes">
-				<source>If you wish to unsubscribe in the future, follow this link: %s Thank you.</source>
-				<target state="translated">Se desidera disdire segui questo link: %s</target>
-			</trans-unit>
-
-			<trans-unit id="subscribe_ok" xml:space="preserve" approved="yes">
-				<source>You have been successfully subscribed to newsletter.</source>
-				<target state="translated">Si è abbonato con successo alla newsletter.</target>
-			</trans-unit>
-
-			<trans-unit id="subscribe_error" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please try reloading the page and subscribing again.</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema. Si prega di provare a ricaricare la pagina e iscriversi nuovamente.</target>
-			</trans-unit>
-
-			<trans-unit id="unsubscribe_ok" xml:space="preserve" approved="yes">
-				<source>Your will no longer receive emails from this newsletter. We will miss you.</source>
-				<target state="translated">Peccato che vuole rinunciare in futuro al nostro service. Non riceverà più la nostra Newsletter.</target>
-			</trans-unit>
-
-			<trans-unit id="unsubscribe_error" xml:space="preserve" approved="yes">
-				<source>Sorry, something went wrong. Please contact us regarding your unsubscription.</source>
-				<target state="translated">Siamo spiacenti, si è verificato un problema. Vi preghiamo di contattarci per quanto riguarda la Sua disdetta.</target>
-			</trans-unit>
-
-			<trans-unit id="back_to_website" xml:space="preserve" approved="yes">
+			<trans-unit id="back_to_website">
 				<source>Back to website</source>
-				<target state="translated">Rotornare al sito Web</target>
+				<tareget>Rotornare al sito Web</tareget>
+			</trans-unit>
+			<trans-unit id="storage">
+				<source>Storage (PID)</source>
+			</trans-unit>
+			<trans-unit id="accept_terms">
+				<source>Accept terms</source>
+			</trans-unit>
+			<trans-unit id="subscribe">
+				<source>Subscribe</source>
+				<target>Abbonarsi</target>
+			</trans-unit>
+			<trans-unit id="unsubscribe">
+				<source>Unsubscribe</source>
+				<target>Disdire l'iscrizione</target>
+			</trans-unit>
+			<trans-unit id="subscription.subscribed_noconfirm">
+				<source>You have successfully subscribed to the newsletter.</source>
+				<tareget>Siete stati con successo abbonati alla newsletter.</tareget>
+			</trans-unit>
+			<trans-unit id="subscription.subscribed_confirm">
+				<source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
+				<target>Quasi finito. Riceverà una mail   entro i prossimi minuti con ulteriori informazioni e un Link per confermare il Suo abbonamento.</target>
+			</trans-unit>
+			<trans-unit id="subscription.subscribe_ok">
+				<source>You have successfully subscribed to the newsletter.</source>
+				<tareget>Siete stati con successo abbonati alla newsletter.</tareget>
+			</trans-unit>
+			<trans-unit id="subscription.unsubscribe_confirm">
+				<source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
+				<target>Quasi finito. Riceverà una mail   entro i prossimi minuti con ulteriori informazioni e un Link per confermare il Suo abbonamento.</target>
+			</trans-unit>
+			<trans-unit id="subscription.unsubscribe_success">
+				<source>You have been successfully unsubscribed from newsletter.</source>
+				<target>Ha disdetto con successo la Newsletter.</target>
+			</trans-unit>
+			<!--Frontend labels:END-->
+
+			<!--Email notification labels:START-->
+			<trans-unit id="mail.greeting">
+				<source>Hi</source>
+				<target>Buongiorno</target>
 			</trans-unit>
 
-			<trans-unit id="jqhxr_error_message" xml:space="preserve" approved="yes">
-				<source>Technical problem, please try again later.</source>
-				<target state="translated">Problema tecnico, si prega di riprovare più tardi.</target>
+			<!--Admin subscribe notification-->
+			<trans-unit id="mail.admin.subscribe.subject">
+				<source>New newsletter subscription</source>
 			</trans-unit>
+			<trans-unit id="mail.admin.subscribe.line1">
+				<source>New subscription on a site.</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.subscribe.line2">
+				<source>Subscription information</source>
+			</trans-unit>
+
+			<!--Admin unsubscribe notification-->
+			<trans-unit id="mail.admin.unsubscribe.subject">
+				<source>Newsletter unsubscription</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.unsubscribe.line1">
+				<source>User has unsubscribed.</source>
+			</trans-unit>
+			<trans-unit id="mail.admin.unsubscribe.line2">
+				<source>Subscription information</source>
+			</trans-unit>
+
+			<!--Subscriber confirmation-->
+			<trans-unit id="mail.subscriber.confirmation_subject">
+				<source>Newsletter subscription confirmation</source>
+				<target>Conferma newsletter</target>
+			</trans-unit>
+			<trans-unit id="mail.subscriber.confirmation_line1">
+				<source>Please confirm your email address by clicking on the following link:</source>
+				<target>Si prega di confermare l'indirizzo Email cliccando sul seguente link:</target>
+			</trans-unit>
+			<trans-unit id="mail.subscriber.confirmation_line2">
+				<source>Should you wish to unsubscribe in the future, follow this link:</source>
+				<target>Se desidera disdire segui questo link:</target>
+			</trans-unit>
+
+			<!--Subscriber success-->
+			<trans-unit id="mail.subscriber.success_subject">
+				<source>Your subscription was successful</source>
+			</trans-unit>
+			<trans-unit id="mail.subscriber.success_line1">
+				<source>You have successfully subscribed to the newsletter.</source>
+				<target>Siete stati con successo abbonati alla newsletter.</target>
+			</trans-unit>
+
+			<!--Unsubscribe confirmation-->
+			<trans-unit id="mail.unsubscribe.confirmation_subject">
+				<source>Confirm your newsletter subscription cancellation</source>
+			</trans-unit>
+			<trans-unit id="mail.unsubscribe.confirmation_line1">
+				<source>In order to unsubscribe please click the following link:</source>
+			</trans-unit>
+			<!--Email notification labels:END-->
+
+			<!--Error messages:START-->
+			<trans-unit id="error.unsubscribe.not_found">
+				<source>We were unable to find an active subscription</source>
+				<target>Non esiste nessun abbonamento per questo indirizzo Email.</target>
+			</trans-unit>
+			<trans-unit id="error.missing_page_type">
+				<source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
+			</trans-unit>
+			<trans-unit id="error.already_subscribed">
+				<source>A subscription with this email address already exists.</source>
+				<target>Un abbonamento per questo indirizzo Email esiste già.</target>
+			</trans-unit>
+			<trans-unit id="error.waiting_for_confirmation">
+				<source>A subscription with this email address already exists, but waiting for confirmation. Please check your email box.</source>
+				<target>Un abbonamento per questo indirizzo Email esiste già.</target>
+			</trans-unit>
+			<trans-unit id="error.subscribe_error.already_confirmed">
+				<source>The subscription has already been confirmed.</source>
+			</trans-unit>
+			<trans-unit id="error.subscribe_error.unknown">
+				<source>Sorry, something went wrong. Please contact us.</source>
+			</trans-unit>
+			<trans-unit id="error.invalid.email">
+				<source>Invalid email address.</source>
+				<target>Indirizzo Email non valido.</target>
+			</trans-unit>
+			<trans-unit id="error.invalid.storage_pid">
+				<source>Storage PID is not set</source>
+			</trans-unit>
+			<trans-unit id="error.invalid.name">
+				<source>Invalid or missing name.</source>
+				<target>Nome non valido o mancante.</target>
+			</trans-unit>
+			<trans-unit id="error.invalid.accept_terms">
+				<source>You must accept the terms.</source>
+			</trans-unit>
+			<trans-unit id="error.sender_email_invalid">
+				<source>Invalid sender email. Check your typoscript settings</source>
+			</trans-unit>
+			<!--Error messages:END-->
 		</body>
 	</file>
 </xliff>

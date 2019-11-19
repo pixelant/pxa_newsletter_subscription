@@ -1,331 +1,181 @@
 <?php
+declare(strict_types=1);
 
 namespace Pixelant\PxaNewsletterSubscription\Controller;
 
-use Pixelant\PxaNewsletterSubscription\Service\EmailNotificationService;
-
-use Pixelant\PxaNewsletterSubscription\Utility\FrontendUserStorageUtility;
-use Pixelant\PxaNewsletterSubscription\Utility\AddressStorageUtility;
-
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\AdminUnsubscribeNotification;
+use Pixelant\PxaNewsletterSubscription\Notification\Builder\UserUnsubscribeConfirmationNotification;
+use Pixelant\PxaNewsletterSubscription\SignalSlot\EmitSignal;
+use Pixelant\PxaNewsletterSubscription\TranslateTrait;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
- * NewsletterSubscriptionController
+ * Controller handling plugin actions and in-page rendering.
+ *
+ * @package Pixelant\PxaNewsletterSubscription\Controller
  */
-class NewsletterSubscriptionController extends ActionController
+class NewsletterSubscriptionController extends AbstractController
 {
-    const STATUS_SUBSCRIBE = 'subscribe';
-
-    const STATUS_UNSUBSCRIBE = 'unsubscribe';
-
-    /**
-     * RTE fields in settings to process with lib.parseFunc_RTE
-     * @var array
-     */
-    protected static $rteFields = ['confirmMailSubscribeBody', 'confirmMailUnsubscribeBody'];
+    use TranslateTrait;
+    use EmitSignal;
 
     /**
-     * persistence manager
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-     */
-    protected $persistenceManager;
-
-    /**
-     * Hash Service
-     *
-     * @var \Pixelant\PxaNewsletterSubscription\Service\HashService
-     */
-    protected $hashService;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
-     */
-    public function injectPersistanceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager) {
-        $this->persistenceManager = $persistenceManager;
-    }
-
-    /**
-     * @param \Pixelant\PxaNewsletterSubscription\Service\HashService $hashService
-     */
-    public function injectHashService(\Pixelant\PxaNewsletterSubscription\Service\HashService $hashService) {
-        $this->hashService = $hashService;
-    }
-
-    /**
-     * Prepare confirmation emails for ajax action
-     */
-    public function initializeAjaxAction()
-    {
-        foreach (self::$rteFields as $rteField) {
-            $this->settings[$rteField] = $this->configurationManager->getContentObject()->parseFunc(
-                $this->settings[$rteField],
-                [],
-                '< lib.parseFunc_RTE'
-            );
-        }
-    }
-
-    /**
-     * Render form action
-     *
-     * @return void
+     * Show form
      */
     public function formAction()
     {
-        $this->view->assign(
-            'ceuid',
-            $this->configurationManager->getContentObject()->getFieldVal('uid')
-        );
+        $this->checkPageTypeSettings();
+        $this->checkSenderEmail();
+
+        $this->view->assign('ceUid', $this->configurationManager->getContentObject()->getFieldVal('uid'));
     }
 
     /**
-     * Render confirm action
+     * Confirm user subscription
      *
-     * Renders confirm result as a content element
-     *
-     * @param string $status
-     * @param string $hashid
+     * @param int $subscription
      * @param string $hash
      */
-    public function confirmAction($status, $hashid, $hash)
+    public function confirmAction(int $subscription = null, string $hash = '')
     {
-        $storageTable = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('pxa_newsletter_subscription', 'table');
-
-        if ($storageTable === 'fe_user') {
-            $storageUtilityClass = $this->objectManager->get(
-                FrontendUserStorageUtility::class,
-                $this->settings
-            );
-        } elseif ($storageTable === 'tt_address') {
-            $storageUtilityClass = $this->objectManager->get(
-                AddressStorageUtility::class,
-                $this->settings
-            );
-        } else {
+        // If no parameters are passed, this is just a regular page visit
+        // No action to perform
+        if ($subscription === null && $hash === '') {
+            $this->view->assign('noAction', true);
             return;
         }
 
-        $id = intval($hashid);
+        // Read flexform settings of subscription content element on confirmation action
+        $this->mergeSettingsWithFlexFormSettings();
 
-        switch ($status) {
-            case self::STATUS_SUBSCRIBE:
-                list($message, $status) = $storageUtilityClass->confirmSubscription($hash, $id);
+        $success = false;
 
-                if ($this->settings['confirmationRedirectPid'] !== '') {
-
-                    $arguments = [];
-
-                    if ($this->settings['confirmationRedirectIncludeInfo'] !== 0) {
-                        $arguments['uid'] = $id;
-                        $arguments['hash'] = $this->hashService->generateRedirectHash($id);
-                    }
-
-                    $redirectUrl = $this
-                        ->uriBuilder
-                        ->reset()
-                        ->setTargetPageUid($this->settings['successRedirectPid'])
-                        ->setCreateAbsoluteUri(true)
-                        ->setArguments([
-                            'message' => $message,
-                            'status' => $status
-                        ])
-                        ->uriFor(null, $arguments, '');
-
-                    $this->redirectToUri($redirectUrl);
-                } else {
-
-                    $this->view->assignMultiple(
-                        [
-                            'message' => $message,
-                            'status' => $status
-                        ]
-                    );
-                }
-                break;
-            case self::STATUS_UNSUBSCRIBE:
-                list($message, $status) = $storageUtilityClass->confirmUnsubscription($hash, $id);
-
-                $this->view->assignMultiple(
-                    [
-                        'message' => $message,
-                        'status' => $status
-                    ]
-                );
-                break;
+        if ($subscription !== null) {
+            $subscription = $this->subscriptionRepository->findByUidHidden($subscription);
         }
-    }
 
-    /**
-     * Render ajax action
-     *
-     * Ajax action:
-     * Return result of subscribe/unsubscribe
-     *
-     * @return void
-     */
-    public function ajaxAction()
-    {
-        $storageTable = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('pxa_newsletter_subscription', 'table');
-
-        if ($storageTable === 'fe_user') {
-            $storageUtilityClass = $this->objectManager->get(
-                FrontendUserStorageUtility::class,
+        if (is_object($subscription) && $this->hashService->isValidSubscribeHash($subscription, $hash)) {
+            // Emit signal
+            $this->emitSignal(
+                __CLASS__,
+                'beforeConfirmSubscription',
+                $subscription,
+                $hash,
                 $this->settings
             );
-        } elseif ($storageTable === 'tt_address') {
-            $storageUtilityClass = $this->objectManager->get(
-                AddressStorageUtility::class,
-                $this->settings
-            );
-        } else {
-            echo json_encode(
-                [
-                    'success' => false,
-                    'message' => $this->translate('subscribeError')
-                ]
-            );
-            exit(0);
-        }
 
-        $arguments = $this->request->getArguments();
-
-        if (!GeneralUtility::validEmail($arguments['email'])) {
-            $message = $this->translate('error.invalid.email');
-
-            echo json_encode(
-                [
-                    'success' => false,
-                    'message' => $message
-                ]
-            );
-            exit(0);
-        }
-
-        $isNewSubscription = $this->request->hasArgument('submitSubscribe');
-        foreach (['email', 'name'] as $item) {
-            if (array_key_exists($item, $arguments)) {
-                $arguments[$item] = trim($arguments[$item]);
-            }
-        }
-
-        $subscriber = $storageUtilityClass->getSubscriber($arguments['email']);
-
-        $message = $storageUtilityClass->validateSubscription($subscriber, $isNewSubscription, $arguments);
-        $valid = $message === '';
-
-        if ($valid) {
-            // It still could fail ?
-            if ($isNewSubscription) {
-                $subscriber = $storageUtilityClass->processSubscription($arguments);
-
-                // User was created
-                if ($this->settings['enableEmailConfirm']) {
-                    /** @var EmailNotificationService $emailNotificationService */
-                    $emailNotificationService = GeneralUtility::makeInstance(
-                        EmailNotificationService::class,
-                        $this->settings
-                    );
-
-                    $emailNotificationService->sendConfirmationEmail(
-                        $subscriber,
-                        $this->getFeLink($subscriber->getUid(), self::STATUS_SUBSCRIBE),
-                        false
-                    );
-
-                    $message = $this->translate('success.subscribe.subscribed-confirm');
-                } else {
-                    // Add user
-                    $message = $this->translate('success.subscribe.subscribed-noconfirm');
-                }
+            if ($subscription->isHidden()) {
+                $subscription->setHidden(false);
+                $this->subscriptionRepository->update($subscription);
 
                 $success = true;
+
+                // Send notifications
+                $this->sendAdminNewSubscriptionEmail($subscription);
+                $this->sendSubscriberSuccessSubscriptionEmail($subscription);
             } else {
-                // Variables to store message and status
-
-                if ($this->settings['enableEmailConfirm']) {
-                    /** @var EmailNotificationService $emailNotificationService */
-                    $emailNotificationService = GeneralUtility::makeInstance(
-                        EmailNotificationService::class,
-                        $this->settings
-                    );
-
-                    $emailNotificationService->sendConfirmationEmail(
-                        $subscriber,
-                        $this->getFeLink($subscriber->getUid(), self::STATUS_UNSUBSCRIBE),
-                        true
-                    );
-
-                    $message = $this->translate('success.unsubscribe.unsubscribed-confirm');
-                } else {
-                    $storageUtilityClass->revokeSubscription($subscriber);
-
-                    $message = $this->translate('success.unsubscribe.unsubscribed-noconfirm');
-                }
-
+                $this->view->assign('errorReason', 'already_confirmed');
             }
         }
 
-        echo json_encode(
-            [
-                'success' => $valid,
-                'message' => $message
-            ]
-        );
-        exit(0);
+        $this->view->assignMultiple([
+            'success' => $success,
+            'subscription' => $subscription,
+        ]);
     }
 
     /**
-     * Translate label
+     * Unsubscribe form
      *
-     * @param string $key
-     * @return NULL|string
+     * @param string $email
      */
-    protected function translate($key = '')
+    public function unsubscribeAction(string $email = '')
     {
-        return LocalizationUtility::translate($key, 'PxaNewsletterSubscription');
+        if (!empty($email)) {
+            $subscription = $this->subscriptionRepository->findByEmailAndPid(
+                $email,
+                (int)$this->settings['storagePid']
+            );
+
+            if ($subscription !== null) {
+                $this->emitSignal(__CLASS__, 'unsubscribeRequest', $subscription);
+
+                $this->sendNotification(UserUnsubscribeConfirmationNotification::class, $subscription);
+
+                $this->redirect('unsubscribeMessage', null, null, compact('subscription'));
+            }
+        }
+
+        $this->view->assign('email', $email);
     }
 
     /**
-     * Generates a link to frontend either to subscribe or unsubscribe.
+     * Show unsubscribe instructions message after user submitted unsubscribe form
      *
-     * Also, if flexform setting Confirm Page is set, the link is to a page, otherwise it is a ajax link.
-     *
-     * @param int $id Frontenduser id
-     * @param string $status Subscribe or unsubscribe
-     * @return string
+     * @param Subscription $subscription
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscription")
      */
-    protected function getFeLink($id, $status)
+    public function unsubscribeMessageAction(Subscription $subscription)
     {
-        $confirmPageId = intval($this->settings['confirmPage']) ?
-            intval($this->settings['confirmPage']) : $GLOBALS['TSFE']->id;
-
-        $linkParams = [
-            'status' => $status,
-            'hashid' => $id,
-            'hash' => $this->hashService->generateSubscriptionHash($id)
-        ];
-
-
-        return $this
-            ->uriBuilder
-            ->reset()
-            ->setTargetPageUid($confirmPageId)
-            ->setCreateAbsoluteUri(true)
-            ->uriFor('confirm', $linkParams);
+        $this->view->assign('subscription', $subscription);
     }
 
     /**
-     * Check if name is valid.
-     *
-     * @var string $name Name
-     * @return bool
+     * @param Subscription $subscription
+     * @param string $hash
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscription")
      */
-    protected function isNameValid($name)
+    public function unsubscribeConfirmAction(Subscription $subscription = null, string $hash = '')
     {
-        return !$this->settings['formFieldNameIsMandatory'] || !empty($name);
+        $success = false;
+
+        if ($subscription !== null && $this->hashService->isValidUnsubscribeHash($subscription, $hash)) {
+            $this->emitSignal(__CLASS__, 'unsubscribe', $subscription);
+
+            if (!empty($this->settings['notifyAdmin'])) {
+                $this->sendNotification(AdminUnsubscribeNotification::class, $subscription);
+            }
+
+            $this->subscriptionRepository->remove($subscription);
+            $success = true;
+        }
+
+        $this->view->assign('success', $success);
+    }
+
+    /**
+     * Check if ajax page type is set in settings
+     * Add flash message if setting is missing
+     */
+    protected function checkPageTypeSettings(): void
+    {
+        if (empty($this->settings['ajaxPageType'])) {
+            $this->addFlashMessage(
+                $this->translate('error.missing_page_type'),
+                '',
+                FlashMessage::ERROR
+            );
+        }
+    }
+
+    /**
+     * Check if sender name is valid in case emails enabled
+     */
+    protected function checkSenderEmail()
+    {
+        if ((!empty($this->settings['notifyAdmin'])
+                || !empty($this->settings['notifySubscriber'])
+                || !empty($this->settings['enableEmailConfirmation'])
+            )
+            && !GeneralUtility::validEmail($this->settings['senderEmail'])
+        ) {
+            $this->addFlashMessage(
+                $this->translate('error.sender_email_invalid'),
+                '',
+                FlashMessage::ERROR
+            );
+        }
     }
 }

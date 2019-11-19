@@ -1,0 +1,37 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <f:flashMessages />
+
+    <f:if condition="{email}">
+        <div class="alert alert-danger">
+            <f:translate key="error.unsubscribe.not_found" />
+        </div>
+    </f:if>
+
+    <f:form action="unsubscribe" name="unsubscription">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <f:form.hidden value="1" name="sendConfirmation" />
+                    <f:form.textfield placeholder="{f:translate(key: 'email')}"
+                                      required="1"
+                                      class="form-control"
+                                      value="{email}"
+                                      name="email" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <f:form.submit name="unsubscribe" value="{f:translate(key: 'unsubscribe')}" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </f:form>
+</f:section>
+</html>

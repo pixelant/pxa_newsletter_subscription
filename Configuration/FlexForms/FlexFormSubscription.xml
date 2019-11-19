@@ -1,0 +1,195 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.sheet_title</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <switchableControllerActions>
+                        <TCEforms>
+                            <onChange>reload</onChange>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.select_mode</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.form</numIndex>
+                                        <numIndex index="1">NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.confirm</numIndex>
+                                        <numIndex index="1">NewsletterSubscription->confirm</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.mode.unsubscribe</numIndex>
+                                        <numIndex index="1">NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </switchableControllerActions>
+
+                    <settings.enableEmailConfirmation>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.enable_email_confirmation</label>
+                            <displayCond>FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>check</type>
+                                <renderType>checkboxToggle</renderType>
+                            </config>
+                        </TCEforms>
+                    </settings.enableEmailConfirmation>
+
+                    <settings.resendConfirmationEmail>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.resend_confirmation_email</label>
+                            <displayCond>
+                                <AND>
+                                    <numIndex index="0">FIELD:settings.enableEmailConfirmation:REQ:TRUE</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                </AND>
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                                <renderType>checkboxToggle</renderType>
+                            </config>
+                        </TCEforms>
+                    </settings.resendConfirmationEmail>
+
+                    <settings.nameIsMandatory>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.name_is_mandatory</label>
+                            <displayCond>FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <config>
+                                <type>check</type>
+                                <renderType>checkboxToggle</renderType>
+                            </config>
+                        </TCEforms>
+                    </settings.nameIsMandatory>
+
+                    <settings.storagePid>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.storage_pid</label>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
+                                </OR>
+                            </displayCond>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                            </config>
+                        </TCEforms>
+                    </settings.storagePid>
+
+                    <settings.confirmationPage>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.confirmation_page</label>
+                            <displayCond>
+                                <AND>
+                                    <numIndex index="0">FIELD:settings.enableEmailConfirmation:REQ:TRUE</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                </AND>
+                            </displayCond>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>0</minitems>
+                            </config>
+                        </TCEforms>
+                    </settings.confirmationPage>
+
+                    <settings.unsubscribePage>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.unsubscribe_page</label>
+                            <displayCond>
+                                <AND>
+                                    <numIndex index="0">FIELD:settings.enableEmailConfirmation:REQ:TRUE</numIndex>
+                                    <numIndex index="1">FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                </AND>
+                            </displayCond>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>0</minitems>
+                            </config>
+                        </TCEforms>
+                    </settings.unsubscribePage>
+
+                    <settings.acceptTermsLink>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.accept_terms_link</label>
+                            <displayCond>FIELD:switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <config>
+                                <type>input</type>
+                                <renderType>inputLink</renderType>
+                                <size>15</size>
+                            </config>
+                        </TCEforms>
+                    </settings.acceptTermsLink>
+                </el>
+            </ROOT>
+        </sDEF>
+
+        <notificationSettings>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notification_sheet_title</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.notifySubscriber>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notify_subscriber</label>
+                            <displayCond>FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</displayCond>
+                            <config>
+                                <type>check</type>
+                                <renderType>checkboxToggle</renderType>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </settings.notifySubscriber>
+
+                    <settings.notifyAdmin>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_newsletter_subscription/Resources/Private/Language/locallang_be.xlf:flexform.notify_admin</label>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->form;NewsletterSubscription->confirm</numIndex>
+                                    <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:NewsletterSubscription->unsubscribe;NewsletterSubscription->unsubscribeConfirm;NewsletterSubscription->unsubscribeMessage</numIndex>
+                                </OR>
+                            </displayCond>
+                            <config>
+                                <type>text</type>
+                                <cols>35</cols>
+                                <rows>3</rows>
+                            </config>
+                        </TCEforms>
+                    </settings.notifyAdmin>
+                </el>
+            </ROOT>
+        </notificationSettings>
+    </sheets>
+</T3DataStructure>

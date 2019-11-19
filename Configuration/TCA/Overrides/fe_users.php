@@ -1,10 +1,11 @@
 <?php
-defined('TYPO3_MODE') || die;
+defined('TYPO3_MODE') || die('Access denied.');
 
-// Add deleted to fe_users so property is accessible in model.
-$GLOBALS['TCA']['fe_users']['columns']['deleted'] = [
-    'exclude' => 1,
-    'config' => [
-        'type' => 'passthrough'
-    ]
-];
+(function () {
+    // Use email as alternative label
+    $labelAlt = $GLOBALS['TCA']['fe_users']['ctrl']['label_alt']
+        ? $GLOBALS['TCA']['fe_users']['ctrl']['label_alt'] . ',email'
+        : 'email';
+
+    $GLOBALS['TCA']['fe_users']['ctrl']['label_alt'] = $labelAlt;
+})();

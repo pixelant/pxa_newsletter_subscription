@@ -1,172 +1,43 @@
 plugin.tx_pxanewslettersubscription {
     view {
         templateRootPaths {
-            0 = {$plugin.tx_pxanewslettersubscription.view.templateRootPath}
+            10 = {$plugin.tx_pxanewslettersubscription.view.templateRootPath}
         }
 
         partialRootPaths {
-            0 = {$plugin.tx_pxanewslettersubscription.view.partialRootPath}
+            10 = {$plugin.tx_pxanewslettersubscription.view.partialRootPath}
         }
 
         layoutRootPaths {
-            0 = {$plugin.tx_pxanewslettersubscription.view.layoutRootPath}
+            10 = {$plugin.tx_pxanewslettersubscription.view.layoutRootPath}
         }
     }
 
     persistence {
-        storagePid = {$plugin.tx_pxanewslettersubscription.persistence.storagePid}
+        classes {
+            # By default map to fe_users
+            # Compatibility with TYPO3 9
+            Pixelant\PxaNewsletterSubscription\Domain\Model\Subscription {
+                mapping {
+                    tableName = fe_users
+
+                    columns {
+                        disable.mapOnProperty = hidden
+                    }
+                }
+            }
+        }
     }
 
     settings {
-        # form settings
-        # NOTE: The default template makes use of these settings.
-        #        If template has been modified / overridden, these settings might not work depending on the template.
-        form {
-            # class property of form tag
-            class = form
+        ajaxPageType = {$plugin.tx_pxanewslettersubscription.settings.ajaxPageType}
 
-            # input fields (name and email) can be "wrapped" with a div
-            fields {
-                outerWrap {
-                    # if wrap should be created
-                    enabled = 1
-                    # class property of wrapping div
-                    class = row control-group form-group
-                }
-            }
-
-            # submit buttons (subscribe and ubsubscribe) can be "wrapped" with a div
-            buttons {
-                outerWrap {
-                    # if wrap should be created
-                    enabled = 1
-                    # class property of wrapping div
-                    class = control-group form-group
-                }
-            }
-
-            # each button (subscribe and ubsubscribe) can have a class property and can be "wrapped" with a div
-            button {
-                subscribe {
-                    outerWrap {
-                        # if wrap should be created
-                        enabled = 1
-                        # class property of wrapping div
-                        class = col-sm-6 subscribe form-actions pull-right text-right
-                    }
-
-                    # class property of input
-                    class = btn btn-default
-                    enableSpinner = 0
-                    spinnerClass = spinner fa fa-circle-o-notch fa-spin
-                    useButtonTag = 0
-                }
-
-                unsubscribe {
-                    outerWrap {
-                        # if wrap should be created
-                        enabled = 1
-                        # class property of wrapping div
-                        class = col-sm-6 unsubscribe form-actions pull-right text-right
-                    }
-
-                    # class property of input
-                    class = btn btn-default
-                    enableSpinner = 0
-                    spinnerClass = spinner fa fa-circle-o-notch fa-spin
-                    useButtonTag = 0
-                }
-            }
-
-            # each inout field (name and email) can have a class property and can be "wrapped" with two div:S
-            field {
-                name {
-                    outerWrap {
-                        # if "outerWrap" (first) should be created
-                        enabled = 1
-                        # class property of wrapping div
-                        class = col-sm-6
-                    }
-
-                    innerWrap {
-                        # if "innerWrap" (second) should be created
-                        enabled = 1
-                        # class property of wrapping div
-                        class = input-append input-group
-                    }
-
-                    # class property of input
-                    class = form-control
-                }
-
-                email {
-                    outerWrap {
-                        # if "outerWrap" (first) should be created
-                        enabled = 1
-                        # class property of wrapping div
-                        class = col-sm-6
-                    }
-
-                    innerWrap {
-                        # if "innerWrap" (second) should be created
-                        enabled = 1
-                        # class property of wrapping div
-                        class = input-append input-group
-                    }
-
-                    # class property of input
-                    class = form-control
-                }
-            }
-        }
-
-        confirm {
-            outerWrap {
-                enabled = 1
-                class = alert
-                classSuccess = alert-success
-                classFailure = alert-danger
-            }
-
-            class =
-            classSuccess =
-            classFailure =
-        }
-
-        ajax {
-            # Standalone layout includes css for bootstrap (v2)
-            class = hero-unit
-            button.class = btn btn-primary btn-large
-        }
-
-        confirmationRedirectPid = {$plugin.tx_pxanewslettersubscription.settings.confirmationRedirectPid}
-        confirmationRedirectIncludeInfo = {$plugin.tx_pxanewslettersubscription.settings.confirmationRedirectIncludeInfo}
+        senderEmail = {$plugin.tx_pxanewslettersubscription.settings.senderEmail}
+        senderName = {$plugin.tx_pxanewslettersubscription.settings.senderName}
     }
 
-    features {
-        # uncomment the following line to enable the new Property Mapper.
-        # rewrittenPropertyMapper = 1
-    }
-}
-
-config.tx_extbase.persistence.classes {
-    Pixelant\PxaNewsletterSubscription\Domain\Model\Address {
-        mapping {
-            tableName = tt_address
-        }
-    }
-
-    Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUser {
-        mapping {
-            tableName = fe_users
-        }
-    }
-
-    Pixelant\PxaNewsletterSubscription\Domain\Model\FrontendUserGroup {
-        mapping {
-            tableName = fe_groups
-        }
-    }
+    # Default css
+    _CSS_DEFAULT_STYLE = .hidden {display:none;}
 }
 
 #
@@ -174,25 +45,46 @@ config.tx_extbase.persistence.classes {
 #
 PXA_NEWSLETTER_AJAX = PAGE
 PXA_NEWSLETTER_AJAX {
-    typeNum = 6171240
+    typeNum = {$plugin.tx_pxanewslettersubscription.settings.ajaxPageType}
 
     config {
         disableAllHeaderCode = 1
         admPanel = 0
         debug = 0
         no_cache = 1
-        additionalHeaders = Content-type:application/json
+        additionalHeaders {
+            10 {
+                header = Content-Type: application/json
+                replace = 1
+            }
+        }
     }
 
-    10 = RECORDS
+    10 = USER
     10 {
-        tables = tt_content
-        source {
-            data = GP:tx_pxanewslettersubscription_subscription|ceuid
-            intval = 1
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = PxaNewsletterSubscription
+        pluginName = Subscription
+        vendorName = Pixelant
+
+        switchableControllerAction {
+            Ajax {
+                1 = subscribe
+            }
         }
     }
 }
 
-# include JS
-page.includeJSFooter.pxa_newsletter_subscription = EXT:pxa_newsletter_subscription/Resources/Public/Js/Form.js
+lib.pxaNewsLetterMainPageUrl = TEXT
+lib.pxaNewsLetterMainPageUrl {
+    typolink {
+        parameter.data = leveluid:0
+        returnLast = url
+    }
+}
+
+# Include JS
+page {
+    includeJSFooterlibs.pxa_newsletter_subscription_form = EXT:pxa_newsletter_subscription/Resources/Public/Js/Form.js
+    includeJSFooter.pxa_newsletter_subscription = EXT:pxa_newsletter_subscription/Resources/Public/Js/pxa_newsletter_subscription.js
+}

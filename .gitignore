@@ -3,3 +3,8 @@
 
 # Exclude OSX index files
 .DS_Store
+
+.Build
+var
+composer.lock
+Documentation-GENERATED-temp

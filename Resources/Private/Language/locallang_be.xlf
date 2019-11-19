@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="pxa_newsletter_subscription"
+		  date="2014-09-24T01:00:11+01:01">
+		<header/>
+		<body>
+			<trans-unit id="plugin_name">
+			    <source>Newsletter subscription</source>
+			</trans-unit>
+			<trans-unit id="action_form">
+			    <source>Subscribe form view</source>
+			</trans-unit>
+			<trans-unit id="action_confirm">
+			    <source>Confirm email view</source>
+			</trans-unit>
+			<trans-unit id="action_unsubscribe">
+				<source>Unsubscribe form view</source>
+			</trans-unit>
+
+			<!--FlexForm:START-->
+			<trans-unit id="flexform.mode">
+				<source>Plugin mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.select_mode">
+				<source>Select plugin mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.form">
+				<source>Subscription form</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.confirm">
+				<source>Confirmation subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.unsubscribe">
+			    <source>Unsubscribe form</source>
+			</trans-unit>
+			<trans-unit id="flexform.sheet_title">
+				<source>Settings</source>
+			</trans-unit>
+			<trans-unit id="flexform.notification_sheet_title">
+				<source>Notification settings</source>
+			</trans-unit>
+			<trans-unit id="flexform.notify_subscriber">
+				<source>Notify subscriber about successful subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.enable_email_confirmation">
+				<source>Subscription email must be confirmed</source>
+			</trans-unit>
+			<trans-unit id="flexform.name_is_mandatory">
+				<source>Name is mandatory for subscription</source>
+			</trans-unit>
+			<trans-unit id="flexform.storage_pid">
+				<source>Storage</source>
+			</trans-unit>
+			<trans-unit id="flexform.confirmation_page">
+				<source>Confirmation page (Empty = current page)</source>
+			</trans-unit>
+			<trans-unit id="flexform.confirmation_page_title">
+				<source>Confirmation page</source>
+			</trans-unit>
+			<trans-unit id="flexform.notify_admin">
+				<source>Notify admin (add one or more emails, each in new line)</source>
+			</trans-unit>
+			<trans-unit id="flexform.notify_admin_title">
+			    <source>Notify admin</source>
+			</trans-unit>
+			<trans-unit id="flexform.accept_terms_link">
+			    <source>Accept terms link. If empty user don't need to accept terms.</source>
+			</trans-unit>
+			<trans-unit id="flexform.accept_terms_link_title">
+				<source>Accept terms link</source>
+			</trans-unit>
+			<trans-unit id="flexform.yes">
+			    <source>Yes</source>
+			</trans-unit>
+			<trans-unit id="flexform.no">
+			    <source>No</source>
+			</trans-unit>
+			<trans-unit id="flexform.no_value">
+			    <source>Not set</source>
+			</trans-unit>
+			<trans-unit id="flexform.unsubscribe_page_title">
+			    <source>Unsubscribe page</source>
+			</trans-unit>
+			<trans-unit id="flexform.unsubscribe_page">
+			    <source>Unsubscribe page. If set user will get link to it in email</source>
+			</trans-unit>
+			<trans-unit id="flexform.resend_confirmation_email">
+			    <source>Resend confirmation email in case user try to subscribe again, but haven't confirmed subscription yet.</source>
+			</trans-unit>
+			<trans-unit id="flexform.resend_confirmation_email_title">
+				<source>Resend confirmation email</source>
+			</trans-unit>
+			<!--FlexForm:END-->
+		</body>
+	</file>
+</xliff>
