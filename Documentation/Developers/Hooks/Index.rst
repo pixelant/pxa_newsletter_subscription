@@ -6,12 +6,12 @@
 Available hooks
 ^^^^^^^^^^^^^^^
 
-There are several Signals/Slots implemented.
+Several Signals/Slots have been implemented.
 https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Hooks/Concept/Index.html
 
 **Before subscription validation**
 
-Hook is executed before subscription validation
+Executed before subscription validation
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Domain\\Validator\\SubscriptionValidator* - class name
 - *beforeSubscriptionValidation* - signal name
@@ -19,7 +19,7 @@ Hook is executed before subscription validation
 
 **Before persist subscription**
 
-Hook is executed after validation and before subscription is persist to database.
+Executed after validation and before the subscription is persisted.
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Controller\\AjaxController* - class name
 - *beforePersistSubscription* - signal name
@@ -27,7 +27,7 @@ Hook is executed after validation and before subscription is persist to database
 
 **After persist subscription**
 
-Hook is executed after subscription was persist to database.
+Executed after the subscription was persisted.
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Controller\\AjaxController* - class name
 - *afterPersistSubscription* - signal name
@@ -35,7 +35,7 @@ Hook is executed after subscription was persist to database.
 
 **Before confirm subscription**
 
-Hook is executed before subscription is confirmed by user, after click link in email
+Executed before subscription is confirmed by user, after the email link
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Controller\\NewsletterSubscriptionController* - class name
 - *beforeConfirmSubscription* - signal name
@@ -43,7 +43,7 @@ Hook is executed before subscription is confirmed by user, after click link in e
 
 **Unsubscribe request**
 
-Hook is executed when user try to unsubscribe and confirmation email was sent
+Executed when the user attempts to unsubscribe and confirmation email
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Controller\\NewsletterSubscriptionController* - class name
 - *unsubscribeRequest* - signal name
@@ -51,13 +51,13 @@ Hook is executed when user try to unsubscribe and confirmation email was sent
 
 **Unsubscribe**
 
-Hook is executed right before user subscription is removed
+Executed right before a subscription is removed
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Controller\\NewsletterSubscriptionController* - class name
 - *unsubscribe* - signal name
 - arguments - subscription
 
-**Before build unsubscribe url**
+**Before building the unsubscribe URL**
 
 Hook is executed before generation unsubscribe url
 
@@ -65,9 +65,9 @@ Hook is executed before generation unsubscribe url
 - *beforeBuildUrlUnsubscribe* - signal name
 - arguments - URL arguments
 
-**Before build confirmations urls**
+**Before building confirmations URLs**
 
-Hook is executed before generation user confirmation url and unsubscribe url
+Executed before the user confirmation and unsubscribe URLs are generated
 
 - *\\Pixelant\\PxaNewsletterSubscription\\Url\\SubscriptionUrlGenerator* - class name
 - *beforeBuildUrlconfirm* - signal name confirmation url

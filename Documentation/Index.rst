@@ -10,7 +10,7 @@
 .. _start:
 
 =============================================================
-Pxa Newsletter Subscription
+Newsletter Subscription
 =============================================================
 
 
@@ -28,7 +28,7 @@ Pxa Newsletter Subscription
 
 **Description**
 
-This is an extension that makes it possible for a user to subscribe to a newsletter and being created as a frontend user.
+This extension makes it possible for a website visitor to subscribe to a newsletter
 
 
 .. toctree::

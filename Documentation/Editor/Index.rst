@@ -12,7 +12,7 @@ Target group: **Editors**
 Add plugin to page
 ^^^^^^^^^^^^^^^^^^
 
-Insert new plugin on a page and choose **Pxa Subscription**
+Insert new plugin on a page and choose **Newsletter Subscription Form**
 
 
 .. figure:: ../Images/Editor/InsertPlugin.png
@@ -30,14 +30,14 @@ Plugin supports 3 modes:
 - Confirmation subscription
 - Unsubscribe form
 
-Subscription form mode
-""""""""""""""""""""""
+Subscription form modes
+"""""""""""""""""""""""
 
-Subscription form has different flexform options that allow you to configure subscribe process.
+The Subscription form presents options that allow you to configure the subscription
 
  - Subscription email must be confirmed - *If user need to confirm email in order to finish subscription*
  - Resend confirmation email in case user tried to subscribe again, but haven't confirmed subscription yet. - *Available if confirmation enabled*
- - Name is mandatory for subscription - *If enabled user will have to enter email*
+ - Name is mandatory for subscription - *If enabled, the user will still have to enter email*
  - Storage - *Storage for new subscriptions*
  - Confirmation page (Empty = current page) - *Confirmation page. User will end-up on this page after clicking confirmation link*
  - Unsubscribe page. If set user will get link to it in email - *Unsubscribe page. If set user will get unsubscribe link in email*
@@ -47,11 +47,11 @@ Subscription form has different flexform options that allow you to configure sub
 
 .. important::
 
-   If confirmation page is empty - current page will be used. **In this case make sure that there is only one registration form on the page**
+   If the confirmation page is not set, the current page will be used. **In this case make sure that there is only one registration form on the page**
 
 .. important::
 
-   If any email is enabled(user notification, admin notification etc.) it's required to configure sender in TypoScript constant editor.
+   If any email is enabled (user notification, admin notification, etc.) it's required to configure sender in TypoScript constant editor.
 
 Confirmation subscription
 """""""""""""""""""""""""
@@ -60,7 +60,7 @@ Confirmation plugin.
 
 .. tip::
 
-    Confirmation subscription plugin should be added on confirmation page that was set in Subscription form settings
+    The Subscription confirmation plugin should be added to the confirmation page that was set in Subscription form settings
 
 
 Unsubscribe from

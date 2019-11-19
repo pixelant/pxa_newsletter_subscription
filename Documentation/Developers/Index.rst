@@ -7,7 +7,7 @@ For developers
 
 .. only:: html
 
-	This chapter describe what hook developer could use and some practise examples.
+	This chapter describes what hooks developers cab use and gives some
 
 .. toctree::
    :maxdepth: 3

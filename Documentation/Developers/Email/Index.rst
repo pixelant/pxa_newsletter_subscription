@@ -42,5 +42,5 @@ List of Email notification templates:
 .. tip::
 
     According to TypoScript example you should put custom templates under folder:
-    **EXT:pxa_newsletter_subscription/Resources/Private/Templates/**
-    And email template goes to **EXT:pxa_newsletter_subscription/Resources/Private/Templates/EmailNotification/**
+    **EXT:my_custom_extension/Resources/Private/Templates/**
+    And email template goes to **EXT:my_custom_extension/Resources/Private/Templates/EmailNotification/**
