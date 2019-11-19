@@ -9,8 +9,8 @@
 				<target>Nom</target>
 			</trans-unit>
 			<trans-unit id="email">
-				<source>E-mail</source>
-				<target>E-Mail</target>
+				<source>Email</source>
+				<target>Email</target>
 			</trans-unit>
 			<trans-unit id="back_to_website">
 				<source>Back to website</source>
@@ -31,20 +31,20 @@
 				<target>Résilier l'abonnement</target>
 			</trans-unit>
 			<trans-unit id="subscription.subscribed_noconfirm">
-				<source>You have been successfully subscribed to newsletter.</source>
+				<source>You have successfully subscribed to the newsletter.</source>
 				<tareget>Vous avez bien souscrit un abonnement à la lettre d'information.</tareget>
 			</trans-unit>
 			<trans-unit id="subscription.subscribed_confirm">
 				<source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
-				<target>Vous avez presque terminé. Vous allez recevoir un mail dans les minutes qui viennent avec un lien vous permettant de confirmer votre E-Mail.</target>
+				<target>Vous avez presque terminé. Vous allez recevoir un mail dans les minutes qui viennent avec un lien vous permettant de confirmer votre Email.</target>
 			</trans-unit>
 			<trans-unit id="subscription.subscribe_ok">
-				<source>You have been successfully subscribed to newsletter.</source>
+				<source>You have successfully subscribed to the newsletter.</source>
 				<tareget>Vous avez bien souscrit un abonnement à la lettre d'information.</tareget>
 			</trans-unit>
 			<trans-unit id="subscription.unsubscribe_confirm">
 				<source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
-				<target>Vous avez presque terminé. Vous allez recevoir un mail dans les minutes qui viennent avec un lien vous permettant de confirmer votre E-Mail.</target>
+				<target>Vous avez presque terminé. Vous allez recevoir un mail dans les minutes qui viennent avec un lien vous permettant de confirmer votre Email.</target>
 			</trans-unit>
 			<trans-unit id="subscription.unsubscribe_success">
 				<source>You have been successfully unsubscribed from newsletter.</source>
@@ -87,25 +87,25 @@
 			</trans-unit>
 			<trans-unit id="mail.subscriber.confirmation_line1">
 				<source>Please confirm your email address by clicking on the following link:</source>
-				<target>Veuillez confirmer votre adresse E-Mail en cliquant sur le lien suivant:</target>
+				<target>Veuillez confirmer votre adresse Email en cliquant sur le lien suivant:</target>
 			</trans-unit>
 			<trans-unit id="mail.subscriber.confirmation_line2">
-				<source>If you wish to unsubscribe in the future, follow this link:</source>
+				<source>Should you wish to unsubscribe in the future, follow this link:</source>
 				<target>Si vous souhaitez vous désabonner, veuillez suivre ce lien:</target>
 			</trans-unit>
 
 			<!--Subscriber success-->
 			<trans-unit id="mail.subscriber.success_subject">
-				<source>Successfully subscribed to newsletter</source>
+				<source>Your subscription was successful</source>
 			</trans-unit>
 			<trans-unit id="mail.subscriber.success_line1">
-				<source>You have been successfully subscribed to newsletter.</source>
+				<source>You have successfully subscribed to the newsletter.</source>
 				<target>Vous avez bien souscrit un abonnement à la lettre d'information.</target>
 			</trans-unit>
 
 			<!--Unsubscribe confirmation-->
 			<trans-unit id="mail.unsubscribe.confirmation_subject">
-				<source>Newsletter unsubscription confirmation</source>
+				<source>Confirm your newsletter subscription cancellation</source>
 			</trans-unit>
 			<trans-unit id="mail.unsubscribe.confirmation_line1">
 				<source>In order to unsubscribe please click the following link:</source>
@@ -114,30 +114,30 @@
 
 			<!--Error messages:START-->
 			<trans-unit id="error.unsubscribe.not_found">
-				<source>Subscription with given email address not found</source>
-				<target>Il n'y a pas d'abonnement enregistré à cette adresse E-Mail.</target>
+				<source>We were unable to find an active subscription</source>
+				<target>Il n'y a pas d'abonnement enregistré à cette adresse Email.</target>
 			</trans-unit>
 			<trans-unit id="error.missing_page_type">
 				<source>Ajax page type setting is missing. Check if extension TypoScript is included.</source>
 			</trans-unit>
 			<trans-unit id="error.already_subscribed">
-				<source>A subscription with this email-address already exists.</source>
-				<target>Il existe déjà un abonnement à cette adresse E-Mail.</target>
+				<source>A subscription with this email address already exists.</source>
+				<target>Il existe déjà un abonnement à cette adresse Email.</target>
 			</trans-unit>
 			<trans-unit id="error.waiting_for_confirmation">
-				<source>A subscription with this email-address already exists, but waiting for confirmation. Please check your email box.</source>
-				<target>Il existe déjà un abonnement à cette adresse E-Mail.</target>
+				<source>A subscription with this email address already exists, but waiting for confirmation. Please check your email box.</source>
+				<target>Il existe déjà un abonnement à cette adresse Email.</target>
 			</trans-unit>
 			<trans-unit id="error.subscribe_error.already_confirmed">
-				<source>Subscription was already confirmed.</source>
+				<source>The subscription has already been confirmed.</source>
 			</trans-unit>
 			<trans-unit id="error.subscribe_error.unknown">
 				<source>Sorry, something went wrong. Please contact us.</source>
 				<target>Désolé, quelque chose s'est mal passé. Contactez nous s'il vous plait</target>
 			</trans-unit>
 			<trans-unit id="error.invalid.email">
-				<source>Invalid email-address.</source>
-				<target>L'adresse E-Mail n'est pas valable.</target>
+				<source>Invalid email address.</source>
+				<target>L'adresse Email n'est pas valable.</target>
 			</trans-unit>
 			<trans-unit id="error.invalid.storage_pid">
 				<source>Storage PID is not set</source>
@@ -147,7 +147,7 @@
 				<target>Nom erroné ou manquant.</target>
 			</trans-unit>
 			<trans-unit id="error.invalid.accept_terms">
-				<source>Accept terms is required</source>
+				<source>You must accept the terms.</source>
 			</trans-unit>
 			<trans-unit id="error.sender_email_invalid">
 				<source>Invalid sender email. Check your typoscript settings</source>
