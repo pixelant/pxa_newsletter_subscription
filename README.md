@@ -1,11 +1,11 @@
 # Newsletter subscription 
 ## Extension key `pxa_newsletter_subscription`
 
-This is an extension that makes it possible for a user to subscribe to a newsletter and being created as a frontend user.
+This extension makes it possible for a website visitor to subscribe to a newsletter
 
 #### Install extension 
 
-Install extension with composer
+Installing extension using composer
   
 `composer req pixelant/pxa-newsletter-subscription`
 
