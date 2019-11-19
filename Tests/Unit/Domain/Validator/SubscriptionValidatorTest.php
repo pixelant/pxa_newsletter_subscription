@@ -31,9 +31,9 @@ class SubscriptionValidatorTest extends UnitTestCase
      * @test
      * @dataProvider subscriptionProviderNotConfirmed
      */
-    public function alreadyExistButNotConfirmedTestDifferentSubscription($subscription, $expect)
+    public function existsUnconfirmedTestDifferentSubscription($subscription, $expect)
     {
-        $callResult = $this->callInaccessibleMethod($this->subject, 'alreadyExistButNotConfirmed', $subscription);
+        $callResult = $this->callInaccessibleMethod($this->subject, 'existsUnconfirmed', $subscription);
 
         $this->assertEquals($expect, $callResult);
     }
@@ -42,9 +42,9 @@ class SubscriptionValidatorTest extends UnitTestCase
      * @test
      * @dataProvider subscriptionProviderConfirmed
      */
-    public function alreadyExistInPidTestDifferentSubscription($subscription, $expect)
+    public function existInPidTestDifferentSubscription($subscription, $expect)
     {
-        $callResult = $this->callInaccessibleMethod($this->subject, 'alreadyExistInPid', $subscription);
+        $callResult = $this->callInaccessibleMethod($this->subject, 'existInPid', $subscription);
 
         $this->assertEquals($expect, $callResult);
     }

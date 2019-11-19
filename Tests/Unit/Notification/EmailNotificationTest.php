@@ -21,7 +21,7 @@ class EmailNotificationTest extends UnitTestCase
     {
         $this->subject = $this->getAccessibleMock(
             EmailNotification::class,
-            ['isBelow10', 'getNotificationMessage'],
+            ['isTypo3VersionLowerThan10', 'getNotificationMessage'],
             [],
             '',
             false
@@ -71,13 +71,13 @@ class EmailNotificationTest extends UnitTestCase
     /**
      * @test
      */
-    public function setReceiversWillSetProperty()
+    public function setRecipientsWillSetProperty()
     {
         $value = ['test@site.com'];
 
         $this->subject->setRecipients($value);
 
-        $this->assertEquals($value, $this->subject->_get('receivers'));
+        $this->assertEquals($value, $this->subject->_get('recipients'));
     }
 
     /**
@@ -107,15 +107,15 @@ class EmailNotificationTest extends UnitTestCase
     /**
      * @test
      */
-    public function validateREceiversWillRemoveAllInvalidReceivers()
+    public function validateRecipientsWillRemoveAllInvalidRecipients()
     {
-        $receivers = ['test@mail.com', 'invalid', 'another@mail.com'];
+        $recipients = ['test@mail.com', 'invalid', 'another@mail.com'];
         $expect = [0 => 'test@mail.com', 2 => 'another@mail.com'];
 
-        $this->subject->setRecipients($receivers);
-        $this->subject->_call('validateReceivers');
+        $this->subject->setRecipients($recipients);
+        $this->subject->_call('validateRecipients');
 
-        $this->assertEquals($expect, $this->subject->_get('receivers'));
+        $this->assertEquals($expect, $this->subject->_get('recipients'));
     }
 
     /**
@@ -220,7 +220,7 @@ class EmailNotificationTest extends UnitTestCase
      */
     public function notifyShouldPrepareMessage()
     {
-        $subject = $this->createPartialMock(EmailNotification::class, ['prepareMessage', 'isBelow10', 'getNotificationMessage']);
+        $subject = $this->createPartialMock(EmailNotification::class, ['prepareMessage', 'isTypo3VersionLowerThan10', 'getNotificationMessage']);
         $this->inject($subject, 'mailMessage', $this->createPartialMock(MailMessage::class, ['html', 'send']));
 
         $subject
@@ -236,7 +236,7 @@ class EmailNotificationTest extends UnitTestCase
      */
     public function nofityWillCallSetBodyOnTYPO39($useHtml)
     {
-        $subject = $this->createPartialMock(EmailNotification::class, ['isBelow10', 'prepareMessage', 'getNotificationMessage']);
+        $subject = $this->createPartialMock(EmailNotification::class, ['isTypo3VersionLowerThan10', 'prepareMessage', 'getNotificationMessage']);
 
         $mockedMail = $this->createPartialMock(MailMessage::class, ['send', 'setBody', 'setFrom', 'setTo', 'setSubject']);
         $this->inject($subject, 'mailMessage', $mockedMail);
@@ -245,7 +245,7 @@ class EmailNotificationTest extends UnitTestCase
 
         $subject
             ->expects($this->once())
-            ->method('isBelow10')
+            ->method('isTypo3VersionLowerThan10')
             ->willReturn(true);
 
         if ($useHtml) {
@@ -269,7 +269,7 @@ class EmailNotificationTest extends UnitTestCase
      */
     public function nofityWillCallHtmlAndTextOnTYPO310($useHtml)
     {
-        $subject = $this->createPartialMock(EmailNotification::class, ['isBelow10', 'prepareMessage', 'getNotificationMessage']);
+        $subject = $this->createPartialMock(EmailNotification::class, ['isTypo3VersionLowerThan10', 'prepareMessage', 'getNotificationMessage']);
 
         $mockedMail = $this->createPartialMock(MailMessage::class, ['send', 'html', 'text', 'setFrom', 'setTo', 'setSubject']);
         $this->inject($subject, 'mailMessage', $mockedMail);
@@ -278,7 +278,7 @@ class EmailNotificationTest extends UnitTestCase
 
         $subject
             ->expects($this->once())
-            ->method('isBelow10')
+            ->method('isTypo3VersionLowerThan10')
             ->willReturn(false);
 
         $expectMethod = $useHtml ? 'html' : 'text';
