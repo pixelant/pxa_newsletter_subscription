@@ -18,7 +18,6 @@
     "php": ">=7.2.0"
   },
   "replace": {
-    "pxa_newsletter_subscription": "self.version",
     "typo3-ter/pxa-newsletter-subscription": "self.version"
   },
   "require-dev": {
@@ -51,7 +50,8 @@
     },
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web"
+      "web-dir": ".Build/Web",
+      "extension-key": "pxa_newsletter_subscription"
     }
   }
 }
