@@ -1,4 +1,11 @@
 
+#### v10.0.1 `December 4, 2019`
+
+- **[TASK]** raise version ([008adae](https://github.com/pixelant/pxa_newsletter_subscription/commit/008adae))
+- **[BUGFIX]** avoid executing confirm action two times ([c5bcc27](https://github.com/pixelant/pxa_newsletter_subscription/commit/c5bcc27))
+
+***
+
 #### v10.0.0 `November 19, 2019`
 
 - **[TASK]** update version to 10.0.0 ([2a1c9f4](https://github.com/pixelant/pxa_newsletter_subscription/commit/2a1c9f4))
