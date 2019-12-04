@@ -50,6 +50,12 @@ class NewsletterSubscriptionController extends AbstractController
         // Read flexform settings of subscription content element on confirmation action
         $this->mergeSettingsWithFlexFormSettings();
 
+        /*
+         * In case when subscription form is in footer or header of every site page
+         * and in form settings custom confirmation page was set, avoid executing confirm action two times
+         */
+        $this->forwardToFormIfCustomConfirmationPage();
+
         $success = false;
 
         if ($subscription !== null) {
@@ -176,6 +182,21 @@ class NewsletterSubscriptionController extends AbstractController
                 '',
                 FlashMessage::ERROR
             );
+        }
+    }
+
+    /**
+     * Forward action to form if it's form plugin,
+     * but this is custom confirmation page with own confirmation plugin
+     */
+    protected function forwardToFormIfCustomConfirmationPage(): void
+    {
+        $contentData = $this->configurationManager->getContentObject()->data;
+
+        if ((int)$this->request->getArgument('ceUid') === $contentData['uid']
+            && $contentData['pid'] !== $GLOBALS['TSFE']->id
+        ) {
+            $this->forward('form');
         }
     }
 }
