@@ -14,13 +14,15 @@
             </trans-unit>
             <trans-unit id="back_to_website">
                 <source>Back to website</source>
-                <tareget>Tillbaka till webbplatsen</tareget>
+                <target>Tillbaka till webbplatsen</target>
             </trans-unit>
             <trans-unit id="storage">
                 <source>Storage (PID)</source>
+                <target>Lagring (PID)</target>
             </trans-unit>
             <trans-unit id="accept_terms">
                 <source>Accept terms</source>
+                <target>Acceptera villkor</target>
             </trans-unit>
             <trans-unit id="subscribe">
                 <source>Subscribe</source>
@@ -32,7 +34,7 @@
             </trans-unit>
             <trans-unit id="subscription.subscribed_noconfirm">
                 <source>You have successfully subscribed to the newsletter.</source>
-                <tareget>Ni prenumererar redan på detta nyhetsbrev.</tareget>
+                <target>Ni har börjat prenumerera på detta nyhetsbrev.</target>
             </trans-unit>
             <trans-unit id="subscription.subscribed_confirm">
                 <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
@@ -40,7 +42,7 @@
             </trans-unit>
             <trans-unit id="subscription.subscribe_ok">
                 <source>You have successfully subscribed to the newsletter.</source>
-                <tareget>Ni prenumererar redan på detta nyhetsbrev.</tareget>
+                <target>Ni har nu börjat er prenumeration på detta nyhetsbrev.</target>
             </trans-unit>
             <trans-unit id="subscription.unsubscribe_confirm">
                 <source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
@@ -48,7 +50,7 @@
             </trans-unit>
             <trans-unit id="subscription.unsubscribe_success">
                 <source>You have been successfully unsubscribed from newsletter.</source>
-                <target>Ni kommer inte längre få detta nyhetsbrev. Vi kommer att sakna dig.</target>
+                <target>Ni kommer inte längre att få detta nyhetsbrev. Vi kommer att sakna er.</target>
             </trans-unit>
             <!--Frontend labels:END-->
 
@@ -61,23 +63,29 @@
             <!--Admin subscribe notification-->
             <trans-unit id="mail.admin.subscribe.subject">
                 <source>New newsletter subscription</source>
+                <target>Ny nyhetsbrevsprenumeration</target>
             </trans-unit>
             <trans-unit id="mail.admin.subscribe.line1">
                 <source>New subscription on a site.</source>
+                <target>Ny prenumeration på en sida.</target>
             </trans-unit>
             <trans-unit id="mail.admin.subscribe.line2">
                 <source>Subscription information</source>
+                <target>Prenumerationsinformation</target>
             </trans-unit>
 
             <!--Admin unsubscribe notification-->
             <trans-unit id="mail.admin.unsubscribe.subject">
                 <source>Newsletter unsubscription</source>
+                <target>Avslutning av nyhetsbrevsprenumeration</target>
             </trans-unit>
             <trans-unit id="mail.admin.unsubscribe.line1">
                 <source>User has unsubscribed.</source>
+                <target>Användaren har avslutat sin prenumeration.</target>
             </trans-unit>
             <trans-unit id="mail.admin.unsubscribe.line2">
                 <source>Subscription information</source>
+                <target>Prenumerationsinformation</target>
             </trans-unit>
 
             <!--Subscriber confirmation-->
@@ -91,12 +99,13 @@
             </trans-unit>
             <trans-unit id="mail.subscriber.confirmation_line2">
                 <source>Should you wish to unsubscribe in the future, follow this link:</source>
-                <target>Om ni vill avsluta prenumerationen av nyhetsbrevet, vänligen klicka på denna länk:</target>
+                <target>Om ni vill avsluta prenumerationen av nyhetsbrevet, vänligen följ denna länk:</target>
             </trans-unit>
 
             <!--Subscriber success-->
             <trans-unit id="mail.subscriber.success_subject">
                 <source>Your subscription was successful</source>
+                <target>Din prenumeration lyckades</target>
             </trans-unit>
             <trans-unit id="mail.subscriber.success_line1">
                 <source>You have successfully subscribed to the newsletter.</source>
@@ -106,9 +115,11 @@
             <!--Unsubscribe confirmation-->
             <trans-unit id="mail.unsubscribe.confirmation_subject">
                 <source>Confirm your newsletter subscription cancellation</source>
+                <target>Vänligen bekräfta avslutandet av din nyhetsbrevsprenumeration</target>
             </trans-unit>
             <trans-unit id="mail.unsubscribe.confirmation_line1">
                 <source>In order to unsubscribe please click the following link:</source>
+                <target>För att avsluta din prenumeration, vänligen klicka på följande länk:</target>
             </trans-unit>
             <!--Email notification labels:END-->
 
@@ -127,35 +138,35 @@
             </trans-unit>
             <trans-unit id="error.waiting_for_confirmation">
                 <source>A subscription with this email address already exists, but waiting for confirmation. Please check your email box.</source>
-                <target>Ni prenumererar redan på detta nyhetsbrev.</target>
+                <target>En prenumeration med denna e-postadress finns redan, men behöver bekräftas. Vänligen kontrollera era e-postmeddelanden.</target>
             </trans-unit>
             <trans-unit id="error.subscribe_error.already_confirmed">
                 <source>The subscription has already been confirmed.</source>
-                <target></target>
+                <target>Prenumerationen har redan bekräftats.</target>
             </trans-unit>
             <trans-unit id="error.subscribe_error.unknown">
                 <source>Sorry, something went wrong. Please contact us.</source>
-                <target></target>
+                <target>Ledsen, något gick fel. Vänligen kontakta oss.</target>
             </trans-unit>
             <trans-unit id="error.invalid.email">
                 <source>Invalid email address.</source>
-                <target>Ogiltig e-post</target>
+                <target>Ogiltig e-postadress.</target>
             </trans-unit>
             <trans-unit id="error.invalid.storage_pid">
                 <source>Storage PID is not set</source>
-                <target></target>
+                <target>Lagring PID är inte satt</target>
             </trans-unit>
             <trans-unit id="error.invalid.name">
                 <source>Invalid or missing name.</source>
-                <target>Ogiltigt namn</target>
+                <target>Ogiltigt namn.</target>
             </trans-unit>
             <trans-unit id="error.invalid.accept_terms">
                 <source>You must accept the terms.</source>
-                <target></target>
+                <target>Du måste acceptera villkoren.</target>
             </trans-unit>
             <trans-unit id="error.sender_email_invalid">
                 <source>Invalid sender email. Check your typoscript settings</source>
-                <target></target>
+                <target>Felaktig avsändarmejl. Kontrollera dina typoscript-inställnigar</target>
             </trans-unit>
             <!--Error messages:END-->
         </body>
