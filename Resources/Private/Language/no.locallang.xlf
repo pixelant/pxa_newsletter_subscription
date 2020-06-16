@@ -14,7 +14,7 @@
             </trans-unit>
             <trans-unit id="back_to_website">
                 <source>Back to website</source>
-                <tareget>Tilbake til nettstedet</tareget>
+                <target>Tilbake til nettstedet</target>
             </trans-unit>
             <trans-unit id="storage">
                 <source>Storage (PID)</source>
@@ -32,7 +32,7 @@
             </trans-unit>
             <trans-unit id="subscription.subscribed_noconfirm">
                 <source>You have successfully subscribed to the newsletter.</source>
-                <tareget>Du abonnerer nå på nyhetsbrevet.</tareget>
+                <target>Du abonnerer nå på nyhetsbrevet.</target>
             </trans-unit>
             <trans-unit id="subscription.subscribed_confirm">
                 <source>You're almost done. You should receive a confirmation mail within the next few minutes with instructions how to confirm your email.</source>
@@ -40,7 +40,7 @@
             </trans-unit>
             <trans-unit id="subscription.subscribe_ok">
                 <source>You have successfully subscribed to the newsletter.</source>
-                <tareget>Du abonnerer nå på nyhetsbrevet.</tareget>
+                <target>Du abonnerer nå på nyhetsbrevet.</target>
             </trans-unit>
             <trans-unit id="subscription.unsubscribe_confirm">
                 <source>You should receive a confirmation mail within the next few minutes with link to confirm unsubscribe.</source>
