@@ -109,7 +109,7 @@
             </trans-unit>
             <trans-unit id="mail.subscriber.success_line1">
                 <source>You have successfully subscribed to the newsletter.</source>
-                <target>Ni prenumererar redan på detta nyhetsbrev.</target>
+                <target>Ni prenumererar nu på detta nyhetsbrev.</target>
             </trans-unit>
 
             <!--Unsubscribe confirmation-->
